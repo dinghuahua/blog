@@ -143,7 +143,7 @@
                     git commit --amend -s 修改完成后,:wq 退出,
                 继续下一个edit commitid的message
                     git rebase --continue
-                git commit --amend 和 git rebase --continue 循环交替进行 知道所有的edit修改完
+                git commit --amend 和 git rebase --continue 循环交替执行，直到所有的edit修改完
                 修改就完成后,用git log 再看下:
                 最后push 到远程仓库,所有的 DCO 就都可以加上啦,-f强制推送
                     git push origin <you_branch_name> -f
