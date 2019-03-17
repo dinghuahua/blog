@@ -21,7 +21,9 @@
     不添加关联关系git push问题的解决
 <img src="https://github.com/dinghuahua/blog/blob/master/images/git3.png" width="40%">
     config文件前后对比 
-<div align='center'>![config文件的修改](https://github.com/dinghuahua/blog/blob/master/images/git2.png)</div>
+<div align='center'>
+![config文件的修改](https://github.com/dinghuahua/blog/blob/master/images/git2.png)
+</div>
 <img src="https://github.com/dinghuahua/blog/blob/master/images/git2.png" width="60%">
     
     合并分支 本地分支是master,将feature分支的代码合并到master
