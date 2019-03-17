@@ -48,7 +48,7 @@
 ## git 工作流程
 
     git 工作区 暂存区 版本库 的关系
-<img src="https://github.com/dinghuahua/blog/blob/master/images/git2.png" width="60%">
+<img src="https://github.com/dinghuahua/blog/blob/master/images/git4.png" width="60%">
 ## 回退 和 回滚
     git checkout
     git checkout HEAD
