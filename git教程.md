@@ -55,7 +55,7 @@
     git checkout HEAD
     git reset
         默认是git reset –mixed
-        让版本库重置到某个commit状态
+        让版本库重置到某个commit状态, 如果不加commitid 则默认 最后一次的commitid的值
         git reset命令后面需要加2种参数："--hard"和"--soft"，如果不加，默认情况下是"--soft"。
             --soft
                 不改变工作区。即这个时候，上次提交的内容在工作区中还会存在。
@@ -63,6 +63,7 @@
         git reset commit_id
         可以让版本库重置到某个commit状态，该commit之后的commit不会保留，并重置暂存区，暂存区保留该commit之后的所有commit
     git reset --hard
+        让版本库重置到某个commit状态
             --hard
                 暂存区中不会存储这些修改，git会直接丢弃这部分内容，
                 直接在工作区修改，无法提交到远程服务器，
@@ -91,7 +92,7 @@ revert比reset更加温柔一点，回滚到某次commit且该commit之后的提
 
 使用命令	代表意义
 git diff	比较的是工作区和暂存区的差别
-git diff –cached	比较的是暂存区和版本库的差别
+git diff –-cached	比较的是暂存区和版本库的差别
 git diff HEAD	可以查看工作区和版本库的差别
 
 
@@ -115,3 +116,7 @@ git diff HEAD	可以查看工作区和版本库的差别
         git rm --cached xxx
     把a.txt改名为b.txt
         git mv a.txt b.txt 
+
+    commit 1
+    commit 2
+    commit 3
