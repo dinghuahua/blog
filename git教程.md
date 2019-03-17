@@ -120,20 +120,28 @@
         git rm --f "文件路径"
     如果一个文件已经add到暂存区，还没有 commit，此时如果不想要这个文件了，有两种方法：
         用版本库内容清空暂存区，git reset HEAD 回退到当前版本
-    修改注释前确保本地为最新的代码
-        如果commit注释写错了，只是想改一下注释，只需要：
-            git commit --amend  此时会进入默认vim编辑器，修改注释完毕后保存就好了。
-        执行完commit后，想撤回commit
+    执行完commit后，想撤回commit
             git reset --soft HEAD^
-        已经执行完commit 或者执行过push 想要修改commit message
-            正式修改,执行命令 -s 就是自动加上Signed-off-by 只能修改最近一次的commit message
-                git commit --amend -s,  
+    修改注释前确保本地为最新的代码
+        还没有push 想要修改commit message
+            最近一次
+                如果commit注释写错了，只是想改一下注释，只需要：
+                    git commit --amend  此时会进入默认vim编辑器，修改注释完毕后保存就好了。
+        执行过push 想要修改commit message
+            最近一次
+                只能修改最近一次的commit message -s 就是自动加上Signed-off-by 
+                    git commit --amend -s
+                最后push 到远程仓库,所有的 DCO 就都可以加上啦,-f强制推送
+                    git push origin <you_branch_name> -f]
             修改最近3次的commit message 
-                git rebase -i HEAD~3
-                将pick 改为edit 此时还有不需要修改message
-            git commit --amend
-            如果修改完成后,:wq 退出,然后完成此次 log 的rebase
+                执行 git 命令, 修改近三次的信息
+                    git rebase -i HEAD~3
+                    将想要修改的message对应的 pick 改为 edit 此时还不需要修改message
+                修改第一个edit commitid的message
+                    git commit --amend -s 修改完成后,:wq 退出,
+                继续下一个edit commitid的message
                     git rebase --continue
-            这样本地修改就完成啦,用git log 再看下:
-            最后push 到远程仓库,所有的 DCO 就都可以加上啦,-f强制推送
+                git commit --amend 和 git rebase --continue 循环交替进行 知道所有的edit修改完
+                修改就完成后,用git log 再看下:
+                最后push 到远程仓库,所有的 DCO 就都可以加上啦,-f强制推送
                     git push origin <you_branch_name> -f
