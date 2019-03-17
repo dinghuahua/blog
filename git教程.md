@@ -123,5 +123,6 @@
     如果commit注释写错了，只是想改一下注释，只需要：
         git commit --amend  
         此时会进入默认vim编辑器，修改注释完毕后保存就好了。
+        
     执行完commit后，想撤回commit
         git reset --soft HEAD^
