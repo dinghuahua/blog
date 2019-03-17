@@ -6,6 +6,7 @@
     -r origin
     -d delete
     -b branch
+    -f force
 ## 本地创建分支并推送到远端
     创建分支
         git branch feature
