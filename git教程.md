@@ -129,5 +129,8 @@
         可以修改多次的commit message 
             正式修改,执行命令 -s 就是自动加上Signed-off-by
                 git commit --amend -s 
-            如果修改完成后,执行
+            如果修改完成后,:wq 退出,然后完成此次 log 的rebase
                 git rebase --continue
+            这样本地修改就完成啦,用git log 再看下:
+            最后push 到远程仓库,所有的 DCO 就都可以加上啦,-f强制推送
+                git push origin <you_branch_name> -f
