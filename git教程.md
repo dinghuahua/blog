@@ -2,6 +2,10 @@
 
 ## 本地创建创建两个git账户
 
+## git 常见缩写
+    -r origin
+    -d delete
+    -b branch
 ## 本地创建分支并推送到远端
     创建分支
         git branch feature
@@ -32,3 +36,14 @@
         git branch -d debug
     删除远程分支
         git push origin --delete debug   或者 git push origin -d debug
+    回退命令 本地的回退
+        git reset --hard HEAD^
+    回退到上个版本  回退到前3次提交之前，以此类推，回退到n次提交之前 本地的回退
+        git reset --hard HEAD~3
+    退到/进到 指定commit的sha码 本地的回退
+        git reset --hard commit_id
+        git checkout commit ID
+    查看提交记录
+        git log
+    强推到远程 
+        git push origin HEAD --force
