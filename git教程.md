@@ -74,6 +74,7 @@
                     其实这个问题则可以很好的被git revert 命令解决，
                     使用git revert + commit号，该命令撤销对某个commit的提交，这样，当你和服务器同步时，就不会产生什么副作用。
                     
+            
     git reset -- files 
         用来撤销最后一次的git add files（因为每git add file一次，暂存区的文件都会被更改一次），
         也可以用git reset 撤销所有暂存区域文件。 
