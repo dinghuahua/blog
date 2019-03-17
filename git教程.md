@@ -114,3 +114,5 @@ git diff HEAD	可以查看工作区和版本库的差别
         git rm --cached xxx
     把a.txt改名为b.txt
         git mv a.txt b.txt 
+
+    commit 1
