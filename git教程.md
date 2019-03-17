@@ -52,7 +52,11 @@
 
 ## 回退 和 回滚
     git checkout
-    git checkout HEAD
+        工作区的改动
+        git checkout commit ID
+        git checkout . 或者 git checkout –  会用暂存区全部或指定的文件替换工作区的文件。这个操作很危险，会清除工作区中未添加到暂存区的改动
+    git checkout HEAD   
+        会用本地库全部或指定的文件替换工作区的全部或者指定的文件
     git reset
         默认是git reset –mixed
         git reset commit_id
@@ -80,6 +84,9 @@
         用来撤销最后一次的git add files（因为每git add file一次，暂存区的文件都会被更改一次），
         也可以用git reset 撤销所有暂存区域文件。 
     git reset HEAD 
+        git reset --hard HEAD^      回退到上个版本
+        git reset --hard HEAD~3     回退到前3次提交之前，以此类推，
+        git reset --hard HEAD~n     回退到n次提交之前 本地的回退
         不改变工作区。即这个时候，上次提交的内容在工作区中还会存在。
         暂存区的目录树会被重写，被 master 分支指向的目录树所替换，
     git revert
@@ -91,8 +98,6 @@
         
         =======
         >>>>>>> 表示此次commitid 撤销的内容
-
-
     git reset和git revert的区别： 
         reset是重置，
             如果使用git reset –hard 将版本库，暂存区和工作区的内容全部重置为某个commit的状态。之前的commit不会保留。
@@ -101,16 +106,7 @@
         git diff	        比较的是工作区和暂存区的差别
         git diff –-cached	比较的是暂存区和版本库的差别
         git diff HEAD	    可以查看工作区和版本库的差别
-
-
-    回退命令 本地的回退
-        git reset --hard HEAD^
-    回退到上个版本  回退到前3次提交之前，以此类推，回退到n次提交之前 本地的回退
-        git reset --hard HEAD~3
-    退到/进到 指定commit的sha码 本地的回退
-        git reset --hard commit_id
-        git checkout commit ID
-        当执行 “git checkout .” 或者 “git checkout – ” 命令时，会用暂存区全部或指定的文件替换工作区的文件。这个操作很危险，会清除工作区中未添加到暂存区的改动。
+        
     查看提交记录
         git log
     不删除物理文件，仅将该文件从缓存中删除  会直接从暂存区删除文件，工作区则不做出改变。
