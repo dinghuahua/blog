@@ -3,8 +3,11 @@
 ## 本地创建创建两个git账户
 
 ## 本地创建分支并推送到远端
+    创建分支
+        git branch feature
     切换分支
         git checkout feature
+    创建分支
     本地创建分支feature并切换到feature分支
         git checkout -b feature
     切换到feature分支后，将本地的feature分支 推送到远端
@@ -19,10 +22,13 @@
     添加关联关系git push问题的解决
 <img src="https://github.com/dinghuahua/blog/blob/master/images/git1.png" width="40%">
     不添加关联关系git push问题的解决
-<img src="https://github.com/dinghuahua/blog/blob/master/images/git3.png" width="40%">
+<img src="https://github.com/dinghuahua/blog/blob/master/images/git1.png" width="40%">
     config文件前后对比 
 <img src="https://github.com/dinghuahua/blog/blob/master/images/git2.png" width="60%">
     
-    合并分支 本地分支是master,将feature分支的代码合并到master
-        git merge 
-    删除分支 本地分支是master,将debug分支删除
+    合并分支 切换到接收修改的分支master,将feature分支的代码合并到master
+        git merge feature
+    删除本地分支
+        git branch -d debug
+    删除远程分支
+        git push origin --delete debug   或者 git push origin -d debug
