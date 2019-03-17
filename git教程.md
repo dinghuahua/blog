@@ -13,4 +13,5 @@
         命令行中添加的关联修改的是config文件
         git push --set-upstream origin dev分支名
 
-        关联关系问题到解决 ![alt 关联关系问题解决](图片地址 "关联关系问题到解决")
+        关联关系问题到解决 ![alt 关联关系](https://github.com/dinghuahua/blog/blob/dev/images/git1.png "关联关系问题到解决")
+        config文件前后对比 ![alt config文件](https://github.com/dinghuahua/blog/blob/dev/images/git2.png "config文件前后对比")
