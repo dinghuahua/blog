@@ -122,7 +122,7 @@
     如果一个文件已经add到暂存区，还没有 commit，此时如果不想要这个文件了，有两种方法：
         用版本库内容清空暂存区，git reset HEAD 回退到当前版本
     执行完commit后，想撤回commit
-            git reset --soft HEAD^
+        git reset --soft HEAD^
     修改commit message
         还没有push 想要修改commit message 
             修改最近一次的message
