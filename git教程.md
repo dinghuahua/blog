@@ -61,6 +61,7 @@
         会用本地库全部或指定的文件替换工作区的全部或者指定的文件
     git reset
         默认是git reset –mixed
+            --mixed  不删除工作空间改动代码，撤销commit，并且撤销git add . 操作
         git reset commit_id
         让版本库重置到某个commitid状态, 
         如果不加commitid 则默认 最后一次的commitid的值
@@ -119,3 +120,7 @@
         git rm --f "文件路径"
     如果一个文件已经add到暂存区，还没有 commit，此时如果不想要这个文件了，有两种方法：
         用版本库内容清空暂存区，git reset HEAD 回退到当前版本
+    如果commit注释写错了，只是想改一下注释，只需要：
+        git commit --amend  此时会进入默认vim编辑器，修改注释完毕后保存就好了。
+    执行完commit后，想撤回commit
+        git reset --soft HEAD^
