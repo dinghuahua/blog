@@ -53,7 +53,7 @@
     git 工作区 暂存区 版本库 之间的关系
 <img src="https://github.com/dinghuahua/blog/blob/master/images/git4.png" width="60%">
 
-## 回退 和 回滚
+## git 回退 和 回滚
     git checkout
         工作区的改动
         git checkout commit ID
