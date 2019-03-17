@@ -10,13 +10,18 @@
     切换到feature分支后，将本地的feature分支 推送到远端
         git push origin feature
     git本地新建一个分支后 必须要做远程分支关联，
-    如果没有关联，git会在下面的操作中提示显示的添加关联,关联的目的是，如果在本地分支操作：git pull,git push,不需要在命令行中指定远程分支，命令行中添加的关联,其实修改的是config文件
+    如果没有关联，git会在下面的操作中提示显示的添加关联,关联的目的是，如果在本地分支操作：git pull,git push,不需要在命令行中指定远程分支，
+    命令行中添加的关联,其实修改的是config文件
         git push --set-upstream origin dev分支名
+    如果本地本地推送到远程后，不添加关联关系，在 git pull,git push 需要指定远程分支名称，不添加关联关系，那么新建的分支配置也不会显示在config文件中
+        git push origin debug分支名称
 
-    关联关系问题到解决
+    添加关联关系git push问题的解决
+<img src="https://github.com/dinghuahua/blog/blob/master/images/git1.png" width="40%">
+    不添加关联关系git push问题的解决
 <img src="https://github.com/dinghuahua/blog/blob/master/images/git1.png" width="40%">
     config文件前后对比 
 <img src="https://github.com/dinghuahua/blog/blob/master/images/git2.png" width="60%">
-
+    
     合并分支 本地分支是master,将feature分支的代码合并到master
         git merge feature
