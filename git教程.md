@@ -123,3 +123,4 @@ git diff HEAD	可以查看工作区和版本库的差别
 
     commit 1
     commit 2
+    commit
