@@ -125,5 +125,9 @@
     执行完commit后，想撤回commit
         git reset --soft HEAD^
     已经执行完commit 或者执行过push 想要修改commit message
-        如果要改日志,执行git commit --amend,如果修改完成后,执行git rebase --continue
-        正式修改,执行命令,-s 就是自动加上Signed-off-by:
+        如果要改日志,执行git commit --amend,  只能修改最近一次的commit message
+        可以修改多次的commit message 
+            正式修改,执行命令 -s 就是自动加上Signed-off-by
+                git commit --amend -s 
+            如果修改完成后,执行
+                git rebase --continue
