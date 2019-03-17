@@ -16,4 +16,4 @@
     关联关系问题到解决
 <img src="https://github.com/dinghuahua/blog/blob/master/images/git1.png" width="40%">
     config文件前后对比 
-<img src="https://github.com/dinghuahua/blog/blob/master/images/git2.png" width="40%">
+<img src="https://github.com/dinghuahua/blog/blob/master/images/git2.png" width="60%">
