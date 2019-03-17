@@ -2,6 +2,10 @@
 
 ## 本地创建创建两个git账户
 
+## git 常见缩写
+    -r origin
+    -d delete
+    -b branch
 ## 本地创建分支并推送到远端
     创建分支
         git branch feature
@@ -32,3 +36,4 @@
         git branch -d debug
     删除远程分支
         git push origin --delete debug   或者 git push origin -d debug
+
