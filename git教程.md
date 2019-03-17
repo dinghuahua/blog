@@ -134,7 +134,7 @@
                 只能修改最近一次的commit message -s 就是自动加上Signed-off-by 
                     git commit --amend -s
                 最后push 到远程仓库,所有的 DCO 就都可以加上啦,-f强制推送
-                    git push origin <you_branch_name> -f]
+                    git push origin <you_branch_name> -f
             修改最近3次的commit message 
                 执行 git 命令, 修改近三次的信息
                     git rebase -i HEAD~3
