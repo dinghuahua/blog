@@ -55,6 +55,7 @@
     git checkout HEAD
     git reset
         默认是git reset –mixed
+        让版本库重置到某个commit状态
         git reset命令后面需要加2种参数："--hard"和"--soft"，如果不加，默认情况下是"--soft"。
             --soft
                 不改变工作区。即这个时候，上次提交的内容在工作区中还会存在。
