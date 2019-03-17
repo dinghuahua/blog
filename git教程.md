@@ -14,6 +14,6 @@
         git push --set-upstream origin dev分支名
 
     关联关系问题到解决
-<img src="https://github.com/dinghuahua/blog/blob/master/images/git1.png" width="30%">
+<img src="https://github.com/dinghuahua/blog/blob/master/images/git1.png" width="40%">
     config文件前后对比 
-<img src="https://github.com/dinghuahua/blog/blob/master/images/git2.png" width="30%">
+<img src="https://github.com/dinghuahua/blog/blob/master/images/git2.png" width="40%">
