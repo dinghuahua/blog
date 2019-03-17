@@ -121,10 +121,6 @@ git diff HEAD	可以查看工作区和版本库的差别
     把a.txt改名为b.txt
         git mv a.txt b.txt 
 
-<<<<<<< HEAD
     commit 1
     commit 2
     commit 3
-=======
-    commit 1
->>>>>>> parent of 300e267... commit2
