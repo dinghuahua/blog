@@ -125,12 +125,12 @@
     执行完commit后，想撤回commit
         git reset --soft HEAD^
     已经执行完commit 或者执行过push 想要修改commit message
-        如果要改日志,执行git commit --amend,  只能修改最近一次的commit message
-        可以修改多次的commit message 
-            正式修改,执行命令 -s 就是自动加上Signed-off-by
-                git commit --amend -s 
-            如果修改完成后,:wq 退出,然后完成此次 log 的rebase
+        正式修改,执行命令 -s 就是自动加上Signed-off-by 只能修改最近一次的commit message
+            git commit --amend -s,  
+        修改最近3次的commit message 
+            git rebase -i HEAD~3
+        如果修改完成后,:wq 退出,然后完成此次 log 的rebase
                 git rebase --continue
-            这样本地修改就完成啦,用git log 再看下:
-            最后push 到远程仓库,所有的 DCO 就都可以加上啦,-f强制推送
+        这样本地修改就完成啦,用git log 再看下:
+        最后push 到远程仓库,所有的 DCO 就都可以加上啦,-f强制推送
                 git push origin <you_branch_name> -f
