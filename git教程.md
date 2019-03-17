@@ -121,7 +121,6 @@
     如果一个文件已经add到暂存区，还没有 commit，此时如果不想要这个文件了，有两种方法：
         用版本库内容清空暂存区，git reset HEAD 回退到当前版本
     如果commit注释写错了，只是想改一下注释，只需要：
-        git commit --amend  
-        此时会进入默认vim编辑器，修改注释完毕后保存就好了。
+        git commit --amend 此时会进入默认vim编辑器，修改注释完毕后保存就好了。
     执行完commit后，想撤回commit
         git reset --soft HEAD^
