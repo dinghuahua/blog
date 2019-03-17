@@ -122,12 +122,13 @@
         用版本库内容清空暂存区，git reset HEAD 回退到当前版本
     执行完commit后，想撤回commit
             git reset --soft HEAD^
-    修改注释前确保本地为最新的代码
-        还没有push 想要修改commit message
-            最近一次
+    修改commit message
+        还没有push 想要修改commit message 
+            修改最近一次的message
                 如果commit注释写错了，只是想改一下注释，只需要：
-                    git commit --amend  此时会进入默认vim编辑器，修改注释完毕后保存就好了。
-        执行过push 想要修改commit message
+                    git commit --amend  此时会进入默认vim编辑器，修改注释完毕后保存就好了
+        执行过push 想要修改commit message 
+        修改注释前确保本地为最新的代码
             最近一次
                 只能修改最近一次的commit message -s 就是自动加上Signed-off-by 
                     git commit --amend -s
