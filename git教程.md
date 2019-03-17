@@ -61,7 +61,8 @@
                 不改变工作区。即这个时候，上次提交的内容在工作区中还会存在。
                 表示该条commit号之后（时间作为参考点）的所有commit的修改都会退回到暂存取中。所以使用git status命令可以在暂存区中看到这些修改。
         git reset commit_id
-        可以让版本库重置到某个commit状态，该commit之后的commit不会保留，并重置暂存区，暂存区保留该commit之后的所有commit
+            可以让版本库重置到某个commit状态，该commit之后的commit不会保留，并重置暂存区，暂存区保留该commit之后的所有commit
+        但是操作过reset后在下次push之前进行pull操作，否则会有冲突。
     git reset --hard
         让版本库重置到某个commit状态
             --hard
@@ -72,6 +73,7 @@
                     即git reset --hard只能针对本地操作，不能针对远程服务器进行同样操作。则下次本地工作区和服务器进行同步时，这部分删掉的内容仍然会回来。
                     其实这个问题则可以很好的被git revert 命令解决，
                     使用git revert + commit号，该命令撤销对某个commit的提交，这样，当你和服务器同步时，就不会产生什么副作用。
+                    
     git reset -- files 
         用来撤销最后一次的git add files（因为每git add file一次，暂存区的文件都会被更改一次），
         也可以用git reset 撤销所有暂存区域文件。 
@@ -119,3 +121,4 @@ git diff HEAD	可以查看工作区和版本库的差别
 
     commit 1
     commit 2
+    commit 3
