@@ -111,11 +111,11 @@
         
     查看提交记录
         git log
+    把a.txt改名为b.txt
+        git mv a.txt b.txt 
     从暂存区删除文件，工作区不删除。
         git rm --cached "文件路径"
     从暂存区、工作区 删除文件（不会回收到垃圾桶）
         git rm --f "文件路径"
     如果一个文件已经add到暂存区，还没有 commit，此时如果不想要这个文件了，有两种方法：
         用版本库内容清空暂存区，git reset HEAD 回退到当前版本
-    把a.txt改名为b.txt
-        git mv a.txt b.txt 
