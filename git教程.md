@@ -22,7 +22,7 @@
 <img src="https://github.com/dinghuahua/blog/blob/master/images/git3.png" width="40%">
     config文件前后对比 
 <div align='center'>
-![config文件的修改](https://github.com/dinghuahua/blog/blob/master/images/git2.png)
+![文件的修改](https://github.com/dinghuahua/blog/blob/master/images/git2.png)
 </div>
 <img src="https://github.com/dinghuahua/blog/blob/master/images/git2.png" width="60%">
     
