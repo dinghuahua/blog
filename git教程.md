@@ -73,7 +73,8 @@
                     即git reset --hard只能针对本地操作，不能针对远程服务器进行同样操作。则下次本地工作区和服务器进行同步时，这部分删掉的内容仍然会回来。
                     其实这个问题则可以很好的被git revert 命令解决，
                     使用git revert + commit号，该命令撤销对某个commit的提交，这样，当你和服务器同步时，就不会产生什么副作用。
-                    
+        git reset --hard 操作过后马上操作pull，则工作区会和远程同步，但是暂存区不会同步，和刚刚操作过的git reset --hard一样，是空的。
+        故push过后如仅仅只需要撤销某一次的commitid，需要用revert 操作 
             
     git reset -- files 
         用来撤销最后一次的git add files（因为每git add file一次，暂存区的文件都会被更改一次），
@@ -121,5 +122,3 @@ git diff HEAD	可以查看工作区和版本库的差别
         git mv a.txt b.txt 
 
     commit 1
-    commit 2
-    commit 3
