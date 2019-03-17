@@ -14,7 +14,7 @@
         git push --set-upstream origin dev分支名
 
     关联关系问题到解决 
-![关联关系](https://github.com/dinghuahua/blog/blob/master/images/git1.png?w=100&h=100"关联关系问题到解决")
+![关联关系](https://github.com/dinghuahua/blog/blob/master/images/git1.png?w=100&h=100 "关联关系问题到解决")
 <img src="https://github.com/dinghuahua/blog/blob/master/images/git1.png" width="50%">
         config文件前后对比 
-![config文件](https://github.com/dinghuahua/blog/blob/master/images/git2.png)
+![config文件](https://github.com/dinghuahua/blog/blob/master/images/git2.png?w=100&h=100)
