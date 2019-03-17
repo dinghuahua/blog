@@ -110,7 +110,7 @@
         git diff	        比较的是工作区和暂存区的差别
         git diff –-cached	比较的是暂存区和版本库的差别
         git diff HEAD	    可以查看工作区和版本库的差别
-        
+## git 常用操作 以及 常见问题        
     查看提交记录
         git log
     把a.txt改名为b.txt
