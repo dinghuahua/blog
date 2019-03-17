@@ -82,22 +82,25 @@
     git reset HEAD 
         不改变工作区。即这个时候，上次提交的内容在工作区中还会存在。
         暂存区的目录树会被重写，被 master 分支指向的目录树所替换，
-    git revert 
-        仅仅是撤销某次提交，而git reset会将撤销点之后的操作都回退到暂存区中。
+    git revert
+        git revert  撤销最后一次的commit
+        git revert commitid 撤销某一次的commitid
+        仅仅是撤销某次提交，而git reset会将撤销点之后的操作都回退到暂存区中。 
+        暂存区、版本库还和远程一样 但提示Unmerged 工作区出现未合并内容
+        <<<<<<<<HEAD 内容表示 commitid 之后push到远程的内容
+        
+        =======
+        >>>>>>> 表示此次commitid 撤销的内容
 
 
-git reset和git revert的区别： 
-reset是重置，
-
-如果使用git reset –hard 将版本库，暂存区和工作区的内容全部重置为某个commit的状态。之前的commit不会保留。
-
-revert比reset更加温柔一点，回滚到某次commit且该commit之后的提交记录都会保留，并且会在此基础上新建一个提交。对于已经push到服务器上的内容作回滚，推荐使用revert。
-使用git diff查看各个区之间的差异
-
-使用命令	代表意义
-git diff	比较的是工作区和暂存区的差别
-git diff –-cached	比较的是暂存区和版本库的差别
-git diff HEAD	可以查看工作区和版本库的差别
+    git reset和git revert的区别： 
+        reset是重置，
+            如果使用git reset –hard 将版本库，暂存区和工作区的内容全部重置为某个commit的状态。之前的commit不会保留。
+        revert比reset更加温柔一点，回滚到某次commit且该commit之后的提交记录都会保留，并且会在此基础上新建一个提交。对于已经push到服务器上的内容作回滚，推荐使用revert。
+    使用git diff查看各个区之间的差异
+        git diff	        比较的是工作区和暂存区的差别
+        git diff –-cached	比较的是暂存区和版本库的差别
+        git diff HEAD	    可以查看工作区和版本库的差别
 
 
     回退命令 本地的回退
