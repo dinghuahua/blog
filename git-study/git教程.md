@@ -8,14 +8,14 @@
         如果是多用户(multi-user)， 如user1(dinghh公司,默认),user2(dinghuahua个人),那么就不能用在user2的身上了，这个时候就要配置一下了;
         本地管理两个SHH key
     解决方案：
-        注意使用：github官方的bash，避免在新秘钥添加到SSH agent中时，出现很多问题。
+        注意使用github官方的bash，避免在新秘钥添加到SSH agent中时，出现很多问题。
 
-###### 新建dinghuahua的SSH Key
-        如默认账户也没有SSH Key，那么默认账户也需要建立SSH Key，本人的默认账户已有SSH Key,也有公钥、私钥文件。
+###### 新建user2(dinghuahua)的SSH Key
+        如默认账户也没有SSH Key，那么默认账户也需要建立SSH Key，默认账户已有SSH Key,也有公钥、私钥文件，故不再这里进行演示了。
         cd ~/.ssh                                  # 切换到C:\Users\dingding\.ssh
         ssh-keygen -t rsa -C "huahuajxnu@163.com"  # user2新建的SSH key
 
-        不要一路回车，在第一个对话的时候输入重命名（id_rsa_huahuajxnu,公司使用默认的id_rsa），这样huahuajxnu账户就会生成公钥、私钥2个文件
+        不要一路回车，在第一个对话的时候输入重命名（id_rsa_huahuajxnu,公司使用默认的id_rsa），这样user2账户就会生成公钥、私钥2个文件
 
         第一个对话框形式如下：
             Enter file in which to save the key (C:/Users/dingding/.ssh/id_rsa): id_rsa_huahuajxnu
@@ -75,7 +75,7 @@
         ssh -T huagithub
 
         Hi dinghuahua! You've successfully authenticated, but GitHub does not provide shell access.
-###### 使用
+###### 多github账户的使用
         1、clone到本地
             (1)原来的写法：
                 git clone git@github.com:user1的用户名(dinghh)/blog.git
@@ -99,6 +99,13 @@
 <div align="center">
     <img src="https://github.com/dinghuahua/blog/blob/master/git-study/images/git13.png" width="40%">
 </div>
+
+###### 过程中使用的账户疑惑解答
+    dinghh              是公司github账户名
+    dinghuahua          是个人github账户名
+    huahuajxnu@163.com  个人账户github使用的邮箱
+    huagithub           本地为user2起的HOST名字
+    huahuajxnu          本地为user2起的id_rsa_huahuajxnu
 
 ## git 常见缩写
     -r origin
