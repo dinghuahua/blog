@@ -17,7 +17,7 @@
     -d delete
     -b branch
     -f force
-    
+
 ## git 常用操作 
     git config -list                        查看配置   包括全局 和本地仓库  
     git config --local --list               查看本地仓库配置
@@ -303,6 +303,22 @@ config文件前后对比
     git stash apply stash@{0}               恢复指定的stash  可以多次stash，恢复的时候，先用git stash list查看，然后恢复指定的stash
     git stash drop                          暂存区删除
     git stash pop                           恢复的同时把stash内容也删了     
+
+## tag  标签
+    git tag v1.0                              打一个tag   默认标签是打在最新提交的commit上的
+    git tag -a <tagname> -m '说明' commit_id  创建带有说明的标签，用-a指定标签名，-m指定说明文字   改命令 commit_id   可有可无  木有就默认最后一次commit
+    git push orgin <tagname>                  推送本地tag到远程
+    git push orgin --tags                     推送本地的所有tag 到远程
+    git tag -d <tagname>                      删除本地tag
+    git push origin :refs/tags/<tagname>      删除远程标签
+    git tag                                   查看所有tag  标签不是按时间顺序列出，而是按字母排序的
+    git tag v1.0 commit_id                    对历史的某一个commit 打tag
+    git show <tagname>                        查看标签信息
+    
+## git命令配置别名
+    git config alias.别名 本身的命令
+            eg: git config --global alias.unstage 'reset HEAD'
+                git config --global alias.ci commit 
 ## git 远程没有仓库，将本地仓库推送到远程
 
 ###### git给远程库起的默认名称是origin,如果有多个远程库，我们需要用不同的名称来标识不同的远程库, 这样的话，我们的本地库就可以同时与多个远程库互相同步：
