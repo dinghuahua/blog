@@ -27,8 +27,10 @@
 
 添加关联关系git push问题的解决
 <img src="https://github.com/dinghuahua/blog/blob/master/git-study/images/git1.png" width="40%">
+
     不添加关联关系git push问题的解决
 <img src="https://github.com/dinghuahua/blog/blob/master/git-study/images/git1.png" width="40%">
+
     config文件前后对比 
 <img src="https://github.com/dinghuahua/blog/blob/master/git-study/images/git2.png" width="60%">
     
