@@ -155,6 +155,7 @@
 <div align="center">
     <img src="https://github.com/dinghuahua/blog/blob/master/images/git9.png" width="60%">
 </div>
+
                 git commit --amend 和 git rebase --continue 循环交替执行，直到所有的edit修改完
                 修改就完成后,用git log 再看下:
 <div align="center">
