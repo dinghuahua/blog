@@ -28,10 +28,10 @@
 添加关联关系git push问题的解决
 <img src="https://github.com/dinghuahua/blog/blob/master/git-study/images/git1.png" width="40%">
 
-    不添加关联关系git push问题的解决
+不添加关联关系git push问题的解决
 <img src="https://github.com/dinghuahua/blog/blob/master/git-study/images/git1.png" width="40%">
 
-    config文件前后对比 
+config文件前后对比 
 <img src="https://github.com/dinghuahua/blog/blob/master/git-study/images/git2.png" width="60%">
     
     合并分支 切换到接收修改的分支master,将feature分支的代码合并到master
