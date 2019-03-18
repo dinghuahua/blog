@@ -50,7 +50,7 @@
         
         如果default默认账户存在的话，其实就是往这个config中添加一个user2的Host
         其规则就是：从上至下读取config的内容，在每个Host下寻找对应的私钥。
-        这里是将GitHub SSH仓库地址中的git@github.com整体替换成新建的Host别名如：github2，
+        这里是将GitHub SSH仓库地址中的git@github.com整体替换成新建的Host别名如：huagithub，
         那么原地址是：git@github.com:dinghuahua/blog.git，替换后应该是：huagithub:dinghuahua/blog.git
 
 <div align="center">
@@ -58,7 +58,7 @@
 </div>
 
 ###### GitHub后台 部署SSH key
-        添加 新生成的~/.ssh/id_rsa2.pub 的公钥
+        添加 新生成的~/.ssh/id_rsa_huahuajxnu.pub 的公钥
         分别登陆两个github账号，进入Personal settings –> SSH and GPG keys：
 
 <div align="center">
@@ -73,6 +73,7 @@
 
         Administrator@FANGPENG /e/work
         ssh -T huagithub
+
         Hi dinghuahua! You've successfully authenticated, but GitHub does not provide shell access.
 ###### 使用
         1、clone到本地
