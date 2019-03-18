@@ -1,6 +1,97 @@
 # git常用命令操作
 
 ## 本地创建创建两个git账户
+    背景：公司一个gitub账号，个人一个github账户，想在git上同时使用，两者互不干扰。
+          即提交代码时想要分github账号进行提交，或者clone项目时也想分账号clone,故需要在本地配置两个github账号，如不介意在提交代码、clone项目时账户混用，请忽略此小节。
+    思路：
+        如果是单用户(single-user)，会默认拿id_rsa与你的github服务器的公钥对比；
+        如果是多用户(multi-user)， 如user1(dinghh公司,默认),user2(dinghuahua个人),那么就不能用在user2的身上了，这个时候就要配置一下了;
+        本地管理两个SHH key
+    解决方案：
+        注意使用：github官方的bash，避免在新秘钥添加到SSH agent中时，出现很多问题。
+######## 新建dinghuahua的SSH Key
+        如默认账户也没有SSH Key，那么默认账户也需要建立SSH Key，本人的默认账户已有SSH Key,也有公钥、私钥文件。
+        cd ~/.ssh                                  # 切换到C:\Users\dingding\.ssh
+        ssh-keygen -t rsa -C "huahuajxnu@163.com"  # user2新建的SSH key
+
+        不要一路回车，在第一个对话的时候输入重命名（id_rsa_huahuajxnu,公司使用默认的id_rsa），这样huahuajxnu账户就会生成公钥、私钥2个文件
+        第一个对话框形式如下：
+            Enter file in which to save the key (C:/Users/dingding/.ssh/id_rsa): id_rsa_huahuajxnu
+        注意1：ssh-keygen是linux命令，可以让两个机器之间使用ssh而不需要用户名和密码
+        注意2：一定要在~/.ssh路径下运行命令行，不然生成的文件会出现在当前定位的目录
+######## 新私钥添加到SSH agent中
+        因为默认只读取id_rsa，为了让SSH识别新的私钥，需将其添加到SSH agent中：
+        ssh-add ~/.ssh/id_rsa_huahuajxnu
+        如果出现Could not open a connection to your authentication agent的错误，就试着用以下命令：
+        ssh-agent bash
+        ssh-add ~/.ssh/id_rsa_huahuajxnu
+######## 修改config文件
+        在~/.ssh目录下找到config文件，如果没有就创建：
+        touch config
+        # 该文件用于配置私钥对应的服务器
+        # Default github user1(dinghh@mail.com)
+        Host github.com
+        HostName github.com
+        User git
+        IdentityFile ~/.ssh/id_rsa
+
+        # user2(huahuajxnu@163.com)
+        # 建一个github别名，新建的帐号使用这个别名做clone,push,pull
+        Host huagithub
+        HostName github.com
+        User git
+        # 新建的帐号使用id_rsa_huahuajxnu
+        IdentityFile ~/.ssh/id_rsa_huahuajxnu
+        
+        如果default默认账户存在的话，其实就是往这个config中添加一个user2的Host
+        其规则就是：从上至下读取config的内容，在每个Host下寻找对应的私钥。
+        这里是将GitHub SSH仓库地址中的git@github.com整体替换成新建的Host别名如：github2，
+        那么原地址是：git@github.com:dinghuahua/blog.git，替换后应该是：huagithub:dinghuahua/blog.git
+<div align="center">
+    <img src="https://github.com/dinghuahua/blog/blob/master/git-study/images/git11.png" width="40%">
+</div>
+
+######## GitHub后台 部署SSH key
+        添加 新生成的~/.ssh/id_rsa2.pub 的公钥
+        分别登陆两个github账号，进入Personal settings –> SSH and GPG keys：
+
+<div align="center">
+    <img src="https://github.com/dinghuahua/blog/blob/master/git-study/images/git12.png" width="40%">
+</div>
+
+######## 测试：
+        cd C:\Users\dingding\.ssh 
+        ssh -T git@github.com
+        
+        Hi dinghh! You've successfully authenticated, but GitHub does not provide shell access.
+
+        Administrator@FANGPENG /e/work
+        ssh -T huagithub
+        Hi dinghuahua! You've successfully authenticated, but GitHub does not provide shell access.
+######## 使用
+        1、clone到本地
+            (1)原来的写法：
+                git clone git@github.com:user1的用户名(dinghh)/blog.git
+                git clone git@github.com:user2的用户名(huahuajxnu)/blog.git
+            (2)现在的写法：
+                git clone git@github.com:user1的用户名(dinghh)/blog.git
+                git clone huagithub(config文件中对user2配置的HOST):user2的用户名/blog.git
+        2、分项目的配置用户名邮箱：
+                配置用户名和邮箱（在某个特定的项目中）,如果不配置使用的则是全局的用户名和邮箱
+                git config user.name dinghuahua
+                git config user.email huahuajxnu@163.com
+                用户名和密码存贮的位置是：本地仓库的.git文件中的config文件
+<div align="center">
+    <img src="https://github.com/dinghuahua/blog/blob/master/git-study/images/git14.png" width="40%">
+    <img src="https://github.com/dinghuahua/blog/blob/master/git-study/images/git15.png" width="40%">
+</div>
+        3、全局配置的git 用户名、邮箱对应的文件地址为C:\Users\用户名\.gitconfig  文件
+
+<div align="center">
+    <img src="https://github.com/dinghuahua/blog/blob/master/git-study/images/git13.png" width="40%">
+</div>
+
+# 设置名称为id_rsa_work
 
 ## git 常见缩写
     -r origin
