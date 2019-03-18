@@ -3,12 +3,6 @@
     2、GitHub给出的地址不止一个，还可以用https://github.com/michaelliao/gitskills.git这样的地址。实际上，Git支持多种协议，默认的git://使用ssh，但也可以使用https等其他协议。
     3、使用https除了速度慢以外，还有个最大的麻烦是每次推送都必须输入口令，但是在某些只开放http端口的公司内部就无法使用ssh协议而只能用https
 
-## git 常见缩写
-    -r origin
-    -d delete
-    -b branch
-    -f force
-
 ## git 名词扫盲
 
     工作区   即本地工作目录 不包括.git
@@ -17,6 +11,13 @@
     远程仓库  push后   将版本库(本地仓库)提交到远程对应的分支 常用orgin 表示
 
     在Git中，用HEAD表示当前版本，上一个版本就是HEAD^，上上一个版本就是HEAD^^，当然往上100个版本写100个^比较容易数不过来，所以写成HEAD~100
+
+## git 常见缩写
+    -r origin
+    -d delete
+    -b branch
+    -f force
+    
 ## git 常用操作 
     git config -list                        查看配置   包括全局 和本地仓库  
     git config --local --list               查看本地仓库配置
