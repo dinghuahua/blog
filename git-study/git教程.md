@@ -65,7 +65,7 @@
     <img src="https://github.com/dinghuahua/blog/blob/master/git-study/images/git12.png" width="40%">
 </div>
 
-###### 测试：
+###### 测试
         cd C:\Users\dingding\.ssh 
         ssh -T git@github.com
         
@@ -85,6 +85,7 @@
                 git clone huagithub(config文件中对user2配置的HOST):user2的用户名/blog.git
         2、分项目的配置用户名邮箱：
                 配置用户名和邮箱（在某个特定的项目中）,如果不配置使用的则是全局的用户名和邮箱
+                作用：可以在github 项目中查看到某行代码是由谁(suer.name)提交的
                 git config user.name dinghuahua
                 git config user.email huahuajxnu@163.com
                 用户名和密码存贮的位置是：本地仓库的.git文件中的config文件
