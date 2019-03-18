@@ -24,7 +24,8 @@
     如果本地本地推送到远程后，不添加关联关系，在 git pull,git push 需要指定远程分支名称，不添加关联关系，那么新建的分支配置也不会显示在config文件中
         git push origin debug分支名称
 
-    添加关联关系git push问题的解决
+
+添加关联关系git push问题的解决
 <img src="https://github.com/dinghuahua/blog/blob/master/git-study/images/git1.png" width="40%">
     不添加关联关系git push问题的解决
 <img src="https://github.com/dinghuahua/blog/blob/master/git-study/images/git1.png" width="40%">
