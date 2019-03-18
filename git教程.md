@@ -139,10 +139,10 @@
                 执行 git 命令, 修改近三次的信息
                     git rebase -i HEAD~3
                     将想要修改的message对应的 pick 改为 edit 此时还不需要修改message
-<img src="https://github.com/dinghuahua/blog/blob/master/images/git6.png" width="60%" align="center">
+<img src="https://github.com/dinghuahua/blog/blob/master/images/git6.png" width="60%" align=center>
                 修改第一个edit commitid的message
                     git commit --amend -s 修改完成后,:wq 退出,
-<img src="https://github.com/dinghuahua/blog/blob/master/images/git7.png" width="60%">`
+<img src="https://github.com/dinghuahua/blog/blob/master/images/git7.png" width="60%" align=center>`
                 继续下一个edit commitid的message
                     git rebase --continue
                 git commit --amend 和 git rebase --continue 循环交替执行，直到所有的edit修改完
