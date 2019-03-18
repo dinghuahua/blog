@@ -140,26 +140,25 @@
                     git rebase -i HEAD~3
                     将想要修改的message对应的 pick 改为 edit 此时还不需要修改message
 <div align="center">
-    <img src="https://github.com/dinghuahua/blog/blob/git-study/master/images/git6.png" width="60%">
+    <img src="https://github.com/dinghuahua/blog/blob/master/git-study/images/git6.png" width="60%">
 </div>
 
                 修改第一个edit commitid的message
                     git commit --amend -s 修改完成后,:wq 退出,
 <div align="center">
-    <img src="https://github.com/dinghuahua/blog/blob/git-study/master/images/git7.png" width="50%">
-    <img src="https://github.com/dinghuahua/blog/blob/git-study/master/images/git8.png" width="50%">
+    <img src="https://github.com/dinghuahua/blog/blob/master/git-study/images/git8.png" width="50%">
 </div>
 
                 继续下一个edit commitid的message
                     git rebase --continue
 <div align="center">
-    <img src="https://github.com/dinghuahua/blog/blob/git-study/master/images/git9.png" width="60%">
+    <img src="https://github.com/dinghuahua/blog/blob/master/git-study/images/git9.png" width="60%">
 </div>
 
                 git commit --amend 和 git rebase --continue 循环交替执行，直到所有的edit修改完
                 修改就完成后,用git log 再看下:
 <div align="center">
-    <img src="https://github.com/dinghuahua/blog/blob/git-study/master/images/git10.png" width="60%">
+    <img src="https://github.com/dinghuahua/blog/blob/master/git-study/images/git10.png" width="60%">
 </div>
          
                 最后push 到远程仓库,所有的edit对应的commitid的message 就修改好了,-f强制推送
