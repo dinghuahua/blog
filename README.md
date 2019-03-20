@@ -4,7 +4,7 @@ Record the learning process and accumulate knowledge points
 
 ## [git 命令行的操作](https://github.com/dinghuahua/blog/blob/master/git-study/git%E6%95%99%E7%A8%8B.md)
 ## [HTML和CSS常见问题整理](https://github.com/dinghuahua/blog/blob/master/html-css/html-css.md)
-## [router 中 hash 的整理](https://github.com/dinghuahua/blog/blob/master/router/vue-router-history-hash.md)
+## [router 中 hash 和 history 的整理](https://github.com/dinghuahua/blog/blob/master/router/vue-router-history-hash.md)
 ## [todo https和http 1.1 2 的对比](http:www.baidu.com)
 ## [todo websocket和ajax 的对比](http:www.baidu.com)
 ## [todo eventloop](http:www.baidu.com)
