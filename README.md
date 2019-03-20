@@ -1,6 +1,14 @@
 
 
 ```flow
+s=start:开始
+e=end:结束
+o=operation:操作项
+
+s-o-e
+```
+
+```flow
 st=>start: Start:>https://www.zhihu.com
 io=>inputoutput: verification
 op=>operation: Your Operation
@@ -47,6 +55,8 @@ graph LR
     printA --> stop[结束]
     printC --> stop
     printB --> stop)
+
+
 
 # blog
 记录学习过程，积累知识点
