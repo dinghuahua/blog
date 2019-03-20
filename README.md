@@ -13,15 +13,25 @@ cond(no)->sub->io
 ```
 
 ```flow
-st=>start: Start
-e=>end: End
-op1=>operation: My Operation
-sub1=>subroutine: My Subroutine
-cond=>condition: Yes or No?
-io=>inputoutput: catch something...
-st->op1->cond
-cond(yes)->io->e
-cond(no)->sub1(right)->op1
+    st=>start: Start
+    e=>end: End
+    op1=>operation: My Operation
+    sub1=>subroutine: My Subroutine
+    cond=>condition: Yes or No?
+    io=>inputoutput: catch something...
+    st->op1->cond
+    cond(yes)->io->e
+    cond(no)->sub1(right)->op1
+```
+
+```mermaid
+	graph TB
+	A[Apple]-->B{Boy}
+	A---C(Cat)
+	B.->D((Dog))
+	C==喵==>D
+	style A fill:#2ff,fill-opacity:0.1,stroke:#faa,stroke-width:4px
+	style D stroke:#000,stroke-width:8px;
 ```
 
 # blog
