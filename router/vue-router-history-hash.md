@@ -36,8 +36,8 @@
             // state：需要保存的数据，这个数据在触发popstate事件时，可以在event.state里获取
             // title：标题，基本没用，一般传 null
             // url：  设定新的历史记录的 url。新的 url 与当前 url 的 origin 必须是一样的，否则会抛出错误。url可以是绝对路径，也可以是相对路径。
-            //如 当前url是 https://www.baidu.com/a/,执行history.pushState(null, null, './qq/')，则变成 https://www.baidu.com/a/qq/，
-            //执行history.pushState(null, null, '/qq/')，则变成 https://www.baidu.com/qq/
+            // 如 当前url是 https://www.baidu.com/a/,执行history.pushState(null, null, './qq/')，则变成 https://www.baidu.com/a/qq/，
+            // 执行history.pushState(null, null, '/qq/')，则变成 https://www.baidu.com/qq/
 
         window.history.replaceState(state, title, url)
             // 与 pushState 基本相同，但它是修改当前历史记录，而 pushState 是创建新的历史记录
