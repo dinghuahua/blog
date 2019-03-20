@@ -211,7 +211,7 @@
 
 <img src="" height="50%">
 
-####模式参数
+##### 模式参数
     在vue-router中是通过mode这一参数控制路由的实现模式的：
 
     创建VueRouter的实例对象时，mode以构造函数参数的形式传入。
@@ -220,7 +220,7 @@
             mode: 'history',
             routes: [...]
         })
-##### inddex.js
+##### index.js
     带着问题阅读源码，我们就可以从VueRouter类的定义入手。一般插件对外暴露的类都是定义在源码src根目录下的index.js文件中，打开该文件，可以看到VueRouter类的定义，摘录与mode参数有关的部分如下：
 
         export default class VueRouter {
@@ -497,9 +497,10 @@
 
     通过Vue.mixin()方法，全局注册一个混合，影响注册之后所有创建的每个 Vue 实例，该混合在beforeCreate钩子中通过Vue.util.defineReactive()定义了响应式的_route属性。所谓响应式属性，即当_route值改变时，会自动调用Vue实例的render()方法，更新视图。
 
-HashHistory.replace()
-##### hash.js 总结
-*       $router.push() --> HashHistory.push() --> History.transitionTo() --> History.updateRoute() --> {app._route = route} --> vm.render()
+###### 从设置路由改变到视图更新的流程如下：
+        $router.push() --> HashHistory.push() --> History.transitionTo() --> History.updateRoute() --> {app._route = route} --> vm.render()
+
+###### hash.js 总结
 *       $router.push() //调用方法
 *       HashHistory.push() //根据hash模式调用,设置hash并添加到浏览器历史记录（添加到栈顶）（window.location.hash= XXX）
 *       History.transitionTo() //监测更新，更新则调用History.updateRoute()
@@ -508,8 +509,6 @@ HashHistory.replace()
 *       vm.render() //更新视图
 *       transitionTo()方法是父类中定义的是用来处理路由变化中的基础逻辑的，push()方法最主要的是对window的hash进行了直接赋值
 *       replace()方法与push()方法不同之处在于，它并不是将新路由添加到浏览器访问历史的栈顶，而是替换掉当前的路由
-###### 从设置路由改变到视图更新的流程如下：
-        $router.push() --> HashHistory.push() --> History.transitionTo() --> History.updateRoute() --> {app._route = route} --> vm.render()
 
 ###### 监听地址栏
         push() 和 replace()是可以在vue组件的逻辑代码中直接调用的，除此之外在浏览器中，用户还可以直接在浏览器地址栏中输入改变路由，因此VueRouter还需要能监听浏览器地址栏中路由的变化，并具有与通过代码调用相同的响应行为。在HashHistory中这一功能通过setupListeners实现：
