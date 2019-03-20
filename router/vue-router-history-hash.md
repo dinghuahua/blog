@@ -1,5 +1,8 @@
+
 ###路由router
+
 #####背景：
+
         在现在这些MVC和MVVM框架兴起之前，是不存在前端路由的，页面之间的跳转是由后台控制的。随着前后端分离和单页面应用（SPA）的兴起和WEB项目复杂度的增加，再加上前面这些框架的支持，慢慢前端路由也就成为了现实。单页面应用的特点就是可以在改变URL在不重新请求页面的情况下更新页面视图。目前在浏览器环境中这一功能的实现主要有两种方式
             利用URL中的hash（"#"）
             利用History interface在 HTML5中新增的方法
@@ -14,7 +17,9 @@
                                       —— 引用自 vueRouter文档 
 
 ####history
+
 #####属性
+
         *1.host:域名+端口号
         *2.hostname:域名
         *3.port:端口号
@@ -24,7 +29,9 @@
         *7.hash：井号 (#) 开始的 URL(hash)
         *8.pathname:文档路径+文档名
         *9.search:(?)后面的内容
+
 #####API
+
         window.history.pushState(state, title, url) 
             // state：需要保存的数据，这个数据在触发popstate事件时，可以在event.state里获取
             // title：标题，基本没用，一般传 null
@@ -44,11 +51,15 @@
         window.history.go(1) // 前进一步，-2为后退两步，window.history.length 可以查看当前历史堆栈中页面的数量
 
 ####hash
+
 #####hash介绍
+
         这里的 hash 就是指 url 后的 # 号以及后面的字符。这里的 # 和 css 里的 # 是一个意思(#是id属性)。
         hash 也 称作 锚点，本身是用来做页面定位的，它可以使对应 id 的元素显示在可视区域内。
         由于 hash 值变化不会导致浏览器向服务器发出请求，而且 hash 改变会触发 hashchange 事件，浏览器的进后退也能对其进行控制，所以人们在 html5 的 history 出现前，基本都是使用 hash 来实现前端路由的。
+
 #####API 
+
         window.location.hash = 'qq'         // 设置 url 的 hash，会在当前url后加上 '#qq'
                                             // 就算赋值的时候没有加# hash 也会自动加# 如果赋值时有一个# 则相当于是默认的#，如果赋值时添加2个以上的#，则最后用hash值来匹配路由的时候是总数量减1个#，所以在匹配路由的时候经常会从1这个位置来截取
         var hash = window.location.hash     // 获取hash值 '#qq'  
@@ -65,6 +76,7 @@
             用hash来控制路由时，window.location.hash.substring(1)来获取hash内容#qq，来进行匹配路由
 
 #####例子
+
 ######hash原生API 的应用
 
 #######用随机数的方式生成hash值，同时改变hash 并展示到页面当中
