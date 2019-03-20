@@ -12,6 +12,18 @@ cond(yes)->e
 cond(no)->sub->io
 ```
 
+```flow
+st=>start: Start
+e=>end: End
+op1=>operation: My Operation
+sub1=>subroutine: My Subroutine
+cond=>condition: Yes or No?
+io=>inputoutput: catch something...
+st->op1->cond
+cond(yes)->io->e
+cond(no)->sub1(right)->op1
+```
+
 # blog
 记录学习过程，积累知识点
 Record the learning process and accumulate knowledge points
