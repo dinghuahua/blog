@@ -20,15 +20,15 @@
 
 #### 属性
 
-        * 1.host:域名+端口号
-        * 2.hostname:域名
-        * 3.port:端口号
-        * 4.protocol:协议
-        * 5.href：完整路径
-        * 6.origin：协议+域名+端口
-        * 7.hash：井号 (#) 开始的 URL(hash)
-        * 8.pathname:文档路径+文档名
-        * 9.search:(?)后面的内容
+* 1.host:域名+端口号
+* 2.hostname:域名
+* 3.port:端口号
+* 4.protocol:协议
+* 5.href：完整路径
+* 6.origin：协议+域名+端口
+* 7.hash：井号 (#) 开始的 URL(hash)
+* 8.pathname:文档路径+文档名
+* 9.search:(?)后面的内容
 
 #### API
 
