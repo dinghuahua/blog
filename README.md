@@ -1,3 +1,17 @@
+
+
+```flow
+st=>start: Start:>https://www.zhihu.com
+io=>inputoutput: verification
+op=>operation: Your Operation
+cond=>condition: Yes or No?
+sub=>subroutine: Your Subroutine
+e=>end
+st->io->op->cond
+cond(yes)->e
+cond(no)->sub->io
+```
+
 # blog
 记录学习过程，积累知识点
 Record the learning process and accumulate knowledge points
@@ -79,14 +93,3 @@ Hybrid技术应当如何应用？
 【进阶28期】ReactRouter源码解析
 
 
-```flow
-st=>start: Start:>https://www.zhihu.com
-io=>inputoutput: verification
-op=>operation: Your Operation
-cond=>condition: Yes or No?
-sub=>subroutine: Your Subroutine
-e=>end
-st->io->op->cond
-cond(yes)->e
-cond(no)->sub->io
-```
