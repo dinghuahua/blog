@@ -15,8 +15,9 @@ op=>operation: Your Operation
 cond=>condition: Yes or No?
 sub=>subroutine: Your Subroutine
 e=>end
+
 st->io->op->cond
-cond(yes)->e
+cond(yes,right)->e
 cond(no)->sub->io
 ```
 
