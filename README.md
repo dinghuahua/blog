@@ -78,13 +78,15 @@ Hybrid技术应当如何应用？
 【进阶27期】VueRouter源码解析
 【进阶28期】ReactRouter源码解析
 
+
 ```flow
 st=>start: Start:>https://www.zhihu.com
-io=>inputoutput:verification
-op=>operation:Your Operation
+io=>inputoutput: verification
+op=>operation: Your Operation
 cond=>condition: Yes or No?
-sub=>subroutine:Your Subroutine
+sub=>subroutine: Your Subroutine
 e=>end
+
 
 st->io->op->cond
 cond(yes)->e
