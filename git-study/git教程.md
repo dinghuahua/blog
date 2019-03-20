@@ -125,7 +125,7 @@ config文件前后对比
         >>>>>>> 表示此次commitid 撤销的内容
     git reset和git revert的区别： 
         reset是重置，
-            如果使用git reset –hard 将版本库，暂存区和工作区的内容全部重置为某个commit的状态。之前的commit不会保留。
+            如果使用git reset –hard 将版本库，暂存区和工作区的内容全部重置为某个commit的状态。之后的commit不会保留。
         revert比reset更加温柔一点，回滚到某次commit且该commit之后的提交记录都会保留，并且会在此基础上新建一个提交。对于已经push到服务器上的内容作回滚，推荐使用revert。
     使用git diff查看各个区之间的差异
         git diff	        比较的是工作区和暂存区的差别
