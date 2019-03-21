@@ -1,64 +1,3 @@
-
-
-```flow
-s=start:开始
-e=end:结束
-o=operation:操作项
-
-s-o-e
-```
-
-```flow
-st=>start: Start:>https://www.zhihu.com
-io=>inputoutput: verification
-op=>operation: Your Operation
-cond=>condition: Yes or No?
-sub=>subroutine: Your Subroutine
-e=>end
-
-st->io->op->cond
-cond(yes,right)->e
-cond(no)->sub->io
-```
-
-```flow
-    st=>start: Start
-    e=>end: End
-    op1=>operation: My Operation
-    sub1=>subroutine: My Subroutine
-    cond=>condition: Yes or No?
-    io=>inputoutput: catch something...
-    st->op1->cond
-    cond(yes)->io->e
-    cond(no)->sub1(right)->op1
-```
-
-```mermaid
-	graph TB
-	A[Apple]-->B{Boy}
-	A---C(Cat)
-	B.->D((Dog))
-	C==喵==>D
-	style A fill:#2ff,fill-opacity:0.1,stroke:#faa,stroke-width:4px
-	style D stroke:#000,stroke-width:8px;
-```
-
-mermaid
-graph LR
-    start[开始] --> input[输入A,B,C]
-    input --> conditionA{A是否大于B}
-    conditionA -- YES --> conditionC{A是否大于C}
-    conditionA -- NO --> conditionB{B是否大于C}
-    conditionC -- YES --> printA[输出A]
-    conditionC -- NO --> printC[输出C]
-    conditionB -- YES --> printB[输出B]
-    conditionB -- NO --> printC[输出C]
-    printA --> stop[结束]
-    printC --> stop
-    printB --> stop)
-
-
-
 # blog
 记录学习过程，积累知识点
 Record the learning process and accumulate knowledge points
@@ -140,3 +79,13 @@ Hybrid技术应当如何应用？
 【进阶28期】ReactRouter源码解析
 
 
+MarkDown 没有统一标准，不同网站实现的方式不同；
+GitHub 实现的 MarkDown 语法叫 GFM，GitHub Favorite MarkDown；
+GFM 比普通的 MarkDown 语法增加了表格和完成列表等语法；
+但是，GFM 并没有实现流程图的 MarkDown 语法。
+
+GitHub仓库里的图片
+https://github.com/ 你的用户名 / 你的项目名 / raw / 分支名 / 存放图片的文件夹 / 该文件夹下的图片
+
+eg：
+https://github.com/dinghuahua/blog/blob/master/router/images/router1.jpg
