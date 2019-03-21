@@ -67,6 +67,10 @@ config文件前后对比
     
     合并分支 切换到接收修改的分支master,将feature分支的代码合并到master
         git merge feature
+            fast-forward 默认
+                fast-forward式的合并，且合并完之后的视图为扁平状，看不出develop分支开发的任何信息。
+            –no-ff
+                其作用是：要求git merge即使在fast forward条件下也要产生一个新的merge commit。其目的在于，希望保持原有“feature branches”整个提交链的完整性。
     删除本地分支
         git branch -d debug
     删除远程分支
