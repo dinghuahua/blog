@@ -1,4 +1,4 @@
->Object.defineProperty 
+>Object.defineProperty 和 Object.defineProperties
 
     1.可以给对象添加属性，也可以给已有属性设置特性
     2.如果是通过Object.defineProperty 添加属性，不设置属性的特性话，那么configurable、enumerable、writable都默认为false
@@ -14,6 +14,13 @@ Object.defineProperty(obj,"test",{
     
     get:function (){} || undefined,
     set:function (value){} || undefined
+});
+Object.defineProperties(obj,{
+    type:{
+        value:true,
+        writable:true,
+        enumerable:true
+    }
 });
 ````
 注意：1. 当使用了getter或者setter方法，不允许使用writable和value 这两个属性
@@ -138,11 +145,36 @@ Object.defineProperties(arr,{
 
  > for of
 
+* 不遍历原型链
 * ES6中添加的循环语法
 * for of 支持遍历数组、类数组(DOM NodeList对象)、字符串、Map对象、Set对象
 * for of 不支持遍历普通对象，可通过与Object.keys()搭配使用遍历
 * for of 遍历后的输出结果为数组元素的值
-* 搭配实例方法entries(),同时输出数组内容和索引
+* 搭配实例方法entries(),同时输出数组内容和索引，Object.keys()输出索引，Object.values()输出内容
 
 >> 例子
-    
+``` javascript
+Array.prototype.sayLength = function(){
+    console.log(this.length)
+}
+var arr = ['a','b','c','d'];
+arr.name = '数组';
+Object.definetProperties(arr,{
+    type:{
+        value:true,
+        writable:true,
+        enumerable:true
+    }
+});
+for(var v of arr){
+    console.log(v); // a,b,c,d
+}
+for(var [v,k] of arr.entries()){
+    console.log(v+':'+k); // 0:a 1:b 2:c 3:d
+}
+
+```
+todo链接 这三个方法的学习 
+* entries() 返回一个遍历器对象，用来遍历[键名, 键值]组成的数组。对于数组，键名就是索引值；对于 Set，键名与键值相同。Map 结构的 Iterator 接口，默认就是调用entries方法。
+* keys() 返回一个遍历器对象，用来遍历所有的键名。
+* values() 返回一个遍历器对象，用来遍历所有的键值。
