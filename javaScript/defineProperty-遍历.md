@@ -4,7 +4,7 @@
     2.如果是通过Object.defineProperty 添加属性，不设置属性的特性话，那么configurable、enumerable、writable都默认为false
     3.如果是通过obj.test = 值 这种方式添加的属性，则该属性的configurable、enumerable、writable特性为true
 
-```
+``` javascript
 //对象已有的属性添加特性描述
 Object.defineProperty(obj,"test",{
     configurable:true || false,  // 目标属性是否可以被删除或是否可以再次修改特性
@@ -15,11 +15,11 @@ Object.defineProperty(obj,"test",{
     get:function (){} || undefined,
     set:function (value){} || undefined
 });
-
+````
 注意：1. 当使用了getter或者setter方法，不允许使用writable和value 这两个属性
      2. get或者set不是必须成对出现，任写其一就可以，如果不设置方法，则get和set的默认值为undefined 
      3. 只有get方法就是只读，只有set方法就是只写
-````
+   
 * configurable   该属性能否被删除  默认false
   * 该特性为true   delete obj.test属性  就可以被删除  并返回true
   * 该特性为false  delete obj.test属性  不可以删除    并返回false
@@ -33,7 +33,7 @@ Object.defineProperty(obj,"test",{
 * writable  该属性的值是否可以重写    默认false
 >例子
 
-```
+``` javascript
 var obj = {
     self:'123'
 };
@@ -119,6 +119,7 @@ c1.__proto==>Cat.prototype==>Animal.prototype==>Object.prototype
 
 >> 例子
 
+``` javascript
         Array.prototype.sayLength = function(){
             console.log(this.length);
         }
@@ -133,6 +134,7 @@ c1.__proto==>Cat.prototype==>Animal.prototype==>Object.prototype
         });
  var keys = Object.keys(arr);
  console.log(keys);//["0", "1", "2", "3", "name", "type"]
+```
 
  > for of
 
