@@ -69,10 +69,10 @@ Object.defineProperty(obj,"test4",{
 
 ```
     1.属性self  特性configurable、enumerable、writable 全部为true
-    2.属性test1  configurable为true,即可删除即修改其它的特性
+    2.属性test1  configurable为true,即可删除、可修改其它的特性
     3.属性test2  configurable为false,此特性不可逆，则enumerable不可以再更改，writable为true，可更改为false，但不可逆
     4.属性test3  configurable为false,此特性不可逆，则enumerable不可以再更改，writable为false，不可逆
-    5.属性test4  因为有get和set方法，则不可以在用writable和value特性，可读可写
+    5.属性test4  因为有get和set方法，则不可以再用writable和value特性，可读可写
 
 
 ### 遍历方法的对比
