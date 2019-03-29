@@ -1,20 +1,20 @@
 
 ### 添加或修改对象属性的特性以及获取对象属性的特性
 
-    * 添加或修改对象属性的特性
-      * Object.defineProperty 和 Object.defineProperties
-    * 获取对象属性的特性
-      * Object.getOwnPropertyDescriptor 和 Object.getOwnPropertyDescriptors
+* 添加或修改对象属性的特性
+    * Object.defineProperty 和 Object.defineProperties
+* 获取对象属性的特性
+    * Object.getOwnPropertyDescriptor 和 Object.getOwnPropertyDescriptors
 
 >Object.defineProperty 和 Object.defineProperties  
 
-    * 1.可以给对象添加属性，也可以给已有属性设置特性
-    * 2.如果是通过Object.defineProperty 添加属性，不设置属性的特性话，那么configurable、enumerable、writable都默认为false
-    * 3.如果是通过obj.test = 值 这种方式添加的属性，则该属性的configurable、enumerable、writable特性为true
-        * 参数 Object.definePropert(obj, prop, descriptor)
-        * obj 必须，目标对象
-        * prop 必须，需添加或者修改属性的名字
-        * descriptor 必须，目标属性所拥有的特性
+* 1.可以给对象添加属性，也可以给已有属性设置特性
+* 2.如果是通过Object.defineProperty 添加属性，不设置属性的特性话，那么configurable、enumerable、writable都默认为false
+* 3.如果是通过obj.test = 值 这种方式添加的属性，则该属性的configurable、enumerable、writable特性为true
+    * 参数 Object.definePropert(obj, prop, descriptor)
+    * obj 必须，目标对象
+    * prop 必须，需添加或者修改属性的名字
+    * descriptor 必须，目标属性所拥有的特性
 
 ``` javascript
 //对象已有的属性添加特性描述
@@ -119,15 +119,15 @@ Object.getOwnPropertyDescriptors(obj);
   
 > Object.preventExtensions 阻止对象扩展
 
-    * 让一个对象不可扩展，并返回原对象
-    * 阻止对象扩展，让一个对象变得不可扩展，也就是永远不能再添加新的属性
-    * 使用严格模式，当一个对象阻止扩展时，新增属性时会报错
-    * 只能阻止不能添加新的自身属性，但可以为该对象的原型添加属性
-    * 可以删除现有属性
+  * 让一个对象不可扩展，并返回原对象
+  * 阻止对象扩展，让一个对象变得不可扩展，也就是永远不能再添加新的属性
+  * 使用严格模式，当一个对象阻止扩展时，新增属性时会报错
+  * 只能阻止不能添加新的自身属性，但可以为该对象的原型添加属性
+  * 可以删除现有属性
    
 >> Object.isExtensible 判断对象是否可扩展
 
-    * 判断一个对象是否可扩展，即是否可以给它添加新属性
+* 判断一个对象是否可扩展，即是否可以给它添加新属性
 
 >>> 例子
 
@@ -146,11 +146,11 @@ console.log(Object.isExtensible(obj));  // false
 
 > Object.seal 密封对象
     
-    * 让一个对象密封，并返回被密封后的原对象
-    * 将该对象的所有属性的configurable特性置为false
-    * 不能添加新属性，不能删除已有属性
-    * 不能修改已有属性的可枚举性、可配置性、可写性
-    * 可不可以修改已有属性的值，就看对应属性writable的值是否为true
+  * 让一个对象密封，并返回被密封后的原对象
+  * 将该对象的所有属性的configurable特性置为false
+  * 不能添加新属性，不能删除已有属性
+  * 不能修改已有属性的可枚举性、可配置性、可写性
+  * 可不可以修改已有属性的值，就看对应属性writable的值是否为true
   
 >> Object.isSealed 是否被密封
   
@@ -171,11 +171,11 @@ Object.getOwnPropertyDescriptors(obj);
 
 > Object.freeze 冻结对象
 
-    * 让一个对象冻结，并返回被冻结后的原对象
-    * 将该对象的所有属性的configurable和writable特性都置为false
-    * 不能添加新属性，不能删除已有属性
-    * 不能修改已有属性的可枚举性、可配置性、可写性
-    * 不能修改已有属性的值   
+  * 让一个对象冻结，并返回被冻结后的原对象
+  * 将该对象的所有属性的configurable和writable特性都置为false
+  * 不能添加新属性，不能删除已有属性
+  * 不能修改已有属性的可枚举性、可配置性、可写性
+  * 不能修改已有属性的值   
   
 >> Object.isFrozen 是否被冻结
     
