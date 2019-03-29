@@ -83,7 +83,7 @@ Object.defineProperty(obj,"test4",{
     * 只有具有 Enumerable （可枚举）属性的属性才能被 for ... in 遍历
 >> 例子
 
-```  
+```  javascript
 // 使用寄生组合继承来创建原型链
     function Animal(name){
         this.name = name;
