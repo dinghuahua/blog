@@ -120,18 +120,18 @@ c1.__proto==>Cat.prototype==>Animal.prototype==>Object.prototype
 >> 例子
 
 ``` javascript
-        Array.prototype.sayLength = function(){
-            console.log(this.length);
-        }
-        let arr = ['a','b','c','d'];
-        arr.name = '数组';
-        Object.defineProperties(arr,{
-            type:{
-                value:true,
-                writable:true,
-                enumerable:true
-            }
-        });
+Array.prototype.sayLength = function(){
+    console.log(this.length);
+}
+let arr = ['a','b','c','d'];
+arr.name = '数组';
+Object.defineProperties(arr,{
+    type:{
+        value:true,
+        writable:true,
+        enumerable:true
+    }
+});
  var keys = Object.keys(arr);
  console.log(keys);//["0", "1", "2", "3", "name", "type"]
 ```
