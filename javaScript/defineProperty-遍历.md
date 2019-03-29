@@ -234,6 +234,9 @@ function aa (){
             }
         };
     }
-};
+  };
+  for(var a of obj){
+    console.log(a); // 'hello', 'world'
+  }
 
 ```
