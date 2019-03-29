@@ -81,7 +81,7 @@ Object.defineProperty(obj,"test4",{
 
     * 遍历原型链
     * 只有具有 Enumerable （可枚举）属性的属性才能被 for ... in 遍历
->>> 例子
+>> 例子
 
 ```  
 // 使用寄生组合继承来创建原型链
@@ -114,10 +114,10 @@ c1.__proto==>Cat.prototype==>Animal.prototype==>Object.prototype
 > Object.keys 遍历自身可枚举  不遍历原型链
 
     遍历结果为由对象自身可枚举属性组成的数组，数组中的属性名排列顺序与使用for in循环遍历该对象时返回的顺序一致；
-    
+
     与for in区别在于不能遍历出原型链上的属性；
 
->>> 例子
+>> 例子
 
         Array.prototype.sayLength = function(){
             console.log(this.length);
@@ -142,5 +142,5 @@ c1.__proto==>Cat.prototype==>Animal.prototype==>Object.prototype
 * for of 遍历后的输出结果为数组元素的值
 * 搭配实例方法entries(),同时输出数组内容和索引
 
->>> 例子
+>> 例子
     
