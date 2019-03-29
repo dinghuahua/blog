@@ -174,7 +174,41 @@ for(var [v,k] of arr.entries()){
 }
 
 ```
+
+> foreach
+
 todo链接 这三个方法的学习 
 * entries() 返回一个遍历器对象，用来遍历[键名, 键值]组成的数组。对于数组，键名就是索引值；对于 Set，键名与键值相同。Map 结构的 Iterator 接口，默认就是调用entries方法。
 * keys() 返回一个遍历器对象，用来遍历所有的键名。
 * values() 返回一个遍历器对象，用来遍历所有的键值。
+> 让jquery对象支持for of遍历
+
+* 因为jQuery对象与数组相似
+* 可以为其添加与数组一致的迭代器方法
+  
+  jQuery.prototype[Symbol.iterator] = Array.prototype[Symbol.iterator];
+
+> 手动给对象部署iterator接口
+
+``` javascript
+  let obj = {
+    data: [ 'hello', 'world' ],
+    [Symbol.iterator]() {
+        const self = this;
+        let index = 0;
+        return {
+            next() {
+                if (index < self.data.length) {
+                    return {
+                        value: self.data[index++],
+                        done: false
+                    };
+                } else {
+                    return { value: undefined, done: true };
+                }
+            }
+        };
+    }
+};
+
+```
