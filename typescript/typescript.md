@@ -1,4 +1,5 @@
 > 安装Typescript
+
     1.在命令行中输入以下命令：npm install -g typescript
     2.如果在安装过程中出现以下错误,是因为权限不足导致的。可以通过在命令前面添加sudo进行解决：sudo npm install -g Typescript
 <div align="center">
