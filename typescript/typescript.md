@@ -190,7 +190,7 @@ let lyf: Person = {
 <div align="center">
 
     
-错误追踪<img src="https://github.com/dinghuahua/blog/blob/feature1/typescript/images/ts1.png" width="40%">
+错误追踪<img src="https://github.com/dinghuahua/blog/blob/feature1/typescript/images/ts2.png" width="40%">
 </div>
 上例中，定义了一个接口Person，接着定义了一个变量lyf，它的类型是Person，这样我们就约束了lyf的形状必须和Person一致。
 > 数组的类型
