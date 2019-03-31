@@ -53,7 +53,8 @@ var lyf26 = {
     name: 'LYF',
     age: 18,
     gender1: 'male',
-    gender2: 'female'
+    gender2: 'female',
+    age: 19 // 会报错  自定义的age 和原本固定班的属性名重复
 };
 var lyf27 = {
     name: 'LYF',
@@ -66,3 +67,16 @@ var lyf31 = {
     age: 18,
     123: 'male'
 };
+var lyf41 = {
+    id: 19870504,
+    name: 'lyf',
+    age: 18,
+    gender: 'male'
+};
+lyf41.id = 54; // 会报错  因为只读
+var lyf51 = {
+    name: 'lyf',
+    age: 18,
+    gender: 'male'
+};
+lyf51.id = 54; // 会报错  因为只读

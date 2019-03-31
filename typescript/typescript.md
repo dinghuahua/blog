@@ -224,7 +224,7 @@ let lyf13: Person1 = {
 * 一旦定义了任意属性，那么确定属性和可选属性的类型都必须是它的类型的子集；比如Person21
 * [propName: string]: any   一模一样的可选属性不能重复定义；比如Person22
 * 定义类的时候可选属性，可以有多个但是不能重复；比如Person22
-* 实现类的时候，即变量实现类的可选的时候，针对一种可选属性可以有多个属性，比如lyf26
+* 实现类的时候，即变量实现类的可选的时候，针对一种可选属性可以有多个属性，只要不和已经声明固定的属性名一样就行，比如lyf26
 
 ``` typescript
 // ./code/tsEG4.ts
@@ -273,6 +273,7 @@ let lyf26: Person2 = {
     age:18,
     gender1:'male',
     gender2:'female',
+    age:19 // 会报错  自定义的age 和原本固定班的属性名重复
 }
 let lyf27: Person2 = {
     name:'LYF',
@@ -299,8 +300,114 @@ let lyf31: Person3 = {
     联合类型和接口的结合报错信息<img src="https://github.com/dinghuahua/blog/blob/feature1/typescript/images/ts3.png" width = "40%">
 </div>
 
+###### 只读属性
+* 有时候希望对象中的一些字段只能在创建的时候被赋值，那么可以用readonly定义只读属性
+* 格式为 readonly propName: any
+* 只读的约束存在于第一次给对象赋值的时候，而不是第一次给只读属性赋值的时候，比如Person5
+``` typescript
+// ./code/tsEG4.ts
+interface Person4{
+    readonly id: number;
+    name: string;
+    age?: number;
+    [propName: string]: any;
+}
+
+let lyf41: Person4 = {
+    id:19870504,
+    name: 'lyf',
+    age:18,
+    gender:'male'
+}
+lyf41.id = 54; // 会报错  因为只读
+
+interface Person5{
+    readonly id?: number;
+    name: string;
+    age?: number;
+    [propName: string]: any;
+}
+
+let lyf51: Person5 = {
+    name: 'lyf',
+    age:18,
+    gender:'male'
+}
+
+lyf51.id = 54; // 会报错  因为只读
+```
+
 > 数组的类型
+    在typescript中，数组类型有多种定义方式，比较灵活
+######【类型+方括号】
+* 比如number[],比如arr1
+* 数组中不允许出现其他类型的值,比如arr2
+* 数组的一些方法的参数也会根据数组在定义时约定的类型进行限制，比如arr1.push('a');
+
+###### 数组泛型
+* 比如Array<number>,比如arr2;
+
+###### 用接口表示数组 todo inde propname  的区别
+* 比如NumberArray;
+
+###### any在数组中的应用
+* 用any表示数组中允许出现任意类型，比如arr6
+
+###### 类数组 todo 内置对象
+* 类数组不是数组类型，比如arguments，比如arrFunction
+* 常见放入类数组都有自己的接口定义，比如IArguments,NodeList,HTMLCollection
+
+``` typescript
+// ./code/tsEG5.ts
+
+//【类型+方括号】
+let arr1: number[] = [1,2,3,4,5];
+let arr2: number[] = [1,2,3,4,'a'];//会报错 类型被推断为number | string
+arr1.push('a'); //会报错 push进行的是个string，但是arr1定义的是number 
+
+let arr3: Array<number> = [1,2,3,4,5];
+
+interface NumberArray1{
+    [index:number]:number
+}
+interface NumberArray2{
+    [propName:number]:number
+}
+let arr4: NumberArray1 = [1,2,3,4,5];
+let arr5: NumberArray2 = [1,2,3,4,5];
+
+let arr6: any[] = [1,'2',{name:'lyf'}];
+
+function arrFunction(){
+    let args:IArguments = arguments;
+}
+```
+
 > 函数的类型
+###### 函数声明
+* 一个函数有输入和输出，要在Typescript中对其进行约束，需要把输入和输出都考虑到，比如fun1 
+*输入多余或者少于要求的参数，都是不被允许的
+###### 函数表达式
+* 对等号右侧的匿名函数进行了类型定义，而等号左边的变量fun2是通过赋值操作进行类型推论而推论出来的，如果需要手动给fun2添加类型，比如fun3
+
+
+``` typescript
+// ./code/tsEG6.ts
+function fun1(x: number, y: number): number{
+    return x + y;
+}
+fun1(1,2);
+fun1(1); // 报错 参数少 
+fun1(1,2,3); // 报错 参数多
+
+let fun2 = function(x: number,y: number):number{
+    return x + y;
+}
+let fun3:(x: number, y: number) => number = function(x: number, y: number): number{
+    return x + y;
+}
+
+```
 > 类型断言
 > 声明文件
 > 内置对象

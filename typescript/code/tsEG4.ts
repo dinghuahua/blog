@@ -82,6 +82,7 @@ let lyf26: Person2 = {
     age:18,
     gender1:'male',
     gender2:'female',
+    age:19 // 会报错  自定义的age 和原本固定班的属性名重复
 }
 let lyf27: Person2 = {
     name:'LYF',
@@ -102,3 +103,33 @@ let lyf31: Person3 = {
     age:18,
     123:'male'
 }
+
+interface Person4{
+    readonly id: number;
+    name: string;
+    age?: number;
+    [propName: string]: any;
+}
+
+let lyf41: Person4 = {
+    id:19870504,
+    name: 'lyf',
+    age:18,
+    gender:'male'
+}
+lyf41.id = 54; // 会报错  因为只读
+
+interface Person5{
+    readonly id?: number;
+    name: string;
+    age?: number;
+    [propName: string]: any;
+}
+
+let lyf51: Person5 = {
+    name: 'lyf',
+    age:18,
+    gender:'male'
+}
+
+lyf51.id = 54; // 会报错  因为只读
