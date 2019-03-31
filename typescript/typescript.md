@@ -525,5 +525,92 @@ function reverse1(x: number | string):number | string{
 
 ```
 > 类型断言
+* 类型断言可以用来手动指定一个值的类型
+* 语法 <类型>值 或者  值 as 类型，在tsx语法（React的jsx语法的ts版）中必须用后一种。
+###### 将一个联合类型的变量指定为一个更加具体的类型
+* 当Typescript不确定一个联合类型的变量到底是哪个类型的时候，我们只能访问此联合类型的所有类型里共有的属性或者方法，比如getLength
+* 而有时候，我们确实需要在还不确定类型的时候就访问其中一个类型的属性或方法,比如getLength1
+* 此时可以用类型断言，将something断言成string，比如getLength3
+* 类型断言的用法为：在需要断言的变量前面加上<Type>即可
+* 类型断言不是类型转换，断言成一个联合类型中不存在的类型是不允许的，比如toBoolean;
+
+
+``` typescript
+// ./code/tsEG7.ts
+function getLength(something:string | number): number{
+    return something.length; // 会报错 因为不是所有类型里面共有的属性或者方法
+}
+function getLength2(something:string | number): number{
+    if(something.length){
+        return something.length; // 会报错 
+    } else {
+        return something.toString().length;
+    }
+}
+
+// 断言
+// 语法 <类型>值
+function getLength3(something:string | number): number{
+    if((<string>something).length){
+        return (<string>something).length;
+    } else {
+        return something.toString().length;
+    }
+}
+// 语法 值 as 类型
+function getLength4(something:string | number): number{
+    if((something as string).length){
+        return (something as string).length;
+    } else {
+        return something.toString().length;
+    }
+}
+
+function toboolean(something: string | number): boolean{
+    return <boolean>something; // 会报错，因为断言成一个联合类型中不存在的类型
+}
+```
+
 > 声明文件
+    当使用三方库时，需要引用它的声明文件，才能获得对应的代码补全、接口提示等功能
+###### 什么是声明语句
+
+问题：假如使用第三方库jQuery，一种常见的方式是在html中通过script标签引入jQuery，然后就可以使用全局变量$或者jQuery了，但是在ts中，编译器并不知道$或者jQuery是什么东西？？
+解决：这时，就需要使用 declare var 来定义它的类型
+
+* declare var 并没有真的定义一个变量，只是定义了全局变量jQuery的类型，
+* 仅仅用于编译时的检查，在编译结果中会被删除
+
+``` javascript
+$('#foo')
+jQuery('#foo')
+```
+
+``` typescript
+// ./code/tsEG8.ts
+declare var jQuery:(selector: string)=>any;
+jQuery('#foo')
+
+// 编译结果
+/*jQuery('#foo')*/
+```
+###### 什么是声明文件 todo
+* 通常我们会把声明语句放到和一个单独的文件(jQuery.d.ts)中，这就是声明文件
+* 声明文件必须以 .d.ts 为后缀
+* 一般来说，ts会解析项目中所有的 *.ts 文件，当然也可以包含以 .d.ts 结尾的文件，所以当我们将jQuery.d.ts放到项目中时，其他所有 *.ts 文件就都可以获得jQuery的类型定义了
+* 假如仍然无法解析，那么可以检查下tsconfig.json中的files、include 和 exclude 配置，确保其包含了jQuery.d.ts文件 
+
+``` typescript
+// ./code/jQuery.d.ts
+declare var jQuery: (selector: string) => any;
+```
+
+###### 第三方声明文件
+
+
+// ./code/tsEG6.ts
 > 内置对象
+
+declare class Animal{
+    sayHi(s: string):string
+}
