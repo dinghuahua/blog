@@ -389,10 +389,31 @@ function arrFunction(){
 *输入多余或者少于要求的参数，都是不被允许的
 ###### 函数表达式
 * 对等号右侧的匿名函数进行了类型定义，而等号左边的变量fun2是通过赋值操作进行类型推论而推论出来的，如果需要手动给fun2添加类型，比如fun3
+* 注意不要混淆了Typescript中的 => 和 ES6中的 => 
+* 在Ttypescript中 => 用来表示函数的定义，左边是输入类型，需要用括号括起来，右边是输出类型
+* 在ES6中 => 叫做箭头函数
+###### 用接口定义函数的形状
+* 比如SearchFunc 和 fun4
+* 对于函数类型的类型检查来说，函数的参数名不需要与接口里定义的名字相匹配,比如fun5
+###### 可选参数
+* 前面提到参数多余或者少于都是不允许的，与接口中的可选属性类似，可以用?=表示可选参数
+* 可选参数必须接在必需参数的后面，换句话说，可选参数后面不允许再出现必需参数了，比如buildName2
+###### 参数默认值
+* 在ES6中，允许给函数参数添加默认值，Typescript会讲添加了默认值的参数识别为可选参数，比如buildName3
+* 此时就不受【可选参数必须接在必须参数的后面了】，比如buildName4
+###### 剩余参数
+* 在ES6中，可以使用...rest 的方式获取函数中的剩余参数，事实上rest是一个数组，所以我们用数组的类型来定义它,比如fun6
+###### 重载
+* 重载允许一个函数接受不同数量或者类型的参数时，作出不同的处理，比如reverse
+    * 但是这样有一个缺点，就是不能精确的表达，输入为数字的时候，输出也为数字，输入为string，输出也应该为string
+* 可是使用重载定义多个reverse1 的函数类型，比如reverse1
+    * 前几次reverse1 都是函数定义，最后一次是函数的实现
+    * Typescript会优先从前面的函数定义开始匹配，所以多个函数定义如果有包含关系，需要优先把精确的定义写在前面
 
 
 ``` typescript
 // ./code/tsEG6.ts
+//函数声明
 function fun1(x: number, y: number): number{
     return x + y;
 }
@@ -400,11 +421,106 @@ fun1(1,2);
 fun1(1); // 报错 参数少 
 fun1(1,2,3); // 报错 参数多
 
+// 函数表达式
 let fun2 = function(x: number,y: number):number{
     return x + y;
 }
 let fun3:(x: number, y: number) => number = function(x: number, y: number): number{
     return x + y;
+}
+
+//用接口定义函数的形状
+interface SearchFunc{
+    (source: string, subString: string):boolean;
+}
+let fun4: SearchFunc;
+fun4 = function(source: string, subString: string){
+    return source.search(subString) !== -1;
+}
+let fun5: SearchFunc;
+fun5 = function(src: string, sub: string){
+    return src.search(sub) !== -1;
+}
+
+function buildName(firstName: string, lastName: string){
+    if(lastName){
+        return firstName + ' ' + lastName;
+    }else{
+        return firstName;
+    }
+}
+let feng = buildName('yi','feng');
+let fengfeng = buildName('feng');// 会报错 第二个参数必须
+
+// 可选参数
+function buildName2(firstName?: string, lastName: string){// 会报错 不必须参数后面出现了必须参数
+    
+    if(lastName){
+        return firstName + ' ' + lastName;
+    }else{
+        return firstName;
+    }
+}
+let feng2 = buildName2('yi','feng');
+let fengfeng2 = buildName2('feng'); // 报错
+
+// 参数默认值
+function buildName3(firstName: string, lastName: string = 'fff'){
+    
+    return firstName + ' ' + lastName;
+}
+let feng3 = buildName3('yi','feng');
+let fengfeng3 = buildName3('feng'); 
+
+function buildName4(firstName: string = 'li', lastName: string){ // 不会报错
+    
+    return firstName + ' ' + lastName;
+}
+// buildName4 被编译为
+/*function buildName4(firstName, lastName) {
+    if (firstName === void 0) { firstName = 'li'; }
+    return firstName + ' ' + lastName;
+}*/
+let feng4 = buildName4('yi','feng');
+let fengfeng4 = buildName4(，undefined，'feng'); 
+
+// 剩余参数
+function fun6(arr: any[],...items: any[]){
+	items.map(function(v){
+	    arr.push(v)
+    })
+}
+// fun6 被编译为
+/*function fun6(arr) {
+    var items = [];
+    for (var _i = 1; _i < arguments.length; _i++) {
+        items[_i - 1] = arguments[_i];
+    }
+    items.map(function (v) {
+        arr.push(v);
+    });
+}*/
+let a = [];
+fun6(a,1,2,3)
+
+// 重载
+function reverse(x: number | string):number | string{
+    if(typeof x === 'number'){
+        return Number(x.toString().split('').reverse().join(''));
+    } else if (typeof x === 'string'){
+        return x.split('').reverse().join('');
+    }
+}
+//前几次reverse1 都是函数定义，最后一次是函数的实现
+//Typescript会优先从前面的函数定义开始匹配，所以多个函数定义如果有包含关系，需要优先把精确的定义写在前面
+function reverse1(x: number):number;
+function reverse1(x: string):string;
+function reverse1(x: number | string):number | string{
+    if(typeof x === 'number'){
+        return Number(x.toString().split('').reverse().join(''));
+    } else if (typeof x === 'string'){
+        return x.split('').reverse().join('');
+    }
 }
 
 ```
