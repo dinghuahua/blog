@@ -11,7 +11,7 @@
   * 5.约定使用Typescript编写的文件为.ts为后缀，用Typescript编写react时，以.tsx为后缀
   * 6.Typescript中，使用: 指定类型的变量，:前后有没有空格都可以
   * 7.Typescript只会进行静态检查，如果发现有错误，编译的时候就会报错
-  * 8.Typescript编译的时候即使报错了，还是会生成编译结果，我们仍然可以使用这个编译之后的文件
+  * 8.Typescript编译的时候即使报错了，也不影响后续的编译，还是会生成编译结果文件，我们仍然可以使用这个编译之后的文件
   * 9.如果要在报错的时候终止js文件的生成，可以在tsconfig.json中配置noEmitError即可，可以参考 [官方文档](http://www.typescriptlang.org/docs/handbook/tsconfig-json.html)
 > 原始数据类型
 
@@ -23,12 +23,13 @@
   * 6.在Typescript 中，可以使用null和undefined来定义这两个原始数据类型
     * 与void的区别是，undefined和null是所有类型的子类型，即undefined类型的变量可以赋值给number类型的变量；let num:number = undefined;不会报错
     * 而void类型的变量不能赋值给number类型的变量；let num:number = void;会报错
+  * 7.定义方法function的返回值类型格式为在入参的右括号后进行定义 function alertName():void{}
 
 ###### 例子
 ``` javascript  
 // ./code/tsEG1.ts  
 let isDone: boolean = false;
-// let isBoolean: boolean = new Boolean(1); 会报错
+let isBoolean: boolean = new Boolean(1); // 会报错
 let isBoolean: Boolean = new Boolean(1);
 let isBoolean2: boolean = Boolean(1);
 
@@ -38,23 +39,23 @@ let sentence: string = `hello,my name is ${myName}`;
 function alertName():void{
     alert(sentence);
 }
-let unusable: void =undefined;
-let unusable: void =null;
-let unusable: undefined =undefined;
-let unusable: null =null;
+let unusable1: void =undefined;
+let unusable2: void =null;
+let unusable3: undefined =undefined;
+let unusable4: null =null;
 
 let num:number = undefined;
 let u:undefined;
 let num2:number = u;
 
-let u:void;
-// let num3:number = u;会报错
+let u2:void;
+let num3:number = u2;// 会报错
 ```
 编译结果为：
 ``` javascript
 // ./code/sEG1.ts
 var isDone = false;
-// let isBoolean: boolean = new Boolean(1); // 会报错
+let isBoolean: boolean = new Boolean(1); // 会报错
 var isBoolean = new Boolean(1);
 var isBoolean2 = Boolean(1);
 var myName = 'Tom';
@@ -70,7 +71,7 @@ var sentence = "hello,my name is " + myName;
 // ./code/tsEG2.ts
 let str: string = 'lyf';
 str = 'liyf';
-// str = 7; // 会报错
+str = 7; // 会报错
 ```
 ###### 任意值的属性和方法
 * 在任意值上访问任意属性都是允许的，tsc 编译不会报错，也会生成对应的js文件，只不过该js文件执行的时候如果访问来不存在的方法或者二级以上的属性会报错
@@ -102,14 +103,62 @@ something = 54;
 
 ```
 > 类型推论
-    如果没有明确的指定类型，那么Typescript会依照类型推论的规则推断出一个类型
+* 如果没有明确的指定类型，那么Typescript会依照类型推论的规则推断出一个类型
+* 如果定义的时候赋值，不管之后有没有赋值，都会被推断成any类型而完全不被类型检查
 ###### 什么是类型推论
+    声明变量时若没有指定类型，会根据当前行的赋值结果推论出变量的类型，如果在生命的时候没有赋值，则此变量的类型才是any
 ``` javascript
 // ./code/tsEG2.ts
-let
+let mystr = 'lyf';
+mystr = 54; // 会报错
+
+// 等价于
+let mystr: string = 'lyf';
+mystr = 54; // 会报错
+
 ```
 > 联合类型
+* 联合类型(Union Types)表示取值可以为多种类型中的一种
+* 联合类型使用 | 分割每个类型
+* 可以赋值为定义的联合类型中任意一个，如果是其他类型则会编译报错
+
+``` javascript
+// ./code/tsEG3.ts
+let myStrOrNum:string | number;
+myStrOrNum = 'lyf';
+myStrOrNum = '54';
+myStrOrNum = true;// 报错
+``` 
+###### 访问联合类型的属性和方法
+    当Typescript不确定一个联合类型的变量倒是是哪个类型的时候，我们只能访问此联合类型的所有类型里共有的属性或者方法
+
+``` javascript
+// ./code/tsEG3.ts
+function getLength(something:string | number):number{
+    return something.length; // length 不是共有属性，所以会报错
+}
+function getString(something:string | number):string{
+    return something.toString(); // toString是共有属性，所以不会报错
+}
+getLength('lyf');
+getLength(54);
+```
+上例中，length不是string和number的共有属性，所以会报错
+###### 联合类型的变量的类型推论
+    联合类型的变量在被赋值的时候，会根据类型推论的规则推断出一个类型
+``` javascript
+// ./code/tsEG3.ts
+let myStrOrNum1:string | number;
+myStrOrNum1 = 'lyf';
+console.log(myStrOrNum1.length);// 3 不报错
+myStrOrNum1 = 54;
+console.log(myStrOrNum1.length);// 编译时报错 因为被
+推断为number，访问length属性时就报错了
+```
+
 > 对象的类型——接口
+    在Typescript中，我们使用接口(interfaces)来定义对象的类型
+###### 什么是接口
 > 数组的类型
 > 函数的类型
 > 类型断言

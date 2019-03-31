@@ -9,3 +9,5 @@ console.log(anyThing.setName('join').getName());
 var something;
 something = 'lyf';
 something = 54;
+var mystr = 'lyf';
+mystr = 7; // 会报错
