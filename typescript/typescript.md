@@ -26,7 +26,7 @@
   * 7.定义方法function的返回值类型格式为在入参的右括号后进行定义 function alertName():void{}
 
 ###### 例子
-``` javascript  
+``` typescript  
 // ./code/tsEG1.ts  
 let isDone: boolean = false;
 let isBoolean: boolean = new Boolean(1); // 会报错
@@ -52,7 +52,7 @@ let u2:void;
 let num3:number = u2;// 会报错
 ```
 编译结果为：
-``` javascript
+``` typescript
 // ./code/sEG1.ts
 var isDone = false;
 let isBoolean: boolean = new Boolean(1); // 会报错
@@ -67,7 +67,7 @@ var sentence = "hello,my name is " + myName;
 ###### 什么是任意值类型
 * 如果一个普通类型，在赋值过程中改变类型是不被允许的
 * 但如果是any类型，则允许被赋值为任意类型
-``` javascript
+``` typescript
 // ./code/tsEG2.ts
 let str: string = 'lyf';
 str = 'liyf';
@@ -77,7 +77,7 @@ str = 7; // 会报错
 * 在任意值上访问任意属性都是允许的，tsc 编译不会报错，也会生成对应的js文件，只不过该js文件执行的时候如果访问来不存在的方法或者二级以上的属性会报错
 * 可以认为，声明一个变量为任意值后，对它的作何操作，返回的内容类型都是任意值
 
-``` javascript
+``` typescript
 // ./code/tsEG2.ts
 let anyThing: any = 'hello';
 // tsc 编译不会报错，也会生成对应的js文件，只不过该js文件执行的时候会报错
@@ -90,7 +90,7 @@ console.log(anyThing.setName('join').getName());
 ###### 未声明类型的变量
 * 变量如果在声明的时候，未指定其类型，那么它会被识别为任意值类型
 
-``` javascript 
+``` typescript 
 // ./code/tsEG2.ts
 let something;
 something = 'lyf';
@@ -107,7 +107,7 @@ something = 54;
 * 如果定义的时候赋值，不管之后有没有赋值，都会被推断成any类型而完全不被类型检查
 ###### 什么是类型推论
     声明变量时若没有指定类型，会根据当前行的赋值结果推论出变量的类型，如果在生命的时候没有赋值，则此变量的类型才是any
-``` javascript
+``` typescript
 // ./code/tsEG2.ts
 let mystr = 'lyf';
 mystr = 54; // 会报错
@@ -122,7 +122,7 @@ mystr = 54; // 会报错
 * 联合类型使用 | 分割每个类型
 * 可以赋值为定义的联合类型中任意一个，如果是其他类型则会编译报错
 
-``` javascript
+``` typescript
 // ./code/tsEG3.ts
 let myStrOrNum:string | number;
 myStrOrNum = 'lyf';
@@ -132,7 +132,7 @@ myStrOrNum = true;// 报错
 ###### 访问联合类型的属性和方法
     当Typescript不确定一个联合类型的变量倒是是哪个类型的时候，我们只能访问此联合类型的所有类型里共有的属性或者方法
 
-``` javascript
+``` typescript
 // ./code/tsEG3.ts
 function getLength(something:string | number):number{
     return something.length; // length 不是共有属性，所以会报错
@@ -147,7 +147,7 @@ getLength(54);
 上例中，length不是string和number的共有属性，所以会报错
 ###### 联合类型的变量的类型推论
     联合类型的变量在被赋值的时候，会根据类型推论的规则推断出一个类型
-``` javascript
+``` typescript
 // ./code/tsEG3.ts
 let myStrOrNum1:string | number;
 myStrOrNum1 = 'lyf';
@@ -170,17 +170,17 @@ interface Person{
     name: string;
     age: number;
 }
-let lyf: Person = {
+let lyf1: Person = {
     name:'LYF',
     age:18
 }
 // 报错 少了age属性
 // 报错信息中会提示 当前180行导致了171行报错
-let lyf: Person = {
+let lyf2: Person = {
     name:'LYF'
 }
 // 报错 多了gender属性
-let lyf: Person = {
+let lyf3: Person = {
     name:'LYF',
     age:18,
     gender:'male'
@@ -189,7 +189,116 @@ let lyf: Person = {
 <div align="center">
 错误追踪<img src="https://github.com/dinghuahua/blog/blob/feature1/typescript/images/ts2.png" width="40%">
 </div>
-上例中，定义了一个接口Person，接着定义了一个变量lyf，它的类型是Person，这样我们就约束了lyf的形状必须和Person一致。
+
+###### 可选属性
+* 有时我们希望不要完全匹配一个形状，那么可以用可选属性,用?: 进行标示
+* 可选属性的含义是该属性可以不存在
+* 这是仍然不允许添加未定义的属性
+
+``` typescript
+// ./code/tsEG4.ts
+interface Person1{
+    name: string;
+    age?: number;
+}
+let lyf11: Person1 = {
+    name:'LYF',
+    age:18
+}
+//少了age属性 也不会报错 
+let lyf12: Person1 = {
+    name:'LYF'
+}
+// 报错 多了gender属性
+let lyf13: Person1 = {
+    name:'LYF',
+    age:18,
+    gender:'male'
+}
+
+```
+###### 任意属性
+* 有时候我们希望一个接口允许有任意类型的属性，可以使用如下方式
+* [propName: string]: any
+    * [propName: string] 定义了任意属性取string类型的值，纯数字也可以被解析为string，故针对propName不会报错，但是‘123’字符串不能被解析为number；比如lyf27
+* 一旦定义了任意属性，那么确定属性和可选属性的类型都必须是它的类型的子集；比如Person21
+* [propName: string]: any   一模一样的可选属性不能重复定义；比如Person22
+* 定义类的时候可选属性，可以有多个但是不能重复；比如Person22
+* 实现类的时候，即变量实现类的可选的时候，针对一种可选属性可以有多个属性，比如lyf26
+
+``` typescript
+// ./code/tsEG4.ts
+interface Person21{
+    name: string;
+    age?: number;
+    [propName: string]: number; // 会报错  name值的string类型不是可选属性值的类型number的子集
+}
+interface Person22{
+    name: string;
+    age?: number;
+    [propName: string]: string;
+    [propName: string]: string; // 会报错  与上一条可选属性一模一样 重复了
+    [propName: number]: string; // 不重复 所以不报错
+}
+// 以下以Person2 类举例
+interface Person2{
+    name: string;
+    age?: number;
+    [propName: string]: string | number;
+}
+let lyf21: Person2 = {
+    name:'LYF',
+    age:18
+}
+let lyf22: Person2 = {
+    name:'LYF'
+}
+let lyf23: Person2 = {
+    name:'LYF',
+    age:18,
+    gender:'male'
+}
+let lyf24: Person2 = {
+    name:'LYF',
+    age:18,
+    gender:54
+}
+let lyf25: Person2 = {
+    name:'LYF',
+    age:18,
+    gender:true // 会报错 自定义属性类型必须是string | number 类型
+}
+let lyf26: Person2 = {
+    name:'LYF',
+    age:18,
+    gender1:'male',
+    gender2:'female',
+}
+let lyf27: Person2 = {
+    name:'LYF',
+    age:18,
+    // propName 123  也可以被解析为string  故不会报错
+    123:'male'
+}
+
+// 以下以Person3 类举例
+interface Person3{
+    name: string;
+    age?: number;
+    [propName: number]: string | number;
+}
+
+let lyf31: Person3 = {
+    name:'LYF',
+    age:18,
+    123:'male'
+}
+```
+
+<div align="center">
+    联合类型和接口的结合报错信息<img src="https://github.com/dinghuahua/blog/blob/feature1/typescript/images/ts3.png" width = "40%">
+</div>
+
 > 数组的类型
 > 函数的类型
 > 类型断言
