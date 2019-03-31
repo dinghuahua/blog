@@ -4,4 +4,5 @@
 <div align="center">
     <img src="https://github.com/dinghuahua/blog/blob/feature1/typescript/images/ts1.png" width="40%">
 </div>
-可以参考如下连接进行解决https://www.cnblogs.com/zhenqichai/p/npm-eacces-permission-error-fix.html
+
+[可以参考如下连接进行解决](https://www.cnblogs.com/zhenqichai/p/npm-eacces-permission-error-fix.html)
