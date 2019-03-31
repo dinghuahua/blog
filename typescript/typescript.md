@@ -159,6 +159,31 @@ console.log(myStrOrNum1.length);// 编译时报错 因为被
 > 对象的类型——接口
     在Typescript中，我们使用接口(interfaces)来定义对象的类型
 ###### 什么是接口
+* 在面向对象语言中，接口是一个很重要的概念，是对行为的抽象，而具体如何行动需要由类(classes)去实现(implements)
+* Typescript中的接口是一个非常灵活的概念，除了可用于对类的一部分行为进行抽象外，也常用于【对象的形状】进行描述
+
+``` Typescript
+// ./code/tsEG4.ts
+interface Person{
+    name: string;
+    age: number;
+}
+let lyf: Person = {
+    name:'LYF',
+    age:18
+}
+```
+``` typescript
+// ./code/tsEG4.ts
+interface Person{
+    name: string;
+    age: number;
+}
+let lyf: Person = {
+    name:'LYF',
+    age:18
+}
+```
 > 数组的类型
 > 函数的类型
 > 类型断言
