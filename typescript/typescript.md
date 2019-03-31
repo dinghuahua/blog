@@ -12,6 +12,5 @@
     6.Typescript中，使用: 指定类型的变量，:前后有没有空格都可以
     7.Typescript只会进行静态检查，如果发现有错误，编译的时候就会报错
     8.Typescript编译的时候即使报错了，还是会生成编译结果，我们仍然可以使用这个编译之后的文件
-    9.如果要在报错的时候终止js文件的生成，可以在tsconfig.json中配置noEmitError即可，可以参考 
-[官方文档](http://www.typescriptlang.org/docs/handbook/tsconfig-json.html)
+    9.如果要在报错的时候终止js文件的生成，可以在tsconfig.json中配置noEmitError即可，可以参考 [官方文档](http://www.typescriptlang.org/docs/handbook/tsconfig-json.html)
 > 基础类型
