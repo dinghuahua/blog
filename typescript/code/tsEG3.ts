@@ -17,4 +17,5 @@ let myStrOrNum1:string | number;
 myStrOrNum1 = 'lyf';
 console.log(myStrOrNum1.length);// 3 不报错
 myStrOrNum1 = 54;
+myStrOrNum1 = 54;
 console.log(myStrOrNum1.length);// 编译时报错

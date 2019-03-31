@@ -141,6 +141,7 @@ function getString(something:string | number):string{
     return something.toString(); // toString是共有属性，所以不会报错
 }
 getLength('lyf');
+// 报错信息中 不会提示当前行144导致了138报错
 getLength(54);
 ```
 上例中，length不是string和number的共有属性，所以会报错
@@ -161,18 +162,8 @@ console.log(myStrOrNum1.length);// 编译时报错 因为被
 ###### 什么是接口
 * 在面向对象语言中，接口是一个很重要的概念，是对行为的抽象，而具体如何行动需要由类(classes)去实现(implements)
 * Typescript中的接口是一个非常灵活的概念，除了可用于对类的一部分行为进行抽象外，也常用于【对象的形状】进行描述
+* 定义的变量比接口少一些属性是不允许的，多一些属性也是不允许的，可见，赋值的时候，变量的形状必须和接口的形状保持一致。
 
-``` Typescript
-// ./code/tsEG4.ts
-interface Person{
-    name: string;
-    age: number;
-}
-let lyf: Person = {
-    name:'LYF',
-    age:18
-}
-```
 ``` typescript
 // ./code/tsEG4.ts
 interface Person{
@@ -183,7 +174,25 @@ let lyf: Person = {
     name:'LYF',
     age:18
 }
+// 报错 少了age属性
+// 报错信息中会提示 当前180行导致了171行报错
+let lyf: Person = {
+    name:'LYF'
+}
+// 报错 多了gender属性
+let lyf: Person = {
+    name:'LYF',
+    age:18,
+    gender:'male'
+}
 ```
+错误追踪
+<div align="center">
+
+    
+错误追踪<img src="https://github.com/dinghuahua/blog/blob/feature1/typescript/images/ts1.png" width="40%">
+</div>
+上例中，定义了一个接口Person，接着定义了一个变量lyf，它的类型是Person，这样我们就约束了lyf的形状必须和Person一致。
 > 数组的类型
 > 函数的类型
 > 类型断言
