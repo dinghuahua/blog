@@ -221,6 +221,8 @@ let lyf13: Person1 = {
 * 有时候我们希望一个接口允许有任意类型的属性，可以使用如下方式
 * [propName: string]: any
     * [propName: string] 定义了任意属性取string类型的值，纯数字也可以被解析为string，故针对propName不会报错，但是‘123’字符串不能被解析为number；比如lyf27
+* [index : number]: any
+  * 共有支持两种索引签名：字符串和数字。 可以同时使用两种类型的索引，但是数字索引的返回值必须是字符串索引返回值类型的子类型。 这是因为当使用 number来索引时，JavaScript会将它转换成string然后再去索引对象。 也就是说用 100（一个number）去索引等同于使用"100"（一个string）去索引，因此两者需要保持一致。
 * 一旦定义了任意属性，那么确定属性和可选属性的类型都必须是它的类型的子集；比如Person21
 * [propName: string]: any   一模一样的可选属性不能重复定义；比如Person22
 * 定义类的时候可选属性，可以有多个但是不能重复；比如Person22
@@ -390,7 +392,7 @@ function arrFunction(){
 ###### 函数表达式
 * 对等号右侧的匿名函数进行了类型定义，而等号左边的变量fun2是通过赋值操作进行类型推论而推论出来的，如果需要手动给fun2添加类型，比如fun3
 * 注意不要混淆了Typescript中的 => 和 ES6中的 => 
-* 在Ttypescript中 => 用来表示函数的定义，左边是输入类型，需要用括号括起来，右边是输出类型
+* 在Typescript中 => 用来表示函数的定义，左边是输入类型，需要用括号括起来，右边是输出类型
 * 在ES6中 => 叫做箭头函数
 ###### 用接口定义函数的形状
 * 比如SearchFunc 和 fun4
@@ -482,7 +484,7 @@ function buildName4(firstName: string = 'li', lastName: string){ // 不会报错
     return firstName + ' ' + lastName;
 }*/
 let feng4 = buildName4('yi','feng');
-let fengfeng4 = buildName4(，undefined，'feng'); 
+let fengfeng4 = buildName4(undefined，'feng'); 
 
 // 剩余参数
 function fun6(arr: any[],...items: any[]){
