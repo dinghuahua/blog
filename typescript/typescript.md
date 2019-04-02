@@ -12,7 +12,7 @@
   * 6.Typescript中，使用: 指定类型的变量，:前后有没有空格都可以
   * 7.Typescript只会进行静态检查，如果发现有错误，编译的时候就会报错
   * 8.Typescript编译的时候即使报错了，也不影响后续的编译，还是会生成编译结果文件，我们仍然可以使用这个编译之后的文件
-  * 9.如果要在报错的时候终止js文件的生成，可以在tsconfig.json中配置noEmitError即可，可以参考 [官方文档](http://www.typescriptlang.org/docs/handbook/tsconfig-json.html)
+  * 9.如果要在报错的时候终止js文件的生成，可以在tsconfig.json(可以通过tsc --init 生成此文件)中配置noEmitError即可，可以参考 [官方文档](http://www.typescriptlang.org/docs/handbook/tsconfig-json.html)
 > 原始数据类型
 
   * 1.原始数据类型包括： 布尔值、数值、字符串、null、undefined以及ES6中新增的Symbol
@@ -25,6 +25,18 @@
     * 而void类型的变量不能赋值给number类型的变量；let num:number = void;会报错
   * 7.定义方法function的返回值类型格式为在入参的右括号后进行定义 function alertName():void{}
 
+###### 在typescript中主要给我们提供了以下数据类型
+* 布尔类型(boolean) 
+* 数字类型(number) 
+* 字符串类型(string) 
+* 数组类型(array) 
+* 元组类型(tuple) 
+* 枚举类型(enum) 
+* 任意类型(any) 
+* null和undefined 
+* void类型 
+* never类型  
+    * never类型表示的是那些永不存在的值的类型。 例如， never类型是那些总是会抛出异常或根本就不会有返回值的函数表达式或箭头函数表达式的返回值类型； 变量也可能是 never类型，当它们被永不为真的类型保护所约束时。
 ###### 例子
 ``` typescript  
 // ./code/tsEG1.ts  
@@ -60,6 +72,40 @@ var isBoolean = new Boolean(1);
 var isBoolean2 = Boolean(1);
 var myName = 'Tom';
 var sentence = "hello,my name is " + myName;
+```
+
+> 元组
+* 数组合并了相同类型的对象，而元组(Tuple)合并了 不同类型的对象
+* 元组起源于函数编程语言（比如：F#）在这些语言中频繁使用元组
+* 元组也可以只赋值其中一项
+* 但是当直接对元组类型的变量进行初始化或者赋值的时候，需要提供所有元素类型中指定的项
+###### 越界的元素
+* 当添加越界的元素时，它的类型会被限制为元组中元组中每个类型的联合类型
+
+``` typescript
+// ./code/tsEG9.ts
+let lyf1: [string, number] = ['feng feng',1987];
+let lyf2: [string, number];
+lyf2[0] = 'feng feng';
+lyf2[1] =1987;
+
+lyf2[0].slice(1);
+lyf2[1].toFixed(2);
+
+// 也可以只赋值其中一项
+let lyf3: [string, number];
+lyf3[0] = 'feng feng';
+
+let lyf4: [string, number] = ['feng feng']; // 会报错 数量不够
+let lyf5: [string, number];
+lyf5 = ['feng feng'];  // 会报错 赋值操作 数量不够
+lyf5[1] = 1987;
+
+let lyf6: [string, number];
+lyf6 = ['feng feng', 1987];
+lyf6.push('lyf');
+lyf6.push(54);
+lyf6.push(true);// 会报错
 ```
 
 > 任意值类型
@@ -154,7 +200,7 @@ myStrOrNum1 = 'lyf';
 console.log(myStrOrNum1.length);// 3 不报错
 myStrOrNum1 = 54;
 console.log(myStrOrNum1.length);// 编译时报错 因为被
-推断为number，访问length属性时就报错了
+// 推断为number，访问length属性时就报错了
 ```
 
 > 对象的类型——接口
@@ -349,7 +395,7 @@ lyf51.id = 54; // 会报错  因为只读
 ###### 数组泛型
 * 比如Array<number>,比如arr2;
 
-###### 用接口表示数组 todo inde propname  的区别
+###### 用接口表示数组 todo index propname  的区别
 * 比如NumberArray;
 
 ###### any在数组中的应用
@@ -388,7 +434,7 @@ function arrFunction(){
 > 函数的类型
 ###### 函数声明
 * 一个函数有输入和输出，要在Typescript中对其进行约束，需要把输入和输出都考虑到，比如fun1 
-*输入多余或者少于要求的参数，都是不被允许的
+* 输入多余或者少于要求的参数，都是不被允许的
 ###### 函数表达式
 * 对等号右侧的匿名函数进行了类型定义，而等号左边的变量fun2是通过赋值操作进行类型推论而推论出来的，如果需要手动给fun2添加类型，比如fun3
 * 注意不要混淆了Typescript中的 => 和 ES6中的 => 
@@ -398,7 +444,7 @@ function arrFunction(){
 * 比如SearchFunc 和 fun4
 * 对于函数类型的类型检查来说，函数的参数名不需要与接口里定义的名字相匹配,比如fun5
 ###### 可选参数
-* 前面提到参数多余或者少于都是不允许的，与接口中的可选属性类似，可以用?=表示可选参数
+* 前面提到参数多余或者少于都是不允许的，与接口中的可选属性类似，可以用?表示可选参数
 * 可选参数必须接在必需参数的后面，换句话说，可选参数后面不允许再出现必需参数了，比如buildName2
 ###### 参数默认值
 * 在ES6中，允许给函数参数添加默认值，Typescript会讲添加了默认值的参数识别为可选参数，比如buildName3
@@ -484,7 +530,7 @@ function buildName4(firstName: string = 'li', lastName: string){ // 不会报错
     return firstName + ' ' + lastName;
 }*/
 let feng4 = buildName4('yi','feng');
-let fengfeng4 = buildName4(undefined，'feng'); 
+let fengfeng4 = buildName4(undefined,'feng'); 
 
 // 剩余参数
 function fun6(arr: any[],...items: any[]){
@@ -526,6 +572,7 @@ function reverse1(x: number | string):number | string{
 }
 
 ```
+
 > 类型断言
 * 类型断言可以用来手动指定一个值的类型
 * 语法 <类型>值 或者  值 as 类型，在tsx语法（React的jsx语法的ts版）中必须用后一种。

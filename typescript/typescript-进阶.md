@@ -28,39 +28,6 @@ handleEvent(document.getElementById('hello'), 'scroll');
 handleEvent(document.getElementById('world'), 'dbclick'); // 报错 event 不能为dbclick
 
 ```
-> 元组
-* 数组合并了相同类型的对象，而元组(Tuple)合并了 不同类型的对象
-* 元组起源于函数编程语言（比如：F#）在这些语言中频繁使用元组
-* 元组也可以只赋值其中一项
-* 但是当直接对元组类型的变量进行初始化或者赋值的时候，需要提供所有元素类型中指定的项
-###### 越界的元素
-* 当添加越界的元素时，它的类型会被限制为元组中元组中每个类型的联合类型
-
-``` typescript
-// ./code/tsEG9.ts
-let lyf1: [string, number] = ['feng feng',1987];
-let lyf2: [string, number];
-lyf2[0] = 'feng feng';
-lyf2[1] =1987;
-
-lyf2[0].slice(1);
-lyf2[1].toFixed(2);
-
-// 也可以只赋值其中一项
-let lyf3: [string, number];
-lyf3[0] = 'feng feng';
-
-let lyf4: [string, number] = ['feng feng']; // 会报错 数量不够
-let lyf5: [string, number];
-lyf5 = ['feng feng'];  // 会报错 赋值操作 数量不够
-lyf5[1] = 1987;
-
-let lyf6: [string, number];
-lyf6 = ['feng feng', 1987];
-lyf6.push('lyf');
-lyf6.push(54);
-lyf6.push(true);// 会报错
-```
 > 枚举
 * 枚举（Enum）类型用于取值被限定在一定范围内的场景，比如一周只能有七天，颜色限定红绿蓝等
 * 枚举成员会被赋值为从 0 开始递增的数字，同时也会对枚举值到的枚举名进行反向映射
@@ -164,6 +131,43 @@ let directions2 = [Directions2.Up, Directions2.Down, Directions2.Left, Direction
 var directions2 = [0 /* Up */, 1 /* Down */, 2 /* Left */, 3 /* Right */];
 
 ```
+> 类型兼容性
+* 需要注意的是，我们在这里并不能像在其它语言里一样，传给入参的对象实现了这个接口。我们只会去关注值的外形。 只要传入的对象满足上面提到的必要条件，那么它就是被允许的。比如：greet
+``` typescript
+// ./code/tsEG12.ts
+// 检查对象
+interface Named {
+    name: string;
+}
+
+let x: Named;
+// y's inferred type is { name: string; location: string; }
+let y = { name: 'Alice', location: 'Seattle' };
+x = y;
+
+// 检查函数
+function greet(n: Named) {
+    alert('Hello, ' + n.name);
+}
+greet(y); // OK
+greet({name: 'Alice', location: 'Seattle' }); // 会报错 不知道为什么 对比上一条
+
+// 对比两个函数
+// 入参兼容
+let x1 = (a: number) => 0;
+let y1 = (b: number, s: string) => 0;
+
+y1 = x1; // OK
+x1 = y1; // Error
+// 返回值兼容
+let x2 = () => ({name: 'Alice'});
+let y2 = () => ({name: 'Alice', location: 'Seattle'});
+
+x2 = y2; // OK
+y2 = x2; // Error because x() lacks a location property
+
+```
+
 > 类
 * 传统方法中，javascript通过构造函数实现类的概念，通过原型链实现继承，而在ES6中，迎来了class
 * Typescript 除了实现了所有ES6中类的功能之外，还添加了一些新的用法

@@ -1,3 +1,4 @@
+
 // 函数
 // 函数的声明
 function fun0(x: number, y: number){
@@ -77,7 +78,7 @@ function printLabel2(labelledObj: LabelledValue) {
 }
 let myObj2 = {size: 10, label: "Size 10 Object"};
 printLabel2(myObj2);
-// printLabel2({size: 10, label: "Size 10 Object"}); // 会报错  不知道为什么？？？？
+printLabel2({size: 10, label: "Size 10 Object"}); // 会报错 ？？？？
 // 调用签名
 // 构造器签名
 // 索引签名
@@ -117,6 +118,42 @@ class Clock implements ClockInterface {
     }
     constructor(h: number, m: number) { }
 }
+
+// 联合类型
+interface Bird {
+    fly();
+    layEggs();
+}
+
+interface Fish {
+    swim();
+    layEggs();
+}
+
+function getSmallPet(): Fish | Bird {
+    // ...
+}
+
+let pet = getSmallPet();
+pet.layEggs(); // okay
+pet.swim();    // errors
+
+// 每一个成员访问都会报错
+if (pet.swim) {
+    pet.swim();
+}
+else if (pet.fly) {
+    pet.fly();
+}
+
+if ((<Fish>pet).swim) {
+    (<Fish>pet).swim();
+}
+else {
+    (<Bird>pet).fly();
+}
+
+
 
 // 泛型
 function identity<T>(arg: T): T {
