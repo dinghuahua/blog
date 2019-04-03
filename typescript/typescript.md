@@ -620,7 +620,7 @@ function toboolean(something: string | number): boolean{
 * 泛型参数 当做接口的一个参数
 * 把非泛型函数签名作为泛型类型一部分
 * 何时把参数放在调用签名里和何时放在接口
-* 
+
 ``` typescript
 // ./code/ts-T.ts
 function identity<T>(arg: T): T {
