@@ -38,6 +38,7 @@ var GenericNumber = /** @class */ (function () {
     return GenericNumber;
 }());
 var myGenericNumber = new GenericNumber();
+console.log(myGenericNumber);
 myGenericNumber.zeroValue = 0;
 myGenericNumber.add = function (x, y) { return x + y; };
 function loggingIdentity(arg) {

@@ -192,37 +192,6 @@ class Cat2 extends Animal2{
         console.log(`meow,my name is ${this.name}`);
     }
 }
-
-// 编译的结果
-// var Animal2 = /** @class */ (function () {
-//     function Animal2(name, age, gender) {
-//         this.name = name;
-//         this.age = age;
-//         this.gender = gender;
-//     }
-//     return Animal2;
-// }());
-// var a2 = new Animal2('jack', 18, 'male'); // 会报错 不允许实例化的
-// var Cat21 = /** @class */ (function (_super) {
-//     __extends(Cat21, _super);
-//     function Cat21(name, age, gender) {
-//         var _this = _super.call(this, name, age, gender) || this;
-//         console.log(_this.age); // 会报错
-//         console.log(_this.gender); // 不会报错
-//         return _this;
-//     }
-//     return Cat21;
-// }(Animal2));
-// var Cat2 = /** @class */ (function (_super) {
-//     __extends(Cat2, _super);
-//     function Cat2() {
-//         return _super !== null && _super.apply(this, arguments) || this;
-//     }
-//     Cat2.prototype.sayHi = function () {
-//         console.log("meow,my name is " + this.name);
-//     };
-//     return Cat2;
-// }(Animal2));
 ```
 
 
