@@ -68,6 +68,7 @@ function printLabel2(labelledObj) {
 }
 var myObj2 = { size: 10, label: "Size 10 Object" };
 printLabel2(myObj2);
+printLabel2({ size: 10, label: "Size 10 Object" }); // 会报错 ？？？？
 var myArray;
 myArray = ["Bob", "Fred"];
 var myStr = myArray[0];
@@ -91,71 +92,22 @@ var Clock = /** @class */ (function () {
     };
     return Clock;
 }());
-// 泛型
-function identity(arg) {
-    return arg;
+function getSmallPet() {
+    // ...
 }
-// 用两种方法使用。 
-// 第一种是，传入所有的参数，包含类型参数：
-var output1 = identity("myString"); // type of output will be 'string'
-// 第二种方法更普遍。利用了类型推论 -- 即编译器会根据传入的参数自动地帮助我们确定T的类型
-var output2 = identity("myString"); // type of output will be 'string'
-function loggingIdentity1(arg) {
-    console.log(arg.length); // Array has a .length, so no more error
-    return arg;
+var pet = getSmallPet();
+pet.layEggs(); // okay
+pet.swim(); // errors
+// 每一个成员访问都会报错
+if (pet.swim) {
+    pet.swim();
 }
-function loggingIdentity2(arg) {
-    console.log(arg.length); // Array has a .length, so no more error
-    return arg;
+else if (pet.fly) {
+    pet.fly();
 }
-function identity2(arg) {
-    return arg;
+if (pet.swim) {
+    pet.swim();
 }
-var myIdentity = identity2;
-// 泛型类
-var GenericNumber = /** @class */ (function () {
-    function GenericNumber() {
-    }
-    return GenericNumber;
-}());
-var myGenericNumber = new GenericNumber();
-myGenericNumber.zeroValue = 0;
-myGenericNumber.add = function (x, y) { return x + y; };
-function loggingIdentity(arg) {
-    console.log(arg.length); // Now we know it has a .length property, so no more error
-    return arg;
+else {
+    pet.fly();
 }
-loggingIdentity({ length: 10, value: 3 });
-var BeeKeeper = /** @class */ (function () {
-    function BeeKeeper() {
-    }
-    return BeeKeeper;
-}());
-var ZooKeeper = /** @class */ (function () {
-    function ZooKeeper() {
-    }
-    return ZooKeeper;
-}());
-var Animal1 = /** @class */ (function () {
-    function Animal1() {
-    }
-    return Animal1;
-}());
-var Bee = /** @class */ (function (_super) {
-    __extends(Bee, _super);
-    function Bee() {
-        return _super !== null && _super.apply(this, arguments) || this;
-    }
-    return Bee;
-}(Animal1));
-var Lion = /** @class */ (function (_super) {
-    __extends(Lion, _super);
-    function Lion() {
-        return _super !== null && _super.apply(this, arguments) || this;
-    }
-    return Lion;
-}(Animal1));
-function findKeeper(a) {
-    return a.prototype.keeper;
-}
-findKeeper(Lion).nametag;

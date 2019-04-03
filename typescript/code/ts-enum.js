@@ -1,34 +1,3 @@
-function getName(n) {
-    if (typeof n === 'string') {
-        return n;
-    }
-    else {
-        return n();
-    }
-}
-function handleEvent(ele, event) {
-    // do something
-}
-handleEvent(document.getElementById('hello'), 'scroll');
-handleEvent(document.getElementById('world'), 'dbclick'); // 报错 event 不能为dbclick
-var lyf1 = ['feng feng', 1987];
-var lyf2;
-lyf2[0] = 'feng feng';
-lyf2[1] = 1987;
-lyf2[0].slice(1);
-lyf2[1].toFixed(2);
-// 也可以只赋值其中一项
-var lyf3;
-lyf3[0] = 'feng feng';
-var lyf4 = ['feng feng']; // 会报错 数量不够
-var lyf5;
-lyf5 = ['feng feng']; // 会报错 赋值操作 数量不够
-lyf5[1] = 1987;
-var lyf6;
-lyf6 = ['feng feng', 1987];
-lyf6.push('lyf');
-lyf6.push(54);
-lyf6.push(true); // 会报错
 var Days;
 (function (Days) {
     Days[Days["Sun"] = 0] = "Sun";

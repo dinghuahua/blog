@@ -72,7 +72,7 @@ let num3:number = u2;// 会报错
 * 如果一个普通类型，在赋值过程中改变类型是不被允许的
 * 但如果是any类型，则允许被赋值为任意类型
 ``` typescript
-// ./code/tsEG2.ts
+// ./code/ts-any-inference-union.ts
 let str: string = 'lyf';
 str = 'liyf';
 str = 7; // 会报错
@@ -82,7 +82,7 @@ str = 7; // 会报错
 * 可以认为，声明一个变量为任意值后，对它的任何操作，返回的内容类型都是任意值
 
 ``` typescript
-// ./code/tsEG2.ts
+// ./code/ts-any-inference-union.ts
 let anyThing: any = 'hello';
 // tsc 编译不会报错，也会生成对应的js文件，只不过该js文件执行的时候会报错
 console.log(anyThing.myName);
@@ -96,7 +96,7 @@ console.log(anyThing.setName('join').getName());
 * 变量如果在声明的时候，未指定其类型，那么它会被识别为任意值类型
 
 ``` typescript 
-// ./code/tsEG2.ts
+// ./code/ts-any-inference-union.ts
 let something;
 something = 'lyf';
 something = 54;
@@ -129,7 +129,7 @@ something = 54;
 * 常见放入类数组都有自己的接口定义，比如IArguments,NodeList,HTMLCollection
 
 ``` typescript
-// ./code/tsEG5.ts
+// ./code/ts-array-tuple.ts
 //【类型+方括号】
 let arr1: number[] = [1,2,3,4,5];
 let arr2: number[] = [1,2,3,4,'a'];//会报错 类型被推断为number | string
@@ -162,7 +162,7 @@ function arrFunction(){
 * 当添加越界的元素时，它的类型会被限制为元组中每个类型的联合类型
 
 ``` typescript
-// ./code/tsEG9.ts
+// ./code/ts-array-tuple.ts
 let lyf1: [string, number] = ['feng feng',1987];
 let lyf2: [string, number];
 lyf2[0] = 'feng feng';
@@ -193,7 +193,7 @@ lyf6.push(true);// 会报错
 ###### 什么是类型推论
     声明变量时若没有指定类型，会根据当前行的赋值结果推论出变量的类型，如果在生命的时候没有赋值，则此变量的类型才是any
 ``` typescript
-// ./code/tsEG2.ts
+// ./code/ts-any-inference-union.ts
 let mystr = 'lyf';
 mystr = 54; // 会报错
 
@@ -208,7 +208,7 @@ mystr = 54; // 会报错
 * 可以赋值为定义的联合类型中任意一个，如果是其他类型则会编译报错
 
 ``` typescript
-// ./code/tsEG3.ts
+// ./code/ts-any-inference-union.ts
 let myStrOrNum:string | number;
 myStrOrNum = 'lyf';
 myStrOrNum = '54';
@@ -218,7 +218,7 @@ myStrOrNum = true;// 报错
     当Typescript不确定一个联合类型的变量倒是是哪个类型的时候，我们只能访问此联合类型的所有类型里共有的属性或者方法
 
 ``` typescript
-// ./code/tsEG3.ts
+// ./code/ts-any-inference-union.ts
 function getLength(something:string | number):number{
     return something.length; // length 不是共有属性，所以会报错
 }
@@ -233,7 +233,7 @@ getLength(54);
 ###### 联合类型的变量的类型推论
     联合类型的变量在被赋值的时候，会根据类型推论的规则推断出一个类型
 ``` typescript
-// ./code/tsEG3.ts
+// ./code/ts-any-inference-union.ts
 let myStrOrNum1:string | number;
 myStrOrNum1 = 'lyf';
 console.log(myStrOrNum1.length);// 3 不报错
@@ -271,7 +271,7 @@ console.log(myStrOrNum1.length);// 编译时报错 因为被
 
 
 ``` typescript
-// ./code/tsEG6.ts
+// ./code/ts-func.ts
 //函数声明
 function fun1(x: number, y: number): number{
     return x + y;
@@ -392,7 +392,7 @@ function reverse1(x: number | string):number | string{
 * 定义的变量比接口少一些属性是不允许的，多一些属性也是不允许的，可见，赋值的时候，变量的形状必须和接口的形状保持一致。
 
 ``` typescript
-// ./code/tsEG4.ts
+// ./code/ts-class1.ts
 interface Person{
     name: string;
     age: number;
@@ -423,7 +423,7 @@ let lyf3: Person = {
 * 这是仍然不允许添加未定义的属性
 
 ``` typescript
-// ./code/tsEG4.ts
+// ./code/ts-class1.ts
 interface Person1{
     name: string;
     age?: number;
@@ -456,7 +456,7 @@ let lyf13: Person1 = {
 * 实现类的时候，即变量实现类的可选的时候，针对一种可选属性可以有多个属性，只要不和已经声明固定的属性名一样就行，比如lyf26
 
 ``` typescript
-// ./code/tsEG4.ts
+// ./code/ts-class1.ts
 interface Person21{
     name: string;
     age?: number;
@@ -534,7 +534,7 @@ let lyf31: Person3 = {
 * 格式为 readonly propName: any
 * 只读的约束存在于第一次给对象赋值的时候，而不是第一次给只读属性赋值的时候，比如Person5
 ``` typescript
-// ./code/tsEG4.ts
+// ./code/ts-class1.ts
 interface Person4{
     readonly id: number;
     name: string;
@@ -576,9 +576,8 @@ lyf51.id = 54; // 会报错  因为只读
 * 类型断言的用法为：在需要断言的变量前面加上<Type>即可
 * 类型断言不是类型转换，断言成一个联合类型中不存在的类型是不允许的，比如toBoolean;
 
-
 ``` typescript
-// ./code/tsEG7.ts
+// ./code/ts-assert.ts
 function getLength(something:string | number): number{
     return something.length; // 会报错 因为不是所有类型里面共有的属性或者方法
 }
@@ -589,7 +588,6 @@ function getLength2(something:string | number): number{
         return something.toString().length;
     }
 }
-
 // 断言
 // 语法 <类型>值
 function getLength3(something:string | number): number{
@@ -611,6 +609,200 @@ function getLength4(something:string | number): number{
 function toboolean(something: string | number): boolean{
     return <boolean>something; // 会报错，因为断言成一个联合类型中不存在的类型
 }
+```
+> 泛型
+* 泛型变量
+* 泛型类型
+* 泛型函数  非泛型函数
+* 泛型接口
+* 泛型参数
+
+* 泛型参数 当做接口的一个参数
+* 把非泛型函数签名作为泛型类型一部分
+* 何时把参数放在调用签名里和何时放在接口
+* 
+``` typescript
+// ./code/ts-T.ts
+function identity<T>(arg: T): T {
+    return arg;
+}
+// 用两种方法使用。 
+// 第一种是，传入所有的参数，包含类型参数：
+let output1 = identity<string>("myString");  // type of output will be 'string'
+// 第二种方法更普遍。利用了类型推论 -- 即编译器会根据传入的参数自动地帮助我们确定T的类型
+let output2 = identity("myString");  // type of output will be 'string'
+
+function loggingIdentity1<T>(arg: T[]): T[] {
+    console.log(arg.length);  // Array has a .length, so no more error
+    return arg;
+}
+function loggingIdentity2<T>(arg: Array<T>): Array<T> {
+    console.log(arg.length);  // Array has a .length, so no more error
+    return arg;
+}
+interface GenericIdentityFn<T> {
+    (arg: T): T;
+}
+
+function identity2<T>(arg: T): T {
+    return arg;
+}
+
+let myIdentity: GenericIdentityFn<number> = identity2;
+
+// 泛型类
+class GenericNumber<T> {
+    zeroValue: T;
+    add: (x: T, y: T) => T;
+}
+
+let myGenericNumber = new GenericNumber<number>();
+myGenericNumber.zeroValue = 0;
+myGenericNumber.add = function(x, y) { return x + y; };
+
+// 泛型约束
+interface Lengthwise {
+    length: number;
+}
+
+function loggingIdentity<T extends Lengthwise>(arg: T): T {
+    console.log(arg.length);  // Now we know it has a .length property, so no more error
+    return arg;
+}
+loggingIdentity({length: 10, value: 3});
+
+class BeeKeeper {
+    hasMask: boolean;
+}
+
+class ZooKeeper {
+    nametag: string;
+}
+
+class Animal1 {
+    numLegs: number;
+}
+
+class Bee extends Animal1 {
+    keeper: BeeKeeper;
+}
+
+class Lion extends Animal1 {
+    keeper: ZooKeeper;
+}
+
+function findKeeper<A extends Animal1, K> (a: {new(): A;
+    prototype: {keeper: K}}): K {
+        console.log()
+
+    return a.prototype.keeper;
+}
+
+findKeeper(Lion).nametag;
+```
+
+> 枚举
+* 枚举（Enum）类型用于取值被限定在一定范围内的场景，比如一周只能有七天，颜色限定红绿蓝等
+* 枚举成员会被赋值为从 0 开始递增的数字，同时也会对枚举值到的枚举名进行反向映射
+###### 手动赋值
+* 未手动赋值的枚举项会接着上一个枚举项进行递增
+* 如果未手动赋值的枚举项与手动赋值的重复了，以后者为准
+* 手动赋值的枚举项也可以为小数或者负数，后续未手动赋值的项的递增步长仍为1
+###### 常数项和计算所得项
+* 枚举项有两种类型：常数项和计算所得项
+* 如果紧接在计算所得项后面的是未手动赋值的项，那么就会因为无法获得初始值而报错
+###### 常数枚举
+* 常数枚举是用 const enum 定义的枚举类型
+* 常数枚举 与 普通枚举 的区别是，它会在编译阶段被删除，并且不能包含计算成员
+* 加入包含了计算成员，则会在编译阶段报错
+###### 外部枚举
+* 外部枚举是使用 declare enum 定义的枚举类型
+* declare 定义的类型只会用于编译时检查，编译结果中会被删除
+* 同时使用 declare 和 const 也是可以的
+
+``` typescript
+// ./code/ts-enum.ts
+enum Days {Sun, Mon, Tue, Wed, Thu, Fri, Sat};
+// 会被编译成
+/* var Days;
+(function (Days) {
+    Days[Days["Sun"] = 0] = "Sun";
+    Days[Days["Mon"] = 1] = "Mon";
+    Days[Days["Tue"] = 2] = "Tue";
+    Days[Days["Wed"] = 3] = "Wed";
+    Days[Days["Thu"] = 4] = "Thu";
+    Days[Days["Fri"] = 5] = "Fri";
+    Days[Days["Sat"] = 6] = "Sat";
+})(Days || (Days = {}));*/
+
+console.log(Days['Sun'] === 0); // true
+console.log(Days['Mon'] === 1); // true
+console.log(Days['Tue'] === 2); // true
+console.log(Days['Wed'] === 3); // true
+console.log(Days['Thu'] === 4); // true
+console.log(Days['Fri'] === 5); // true
+console.log(Days['Sat'] === 6); // true
+
+console.log(Days[0] === 'Sun'); // true
+console.log(Days[1] === 'Mon'); // true
+console.log(Days[2] === 'Tue'); // true
+console.log(Days[3] === 'Wed'); // true
+console.log(Days[4] === 'Thu'); // true
+console.log(Days[5] === 'Fri'); // true
+console.log(Days[6] === 'Sat'); // true
+
+// 手动赋值
+enum Days1{Sun = 7, Mon = 1, Tue, Wed, Thu, Fri, Sat};
+console.log(Days1['Sun'] === 7); // true
+console.log(Days1['Mon'] === 1); // true
+console.log(Days1['Tue'] === 2); // true
+console.log(Days1['Sat'] === 6); // true
+
+enum Days2{Sun = 3, Mon = 1, Tue, Wed, Thu, Fri, Sat};
+// 编译结果
+/*var Days2;
+(function (Days2) {
+    Days2[Days2["Sun"] = 3] = "Sun";
+    Days2[Days2["Mon"] = 1] = "Mon";
+    Days2[Days2["Tue"] = 2] = "Tue";
+    Days2[Days2["Wed"] = 3] = "Wed";
+    Days2[Days2["Thu"] = 4] = "Thu";
+    Days2[Days2["Fri"] = 5] = "Fri";
+    Days2[Days2["Sat"] = 6] = "Sat";
+})(Days2 || (Days2 = {}));*/
+console.log(Days2['Sun'] === 3); // true
+console.log(Days2['Mon'] === 1); // true
+console.log(Days2['Tue'] === 2); // true
+console.log(Days2[3] === 'Wed'); // true
+console.log(Days2[3] === 'Sun'); // false
+
+enum Days3{Sun = 7, Mon = 1.5, Tue, Wed, Thu, Fri, Sat};
+console.log(Days3['Sun'] === 7); // true
+console.log(Days3['Mon'] === 1.5); // true
+console.log(Days3['Tue'] === 2.5); // true
+console.log(Days3['Sat'] === 6.5); // true
+
+//常数项和计算所得项 
+enum Color{Red, Green, Blue = 'blue'.length};
+enum Color1{Red = 'red', Green, Blue = 'blue'.length}; // 会报错 red 后会报错
+
+// 常数枚举
+const enum Directions{Up, Down, Left, Right}
+let directions = [Directions.Up, Directions.Down, Directions.Left, Directions.Right];
+//编译结果
+var directions = [0 /* Up */, 1 /* Down */, 2 /* Left */, 3 /* Right */];
+const enum Color2{Red, Green, Blue = 'blue'.length};
+
+// 外部枚举
+declare enum Directions1{Up, Down, Left, Right}
+let directions1 = [Directions1.Up, Directions1.Down, Directions1.Left, Directions1.Right];
+// 编译结果
+/*var directions1 = [Directions1.Up, Directions1.Down, Directions1.Left, Directions1.Right];*/
+declare const enum Directions2{Up, Down, Left, Right}
+let directions2 = [Directions2.Up, Directions2.Down, Directions2.Left, Directions2.Right];
+// 编译结果
+var directions2 = [0 /* Up */, 1 /* Down */, 2 /* Left */, 3 /* Right */];
+
 ```
 
 > 声明文件

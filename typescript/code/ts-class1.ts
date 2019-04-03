@@ -18,6 +18,7 @@ let lyf3: Person = {
     gender:'male'
 }
 
+// 可选属性
 interface Person1{
     name: string;
     age?: number;
@@ -37,6 +38,7 @@ let lyf13: Person1 = {
     gender:'male'
 }
 
+//  任意属性
 interface Person21{
     name: string;
     age?: number;
@@ -82,7 +84,7 @@ let lyf26: Person2 = {
     age:18,
     gender1:'male',
     gender2:'female',
-    age:19 // 会报错  自定义的age 和原本固定班的属性名重复
+    age:19 // 会报错  自定义的age 和原本固定的属性名重复
 }
 let lyf27: Person2 = {
     name:'LYF',
@@ -104,6 +106,7 @@ let lyf31: Person3 = {
     123:'male'
 }
 
+// 只读属性
 interface Person4{
     readonly id: number;
     name: string;

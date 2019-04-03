@@ -1,25 +1,4 @@
-let lyf1: [string, number] = ['feng feng',1987];
-let lyf2: [string, number];
-lyf2[0] = 'feng feng';
-lyf2[1] =1987;
 
-lyf2[0].slice(1);
-lyf2[1].toFixed(2);
-
-// 也可以只赋值其中一项
-let lyf3: [string, number];
-lyf3[0] = 'feng feng';
-
-let lyf4: [string, number] = ['feng feng']; // 会报错 数量不够
-let lyf5: [string, number];
-lyf5 = ['feng feng'];  // 会报错 赋值操作 数量不够
-lyf5[1] = 1987;
-
-let lyf6: [string, number];
-lyf6 = ['feng feng', 1987];
-lyf6.push('lyf');
-lyf6.push(54);
-lyf6.push(true);// 会报错
 
 enum Days {Sun, Mon, Tue, Wed, Thu, Fri, Sat};
 
