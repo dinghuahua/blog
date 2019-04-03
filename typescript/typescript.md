@@ -13,18 +13,7 @@
   * 7.Typescript只会进行静态检查，如果发现有错误，编译的时候就会报错
   * 8.Typescript编译的时候即使报错了，也不影响后续的编译，还是会生成编译结果文件，我们仍然可以使用这个编译之后的文件
   * 9.如果要在报错的时候终止js文件的生成，可以在tsconfig.json(可以通过tsc --init 生成此文件)中配置noEmitError即可，可以参考 [官方文档](http://www.typescriptlang.org/docs/handbook/tsconfig-json.html)
-> 原始数据类型
-
-  * 1.原始数据类型包括： 布尔值、数值、字符串、null、undefined以及ES6中新增的Symbol
-  * 2.使用构造函数 new Boolean 创建的对象不是布尔值，返回的是Boolean对象,直接使用Boolean(1)返回的是boolean类型
-  * 3.使用string定义字符串类型时，可以使用` 来定义ES6中的模板字符串
-  * 4.javascript没有空值（void）的概念，在Typescript可以使用void表示没有任何返回值的函数
-  * 5.声明一个void类型的变量没有什么作用，因为你只能将它赋值为undefined和null
-  * 6.在Typescript 中，可以使用null和undefined来定义这两个原始数据类型
-    * 与void的区别是，undefined和null是所有类型的子类型，即undefined类型的变量可以赋值给number类型的变量；let num:number = undefined;不会报错
-    * 而void类型的变量不能赋值给number类型的变量；let num:number = void;会报错
-  * 7.定义方法function的返回值类型格式为在入参的右括号后进行定义 function alertName():void{}
-
+> 原始数据类
 ###### 在typescript中主要给我们提供了以下数据类型
 * 布尔类型(boolean) 
 * 数字类型(number) 
@@ -37,6 +26,18 @@
 * void类型 
 * never类型  
     * never类型表示的是那些永不存在的值的类型。 例如， never类型是那些总是会抛出异常或根本就不会有返回值的函数表达式或箭头函数表达式的返回值类型； 变量也可能是 never类型，当它们被永不为真的类型保护所约束时。
+  
+
+  * 1.原始数据类型包括： 布尔值、数值、字符串、null、undefined以及ES6中新增的Symbol
+  * 2.使用构造函数 new Boolean 创建的对象不是布尔值，返回的是Boolean对象,直接使用Boolean(1)返回的是boolean类型
+  * 3.使用string定义字符串类型时，可以使用` 来定义ES6中的模板字符串
+  * 4.javascript没有空值（void）的概念，在Typescript可以使用void表示没有任何返回值的函数
+  * 5.声明一个void类型的变量没有什么作用，因为你只能将它赋值为undefined和null
+  * 6.在Typescript 中，可以使用null和undefined来定义这两个原始数据类型
+    * 与void的区别是，undefined和null是所有类型的子类型，即undefined类型的变量可以赋值给number类型的变量；let num:number = undefined;不会报错
+    * 而void类型的变量不能赋值给number类型的变量；let num:number = void;会报错
+  * 7.定义方法function的返回值类型格式为在入参的右括号后进行定义 function alertName():void{}
+
 ###### 例子
 ``` typescript  
 // ./code/tsEG1.ts  
