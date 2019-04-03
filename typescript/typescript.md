@@ -13,7 +13,7 @@
   * 7.Typescript只会进行静态检查，如果发现有错误，编译的时候就会报错
   * 8.Typescript编译的时候即使报错了，也不影响后续的编译，还是会生成编译结果文件，我们仍然可以使用这个编译之后的文件
   * 9.如果要在报错的时候终止js文件的生成，可以在tsconfig.json(可以通过tsc --init 生成此文件)中配置noEmitError即可，可以参考 [官方文档](http://www.typescriptlang.org/docs/handbook/tsconfig-json.html)
-> 原始数据类
+> 数据类型
 ###### 在typescript中主要给我们提供了以下数据类型
 * 布尔类型(boolean) 
 * 数字类型(number) 
