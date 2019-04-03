@@ -805,6 +805,8 @@ var directions2 = [0 /* Up */, 1 /* Down */, 2 /* Left */, 3 /* Right */];
 
 ```
 
+
+
 > 声明文件
     当使用三方库时，需要引用它的声明文件，才能获得对应的代码补全、接口提示等功能
 ###### 什么是声明语句
@@ -821,7 +823,7 @@ jQuery('#foo')
 ```
 
 ``` typescript
-// ./code/tsEG8.ts
+// ./code/ts-declare.ts
 declare var jQuery:(selector: string)=>any;
 jQuery('#foo')
 
