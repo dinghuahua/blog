@@ -1,5 +1,5 @@
 function greeter(person: string) {
     return "Hello, " + person;
 }
-var user = "Jane User";
+var user = "world";
 greeter(user);  
