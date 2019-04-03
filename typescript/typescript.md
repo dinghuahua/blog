@@ -13,8 +13,8 @@
   * 7.Typescript只会进行静态检查，如果发现有错误，编译的时候就会报错
   * 8.Typescript编译的时候即使报错了，也不影响后续的编译，还是会生成编译结果文件，我们仍然可以使用这个编译之后的文件
   * 9.如果要在报错的时候终止js文件的生成，可以在tsconfig.json(可以通过tsc --init 生成此文件)中配置noEmitError即可，可以参考 [官方文档](http://www.typescriptlang.org/docs/handbook/tsconfig-json.html)
-> 数据类型
-###### 在typescript中主要给我们提供了以下数据类型
+  * 
+> 在typescript中主要提供以下数据类型
 * 布尔类型(boolean) 
 * 数字类型(number) 
 * 字符串类型(string) 
@@ -27,6 +27,7 @@
 * never类型  
     * never类型表示的是那些永不存在的值的类型。 例如， never类型是那些总是会抛出异常或根本就不会有返回值的函数表达式或箭头函数表达式的返回值类型； 变量也可能是 never类型，当它们被永不为真的类型保护所约束时。
   
+> 数据类型
 
 * 1.原始数据类型包括： 布尔值、数值、字符串、null、undefined以及ES6中新增的Symbol
 * 2.使用构造函数 new Boolean 创建的对象不是布尔值，返回的是Boolean对象,直接使用Boolean(1)返回的是boolean类型
