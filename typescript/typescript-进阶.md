@@ -2,7 +2,7 @@
 * 类型别名用来给一个类型起个新名字
 * 类型别名常用与联合类型
 ``` typescript
-// ./code/tsEG9.ts
+// ./code/tsEG13.ts
 type Name = string;
 type NameResolver = () => string;
 type NameOrResolver = Name | NameResolver;

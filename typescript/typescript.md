@@ -29,7 +29,7 @@
   
 > 数据类型
 
-* 1.原始数据类型包括： 布尔值、数值、字符串、null、undefined以及ES6中新增的Symbol
+* 1.原始数据类型包括： boolean、number、string、null、undefined以及ES6中新增的Symbol
 * 2.使用构造函数 new Boolean 创建的对象不是布尔值，返回的是Boolean对象,直接使用Boolean(1)返回的是boolean类型
 * 3.使用string定义字符串类型时，可以使用` 来定义ES6中的模板字符串
 * 4.javascript没有空值（void）的概念，在Typescript可以使用void表示没有任何返回值的函数
@@ -65,15 +65,92 @@ let num2:number = u;
 let u2:void;
 let num3:number = u2;// 会报错
 ```
-编译结果为：
+
+> 任意值类型
+    任意值（Any）用来表示允许赋值为任意类型
+###### 什么是任意值类型
+* 如果一个普通类型，在赋值过程中改变类型是不被允许的
+* 但如果是any类型，则允许被赋值为任意类型
 ``` typescript
-// ./code/sEG1.ts
-var isDone = false;
-let isBoolean: boolean = new Boolean(1); // 会报错
-var isBoolean = new Boolean(1);
-var isBoolean2 = Boolean(1);
-var myName = 'Tom';
-var sentence = "hello,my name is " + myName;
+// ./code/tsEG2.ts
+let str: string = 'lyf';
+str = 'liyf';
+str = 7; // 会报错
+```
+###### 任意值的属性和方法
+* 在任意值上访问任意属性都是允许的，tsc 编译不会报错，也会生成对应的js文件，只不过该js文件执行的时候如果访问来不存在的方法或者二级以上的属性会报错
+* 可以认为，声明一个变量为任意值后，对它的任何操作，返回的内容类型都是任意值
+
+``` typescript
+// ./code/tsEG2.ts
+let anyThing: any = 'hello';
+// tsc 编译不会报错，也会生成对应的js文件，只不过该js文件执行的时候会报错
+console.log(anyThing.myName);
+console.log(anyThing.myName.firstName);
+console.log(anyThing.setName('join'));
+console.log(anyThing.setName('join').getName());
+
+```
+
+###### 未声明类型的变量
+* 变量如果在声明的时候，未指定其类型，那么它会被识别为任意值类型
+
+``` typescript 
+// ./code/tsEG2.ts
+let something;
+something = 'lyf';
+something = 54;
+
+// 等价于
+let something:any;
+something = 'lyf';
+something = 54;
+
+```
+
+> 数组的类型
+    在typescript中，数组类型有多种定义方式，比较灵活
+######【类型+方括号】
+* 比如number[],比如arr1
+* 数组中不允许出现其他类型的值,比如arr2
+* 数组的一些方法的参数也会根据数组在定义时约定的类型进行限制，比如arr1.push('a');
+
+###### 数组泛型
+* 比如Array<number>,比如arr2;
+
+###### 用接口表示数组 todo index propname  的区别
+* 比如NumberArray;
+
+###### any在数组中的应用
+* 用any表示数组中允许出现任意类型，比如arr6
+
+###### 类数组 todo 内置对象
+* 类数组不是数组类型，比如arguments，比如arrFunction
+* 常见放入类数组都有自己的接口定义，比如IArguments,NodeList,HTMLCollection
+
+``` typescript
+// ./code/tsEG5.ts
+//【类型+方括号】
+let arr1: number[] = [1,2,3,4,5];
+let arr2: number[] = [1,2,3,4,'a'];//会报错 类型被推断为number | string
+arr1.push('a'); //会报错 push进行的是个string，但是arr1定义的是number 
+
+let arr3: Array<number> = [1,2,3,4,5];
+
+interface NumberArray1{
+    [index:number]:number
+}
+interface NumberArray2{
+    [propName:number]:number
+}
+let arr4: NumberArray1 = [1,2,3,4,5];
+let arr5: NumberArray2 = [1,2,3,4,5];
+
+let arr6: any[] = [1,'2',{name:'lyf'}];
+
+function arrFunction(){
+    let args:IArguments = arguments;
+}
 ```
 
 > 元组
@@ -82,7 +159,7 @@ var sentence = "hello,my name is " + myName;
 * 元组也可以只赋值其中一项
 * 但是当直接对元组类型的变量进行初始化或者赋值的时候，需要提供所有元素类型中指定的项
 ###### 越界的元素
-* 当添加越界的元素时，它的类型会被限制为元组中元组中每个类型的联合类型
+* 当添加越界的元素时，它的类型会被限制为元组中每个类型的联合类型
 
 ``` typescript
 // ./code/tsEG9.ts
@@ -110,46 +187,6 @@ lyf6.push(54);
 lyf6.push(true);// 会报错
 ```
 
-> 任意值类型
-    任意值（Any）用来表示允许赋值为任意类型
-###### 什么是任意值类型
-* 如果一个普通类型，在赋值过程中改变类型是不被允许的
-* 但如果是any类型，则允许被赋值为任意类型
-``` typescript
-// ./code/tsEG2.ts
-let str: string = 'lyf';
-str = 'liyf';
-str = 7; // 会报错
-```
-###### 任意值的属性和方法
-* 在任意值上访问任意属性都是允许的，tsc 编译不会报错，也会生成对应的js文件，只不过该js文件执行的时候如果访问来不存在的方法或者二级以上的属性会报错
-* 可以认为，声明一个变量为任意值后，对它的作何操作，返回的内容类型都是任意值
-
-``` typescript
-// ./code/tsEG2.ts
-let anyThing: any = 'hello';
-// tsc 编译不会报错，也会生成对应的js文件，只不过该js文件执行的时候会报错
-console.log(anyThing.myName);
-console.log(anyThing.myName.firstName);
-console.log(anyThing.setName('join'));
-console.log(anyThing.setName('join').getName());
-
-```
-###### 未声明类型的变量
-* 变量如果在声明的时候，未指定其类型，那么它会被识别为任意值类型
-
-``` typescript 
-// ./code/tsEG2.ts
-let something;
-something = 'lyf';
-something = 54;
-
-// 等价于
-let something:any;
-something = 'lyf';
-something = 54;
-
-```
 > 类型推论
 * 如果没有明确的指定类型，那么Typescript会依照类型推论的规则推断出一个类型
 * 如果定义的时候赋值，不管之后有没有赋值，都会被推断成any类型而完全不被类型检查
@@ -203,6 +240,148 @@ console.log(myStrOrNum1.length);// 3 不报错
 myStrOrNum1 = 54;
 console.log(myStrOrNum1.length);// 编译时报错 因为被
 // 推断为number，访问length属性时就报错了
+```
+
+> 函数的类型
+###### 函数声明
+* 一个函数有输入和输出，要在Typescript中对其进行约束，需要把输入和输出都考虑到，比如fun1 
+* 输入多余或者少于要求的参数，都是不被允许的
+###### 函数表达式
+* 对等号右侧的匿名函数进行了类型定义，而等号左边的变量fun2是通过赋值操作进行类型推论而推论出来的，如果需要手动给fun2添加类型，比如fun3
+* 注意不要混淆了Typescript中的 => 和 ES6中的 => 
+* 在Typescript中 => 用来表示函数的定义，左边是输入类型，需要用括号括起来，右边是输出类型
+* 在ES6中 => 叫做箭头函数
+###### 用接口定义函数的形状
+* 比如SearchFunc 和 fun4
+* 对于函数类型的类型检查来说，函数的参数名不需要与接口里定义的名字相匹配,比如fun5
+###### 可选参数
+* 前面提到参数多余或者少于都是不允许的，与接口中的可选属性类似，可以用?表示可选参数
+* 可选参数必须接在必需参数的后面，换句话说，可选参数后面不允许再出现必需参数了，比如buildName2
+###### 参数默认值
+* 在ES6中，允许给函数参数添加默认值，Typescript会讲添加了默认值的参数识别为可选参数，比如buildName3
+* 此时就不受【可选参数必须接在必须参数的后面了】，比如buildName4
+###### 剩余参数
+* 在ES6中，可以使用...rest 的方式获取函数中的剩余参数，事实上rest是一个数组，所以我们用数组的类型来定义它,比如fun6
+###### 重载
+* 重载允许一个函数接受不同数量或者类型的参数时，作出不同的处理，比如reverse
+    * 但是这样有一个缺点，就是不能精确的表达，输入为数字的时候，输出也为数字，输入为string，输出也应该为string
+* 可是使用重载定义多个reverse1 的函数类型，比如reverse1
+    * 前几次reverse1 都是函数定义，最后一次是函数的实现
+    * Typescript会优先从前面的函数定义开始匹配，所以多个函数定义如果有包含关系，需要优先把精确的定义写在前面
+
+
+``` typescript
+// ./code/tsEG6.ts
+//函数声明
+function fun1(x: number, y: number): number{
+    return x + y;
+}
+fun1(1,2);
+fun1(1); // 报错 参数少 
+fun1(1,2,3); // 报错 参数多
+
+// 函数表达式
+let fun2 = function(x: number,y: number):number{
+    return x + y;
+}
+let fun3:(x: number, y: number) => number = function(x: number, y: number): number{
+    return x + y;
+}
+
+//用接口定义函数的形状
+interface SearchFunc{
+    (source: string, subString: string):boolean;
+}
+let fun4: SearchFunc;
+fun4 = function(source: string, subString: string){
+    return source.search(subString) !== -1;
+}
+let fun5: SearchFunc;
+fun5 = function(src: string, sub: string){
+    return src.search(sub) !== -1;
+}
+
+function buildName(firstName: string, lastName: string){
+    if(lastName){
+        return firstName + ' ' + lastName;
+    }else{
+        return firstName;
+    }
+}
+let feng = buildName('yi','feng');
+let fengfeng = buildName('feng');// 会报错 第二个参数必须
+
+// 可选参数
+function buildName2(firstName?: string, lastName: string){// 会报错 不必须参数后面出现了必须参数
+    
+    if(lastName){
+        return firstName + ' ' + lastName;
+    }else{
+        return firstName;
+    }
+}
+let feng2 = buildName2('yi','feng');
+let fengfeng2 = buildName2('feng'); // 报错
+
+// 参数默认值
+function buildName3(firstName: string, lastName: string = 'fff'){
+    
+    return firstName + ' ' + lastName;
+}
+let feng3 = buildName3('yi','feng');
+let fengfeng3 = buildName3('feng'); 
+
+function buildName4(firstName: string = 'li', lastName: string){ // 不会报错
+    
+    return firstName + ' ' + lastName;
+}
+// buildName4 被编译为
+/*function buildName4(firstName, lastName) {
+    if (firstName === void 0) { firstName = 'li'; }
+    return firstName + ' ' + lastName;
+}*/
+let feng4 = buildName4('yi','feng');
+let fengfeng4 = buildName4(undefined,'feng'); 
+
+// 剩余参数
+function fun6(arr: any[],...items: any[]){
+	items.map(function(v){
+	    arr.push(v)
+    })
+}
+// fun6 被编译为
+/*function fun6(arr) {
+    var items = [];
+    for (var _i = 1; _i < arguments.length; _i++) {
+        items[_i - 1] = arguments[_i];
+    }
+    items.map(function (v) {
+        arr.push(v);
+    });
+}*/
+let a = [];
+fun6(a,1,2,3)
+
+// 重载
+function reverse(x: number | string):number | string{
+    if(typeof x === 'number'){
+        return Number(x.toString().split('').reverse().join(''));
+    } else if (typeof x === 'string'){
+        return x.split('').reverse().join('');
+    }
+}
+//前几次reverse1 都是函数定义，最后一次是函数的实现
+//Typescript会优先从前面的函数定义开始匹配，所以多个函数定义如果有包含关系，需要优先把精确的定义写在前面
+function reverse1(x: number):number;
+function reverse1(x: string):string;
+function reverse1(x: number | string):number | string{
+    if(typeof x === 'number'){
+        return Number(x.toString().split('').reverse().join(''));
+    } else if (typeof x === 'string'){
+        return x.split('').reverse().join('');
+    }
+}
+
 ```
 
 > 对象的类型——接口
@@ -385,194 +564,6 @@ let lyf51: Person5 = {
 }
 
 lyf51.id = 54; // 会报错  因为只读
-```
-
-> 数组的类型
-    在typescript中，数组类型有多种定义方式，比较灵活
-######【类型+方括号】
-* 比如number[],比如arr1
-* 数组中不允许出现其他类型的值,比如arr2
-* 数组的一些方法的参数也会根据数组在定义时约定的类型进行限制，比如arr1.push('a');
-
-###### 数组泛型
-* 比如Array<number>,比如arr2;
-
-###### 用接口表示数组 todo index propname  的区别
-* 比如NumberArray;
-
-###### any在数组中的应用
-* 用any表示数组中允许出现任意类型，比如arr6
-
-###### 类数组 todo 内置对象
-* 类数组不是数组类型，比如arguments，比如arrFunction
-* 常见放入类数组都有自己的接口定义，比如IArguments,NodeList,HTMLCollection
-
-``` typescript
-// ./code/tsEG5.ts
-
-//【类型+方括号】
-let arr1: number[] = [1,2,3,4,5];
-let arr2: number[] = [1,2,3,4,'a'];//会报错 类型被推断为number | string
-arr1.push('a'); //会报错 push进行的是个string，但是arr1定义的是number 
-
-let arr3: Array<number> = [1,2,3,4,5];
-
-interface NumberArray1{
-    [index:number]:number
-}
-interface NumberArray2{
-    [propName:number]:number
-}
-let arr4: NumberArray1 = [1,2,3,4,5];
-let arr5: NumberArray2 = [1,2,3,4,5];
-
-let arr6: any[] = [1,'2',{name:'lyf'}];
-
-function arrFunction(){
-    let args:IArguments = arguments;
-}
-```
-
-> 函数的类型
-###### 函数声明
-* 一个函数有输入和输出，要在Typescript中对其进行约束，需要把输入和输出都考虑到，比如fun1 
-* 输入多余或者少于要求的参数，都是不被允许的
-###### 函数表达式
-* 对等号右侧的匿名函数进行了类型定义，而等号左边的变量fun2是通过赋值操作进行类型推论而推论出来的，如果需要手动给fun2添加类型，比如fun3
-* 注意不要混淆了Typescript中的 => 和 ES6中的 => 
-* 在Typescript中 => 用来表示函数的定义，左边是输入类型，需要用括号括起来，右边是输出类型
-* 在ES6中 => 叫做箭头函数
-###### 用接口定义函数的形状
-* 比如SearchFunc 和 fun4
-* 对于函数类型的类型检查来说，函数的参数名不需要与接口里定义的名字相匹配,比如fun5
-###### 可选参数
-* 前面提到参数多余或者少于都是不允许的，与接口中的可选属性类似，可以用?表示可选参数
-* 可选参数必须接在必需参数的后面，换句话说，可选参数后面不允许再出现必需参数了，比如buildName2
-###### 参数默认值
-* 在ES6中，允许给函数参数添加默认值，Typescript会讲添加了默认值的参数识别为可选参数，比如buildName3
-* 此时就不受【可选参数必须接在必须参数的后面了】，比如buildName4
-###### 剩余参数
-* 在ES6中，可以使用...rest 的方式获取函数中的剩余参数，事实上rest是一个数组，所以我们用数组的类型来定义它,比如fun6
-###### 重载
-* 重载允许一个函数接受不同数量或者类型的参数时，作出不同的处理，比如reverse
-    * 但是这样有一个缺点，就是不能精确的表达，输入为数字的时候，输出也为数字，输入为string，输出也应该为string
-* 可是使用重载定义多个reverse1 的函数类型，比如reverse1
-    * 前几次reverse1 都是函数定义，最后一次是函数的实现
-    * Typescript会优先从前面的函数定义开始匹配，所以多个函数定义如果有包含关系，需要优先把精确的定义写在前面
-
-
-``` typescript
-// ./code/tsEG6.ts
-//函数声明
-function fun1(x: number, y: number): number{
-    return x + y;
-}
-fun1(1,2);
-fun1(1); // 报错 参数少 
-fun1(1,2,3); // 报错 参数多
-
-// 函数表达式
-let fun2 = function(x: number,y: number):number{
-    return x + y;
-}
-let fun3:(x: number, y: number) => number = function(x: number, y: number): number{
-    return x + y;
-}
-
-//用接口定义函数的形状
-interface SearchFunc{
-    (source: string, subString: string):boolean;
-}
-let fun4: SearchFunc;
-fun4 = function(source: string, subString: string){
-    return source.search(subString) !== -1;
-}
-let fun5: SearchFunc;
-fun5 = function(src: string, sub: string){
-    return src.search(sub) !== -1;
-}
-
-function buildName(firstName: string, lastName: string){
-    if(lastName){
-        return firstName + ' ' + lastName;
-    }else{
-        return firstName;
-    }
-}
-let feng = buildName('yi','feng');
-let fengfeng = buildName('feng');// 会报错 第二个参数必须
-
-// 可选参数
-function buildName2(firstName?: string, lastName: string){// 会报错 不必须参数后面出现了必须参数
-    
-    if(lastName){
-        return firstName + ' ' + lastName;
-    }else{
-        return firstName;
-    }
-}
-let feng2 = buildName2('yi','feng');
-let fengfeng2 = buildName2('feng'); // 报错
-
-// 参数默认值
-function buildName3(firstName: string, lastName: string = 'fff'){
-    
-    return firstName + ' ' + lastName;
-}
-let feng3 = buildName3('yi','feng');
-let fengfeng3 = buildName3('feng'); 
-
-function buildName4(firstName: string = 'li', lastName: string){ // 不会报错
-    
-    return firstName + ' ' + lastName;
-}
-// buildName4 被编译为
-/*function buildName4(firstName, lastName) {
-    if (firstName === void 0) { firstName = 'li'; }
-    return firstName + ' ' + lastName;
-}*/
-let feng4 = buildName4('yi','feng');
-let fengfeng4 = buildName4(undefined,'feng'); 
-
-// 剩余参数
-function fun6(arr: any[],...items: any[]){
-	items.map(function(v){
-	    arr.push(v)
-    })
-}
-// fun6 被编译为
-/*function fun6(arr) {
-    var items = [];
-    for (var _i = 1; _i < arguments.length; _i++) {
-        items[_i - 1] = arguments[_i];
-    }
-    items.map(function (v) {
-        arr.push(v);
-    });
-}*/
-let a = [];
-fun6(a,1,2,3)
-
-// 重载
-function reverse(x: number | string):number | string{
-    if(typeof x === 'number'){
-        return Number(x.toString().split('').reverse().join(''));
-    } else if (typeof x === 'string'){
-        return x.split('').reverse().join('');
-    }
-}
-//前几次reverse1 都是函数定义，最后一次是函数的实现
-//Typescript会优先从前面的函数定义开始匹配，所以多个函数定义如果有包含关系，需要优先把精确的定义写在前面
-function reverse1(x: number):number;
-function reverse1(x: string):string;
-function reverse1(x: number | string):number | string{
-    if(typeof x === 'number'){
-        return Number(x.toString().split('').reverse().join(''));
-    } else if (typeof x === 'string'){
-        return x.split('').reverse().join('');
-    }
-}
-
 ```
 
 > 类型断言

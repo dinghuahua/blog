@@ -25,4 +25,4 @@ let u:undefined;
 let num2:number = u;
 
 let u2:void;
-// let num3:number = u2;//会报错
+let num3:number = u2;//会报错
