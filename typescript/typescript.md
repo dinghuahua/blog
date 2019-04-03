@@ -736,6 +736,7 @@ function loggingIdentity<T extends Lengthwise>(arg: T): T {
 }
 loggingIdentity({length: 10, value: 3});
 
+// 了解
 class BeeKeeper {
     hasMask: boolean;
 }
