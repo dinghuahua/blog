@@ -383,6 +383,71 @@ function reverse1(x: number | string):number | string{
 }
 
 ```
+###### func 总结
+``` typescript
+// 函数
+// 函数的声明
+function fun0(x: number, y: number){
+    return x + y;
+}
+function fun1(x: number, y: number): number{
+    return x + y;
+}
+// 函数表达式
+let add1: (x: number,y: number) => number = function(x: number, y: number): number{return x + y;}
+let add2 = function(x: number,y: number): number{return x + y;}
+let add3 = function(x: number,y: number){return x + y;}
+let add4: (x: number, y: number) => number = function(x, y){return x + y;}
+// let add5: (x: number, y: number) = function(x, y){return x + y;} // 会报错 前面写必须'=>' expected
+// let add6: (x: number, y: number) = function(x, y): number{return x + y;}// 会报错 前面写必须'=>' expected
+
+// 用接口定义函数声明
+interface SquareConfig {
+    color?: string;
+    width?: number;
+    name: string
+}
+function createSquare(config: SquareConfig): {color: string; area: number} {
+    let newSquare = {color: "white", area: 100};
+    if (config.color) {
+      newSquare.color = config.color;
+    }
+    if (config.width) {
+      newSquare.area = config.width * config.width;
+    }
+    return newSquare;
+}
+let mySquare = createSquare({name: 'lyf', color: "black"});
+// 用接口定义函数表达式
+interface SearchFunc{
+    // 给接口定义一个调用签名
+    (source: string, subString: string):boolean;
+}
+let fun4: SearchFunc;
+fun4 = function(source: string, subString: string){
+    return source.search(subString) !== -1;
+}
+// 重载
+// 但是这样有一个缺点，就是不能精确的表达，输入为数字的时候，输出也为数字，输入为string，输出也应该为string
+function reverse(x: number | string):number | string{
+    if(typeof x === 'number'){
+        return Number(x.toString().split('').reverse().join(''));
+    } else if (typeof x === 'string'){
+        return x.split('').reverse().join('');
+    }
+}
+//前几次reverse1 都是函数定义，最后一次是函数的实现
+//Typescript会优先从前面的函数定义开始匹配，所以多个函数定义如果有包含关系，需要优先把精确的定义写在前面
+function reverse1(x: number):number;
+function reverse1(x: string):string;
+function reverse1(x: number | string):number | string{
+    if(typeof x === 'number'){
+        return Number(x.toString().split('').reverse().join(''));
+    } else if (typeof x === 'string'){
+        return x.split('').reverse().join('');
+    }
+}
+```
 
 > 对象的类型——接口
     在Typescript中，我们使用接口(interfaces)来定义对象的类型
