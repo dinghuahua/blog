@@ -16,6 +16,7 @@ let myObj2 = {size: 10, label: "Size 10 Object"};
 printLabel2(myObj2);
 printLabel2({size: 10, label: "Size 10 Object"}); // 会报错 ？？？？
 // 调用签名
+
 // 构造器签名
 // 索引签名
 interface StringArray {
