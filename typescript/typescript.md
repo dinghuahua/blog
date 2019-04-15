@@ -191,7 +191,7 @@ lyf6.push(true);// 会报错
 * 如果没有明确的指定类型，那么Typescript会依照类型推论的规则推断出一个类型
 * 如果定义的时候赋值，不管之后有没有赋值，都会被推断成any类型而完全不被类型检查
 ###### 什么是类型推论
-    声明变量时若没有指定类型，会根据当前行的赋值结果推论出变量的类型，如果在生命的时候没有赋值，则此变量的类型才是any
+    声明变量时若没有指定类型，会根据当前行的赋值结果推论出变量的类型，如果在声明的时候没有赋值，则此变量的类型才是any
 ``` typescript
 // ./code/ts-any-inference-union.ts
 let mystr = 'lyf';
@@ -211,7 +211,7 @@ mystr = 54; // 会报错
 // ./code/ts-any-inference-union.ts
 let myStrOrNum:string | number;
 myStrOrNum = 'lyf';
-myStrOrNum = '54';
+myStrOrNum = 54;
 myStrOrNum = true;// 报错
 ``` 
 ###### 访问联合类型的属性和方法
@@ -523,9 +523,9 @@ let lyf13: Person1 = {
 ``` typescript
 // ./code/ts-class1.ts
 interface Person21{
+    [propName: string]: number; // 会报错  name值的string类型不是可选属性值的类型number的子集
     name: string;
     age?: number;
-    [propName: string]: number; // 会报错  name值的string类型不是可选属性值的类型number的子集
 }
 interface Person22{
     name: string;
@@ -567,7 +567,7 @@ let lyf26: Person2 = {
     age:18,
     gender1:'male',
     gender2:'female',
-    age:19 // 会报错  自定义的age 和原本固定班的属性名重复
+    age:19 // 会报错  自定义的age 和原本固定的属性名重复
 }
 let lyf27: Person2 = {
     name:'LYF',

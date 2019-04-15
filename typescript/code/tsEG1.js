@@ -20,4 +20,4 @@ var num = undefined;
 var u;
 var num2 = u;
 var u2;
-// let num3:number = u2;//会报错
+var num3 = u2; //会报错

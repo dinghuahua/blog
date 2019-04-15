@@ -54,7 +54,7 @@ var lyf26 = {
     age: 18,
     gender1: 'male',
     gender2: 'female',
-    age: 19 // 会报错  自定义的age 和原本固定班的属性名重复
+    age: 19 // 会报错  自定义的age 和原本固定的属性名重复
 };
 var lyf27 = {
     name: 'LYF',
