@@ -482,6 +482,8 @@ JS 动画与 CSS 动画的细微区别
 注意：
     Web开发人员应该小心考虑在空闲回调期间操作执行的所有工作。某些操作（例如解析承诺或触发页面布局）可能导致后续任务被调度为在空闲回调完成后运行。在这种情况下，应用程序应在截止日期到期之前通过屈服来考虑这项额外工作，以允许在下一帧截止日期之前执行这些操作。
 
+[参考链接](https://www.w3.org/TR/requestidlecallback/#idle-periods)
+
 <div align='center'>
 <image src='https://github.com/dinghuahua/blog/blob/feature1/browser/images/browser6.png'>
 </div>
