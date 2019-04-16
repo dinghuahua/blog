@@ -293,7 +293,7 @@ render树可能又得重新重绘或者回流了，这就造成了一些没有�
 
 >> 什么是硬件加速
 
-* 硬件加速意味着Graphics Processing Unit（GPU）会通过代替Central Processing Unit (CPU)做一些负荷比较大的事情，来协助浏览器快速渲染页面，当CSS操作使用硬件加速的时候，通常会使页面渲染速度加快，但如果不合理运用硬件加速，会影响电池寿命。todo
+* 硬件加速意味着Graphics Processing Unit（GPU）会通过代替Central Processing Unit (CPU)做一些负荷比较大的事情，来协助浏览器快速渲染页面，当CSS操作使用硬件加速的时候，通常会使页面渲染速度加快，但如果不合理运用硬件加速，会影响电池寿命。
 * GPU处理来加速。除了opacity能够使用GPU处理的就是CSS 3D变形了
 * 很长一段时间内我们都通过translateZ()或者translate3d() hack来骗取浏览器触发硬件加速，具体做法就是为元素添加没有变化的3D变形，比如元素在2维空间可以通过添加以下CSS来硬件加速transform: translate3d(0, 0, 0);
 复合层）
@@ -330,7 +330,7 @@ render树可能又得重新重绘或者回流了，这就造成了一些没有�
 * 不要使用table布局，一个小改动会造成整个table的重新布局。
 * transform和opacity只会引起合成，不会引起布局和重绘。
 
-从上述的最佳实践中你可能发现，动画优化一般都是尽可能地减少reflow、repaint的发生。关于哪些属性会引起reflow、repaint及composite，你可以在这个网站找到https://csstriggers.com/。
+从上述的最佳实践中你可能发现，动画优化一般都是尽可能地减少reflow、repaint的发生。
 
 > CSS动画 和js 实现动画的性能对比
 
@@ -350,7 +350,21 @@ css动画有一个重要的特性，它是完全工作在GPU上。因为你声�
 * 下一帧开始
 * 上一帧遗留的宏任务
 
-> macrotask 和 microtask 
+
+一个event loop只要存在，就会不断执行下边的步骤：
+1.在tasks队列中选择最老的一个task,用户代理可以选择任何task队列，如果没有可选的任务，则跳到下边的microtasks步骤。
+2.将上边选择的task设置为正在运行的task。
+3.Run: 运行被选择的task。
+4.将event loop的currently running task变为null。
+5.从task队列里移除前边运行的task。
+6.Microtasks: 执行microtasks任务检查点。（也就是执行microtasks队列里的任务）
+7.更新渲染（Update the rendering）...
+8.如果这是一个worker event loop，但是没有任务在task队列中，并且WorkerGlobalScope对象的closing标识为true，则销毁event loop，中止这些步骤，然后进行定义在Web workers章节的 run a worker。
+9.返回到第一步。
+
+[参考链接](https://juejin.im/entry/59082301a22b9d0065f1a186)
+
+> macrotask 和 microtask
 
 * macrotask（又称之为宏任务），可以理解是每次执行栈执行的代码就是一个宏任务（包括每次从事件队列中获取一个事件回调并放到执行栈中执行）
     * 每一个task会从头到尾将这个任务执行完毕，不会执行其它
@@ -361,8 +375,14 @@ css动画有一个重要的特性，它是完全工作在GPU上。因为你声�
     * 也就是说，在当前task任务后，下一个task之前，在渲染之前
     * 所以它的响应速度相比setTimeout（setTimeout是task）会更快，因为无需等渲染
     * 也就是说，在某一个macrotask执行完后，就会将在它执行期间产生的所有microtask都执行完毕（在渲染前）
-    * 假如在上一帧的渲染过程中产生来微任务，在下一帧开始的时候是先执行一个宏任务，然后才会执行上一帧渲染阶段产生的微任务,查看总结中微任务执行的时间点
-todo 图
+    * 假如在上一帧的渲染过程中产生来微任务，在下一帧开始的时候是先执行一个宏任务，然后才会执行上一帧渲染阶段产生的微任务
+  
+  [哪些是宏任务](https://html.spec.whatwg.org/multipage/webappapis.html#generic-task-sources)
+
+>> 微任务执行的时间点
+    Microtasks按顺序执行，并执行：
+        1. 每次回调后，只要其他JavaScript没有执行中
+        2. 在每项任务结束时
 
 > 总结：
 
@@ -407,9 +427,22 @@ FPS 也可以理解为我们常说的“刷新频率”或者“刷新率”，�
 页面是一帧一帧绘制出来的，当每秒绘制的帧数（FPS）达到 60 时，页面是流畅的，小于这个值时，用户会感觉到卡顿。
 
 大多数浏览器刷新率为 60 次/秒,即1s 60帧，所以每一帧分到的时间是 1000/60 ≈ 16 ms。所以我们书写代码时力求不让一帧的工作量超过 16ms。
-todo 图
 
-> 一帧 浏览器做的事情
+> 浏览器一帧内的工作
+
+通过图可看到，一帧内需要完成如下六个步骤的任务：
+
+处理用户的交互
+JS 解析执行
+帧开始。窗口尺寸变更，页面滚去等的处理
+rAF
+布局
+绘制
+
+<div align='center'>
+<image src='https://github.com/dinghuahua/blog/blob/feature1/browser/images/browser8.png'>
+</div>
+
 
 ## 首屏加载时间是从哪一步到哪一步
 
@@ -425,6 +458,31 @@ JS 动画与 CSS 动画的细微区别
 上面主要想得出的一个结论是。如果我们能够知道主线程和合成线程每一帧消耗的时间，那么我们就能大致得出对应的 Web 动画的帧率。那么上面说到的 Frame Timing API 是否可以帮助我们拿到这个时间点呢。
 
 ## 在浏览器空闲时间和渲染前等时间段分析requestIdleCallback 和 requestAnimationFrame 这两个方法
+
+* 在输入处理，给定帧的渲染和合成完成之后，用户代理的主线程经常变为空闲，直到：下一帧开始; 另一个待处理的任务有资格运行; 或收到用户输入。该规范提供了一种通过requestIdleCallbackAPI 在这个空闲时间内调度回调执行的方法 。
+
+* 通过requestIdleCallbackAPI 发布的回调有资格在用户代理定义的空闲时段内运行。当执行空闲回调时，将给出对应于当前空闲时段结束的截止时间。关于什么构成空闲时段的决定是用户代理定义的，但是期望它们发生在浏览器期望空闲的静止时段中。
+
+> 空闲时段的一个示例是在给定帧提交到屏幕和在活动动画期间开始下一帧处理之间的时间，
+
+* 如图中帧间空闲时段的示例 所示。这些空闲时段将在活动动画和屏幕更新期间频繁发生，但通常非常短（即，对于具有60Hz vsync周期的设备，小于16ms）。
+
+注意：
+    Web开发人员应该小心考虑在空闲回调期间操作执行的所有工作。某些操作（例如解析承诺或触发页面布局）可能导致后续任务被调度为在空闲回调完成后运行。在这种情况下，应用程序应在截止日期到期之前通过屈服来考虑这项额外工作，以允许在下一帧截止日期之前执行这些操作。
+
+<div align='center'>
+<image src='https://github.com/dinghuahua/blog/blob/feature1/browser/images/browser6.png'>
+</div>
+
+> 空闲时段的另一个示例是当用户代理空闲而没有发生屏幕更新时。
+
+* 在这种情况下，用户代理可能没有即将到来的任务，它可以限制空闲时段的结束。
+* 为了避免在不可预测的任务中引起用户可察觉的延迟，例如用户输入的处理，这些空闲时段的长度应该被限制为最大值50ms。一旦空闲时段结束，用户代理可以在其保持空闲时调度另一个空闲时段，
+* 如图所示， 当没有待处理的帧更新时的空闲时段示例 ，以使后台工作能够在更长的空闲时间段内继续发生。
+
+<div align='center'>
+<image src='https://github.com/dinghuahua/blog/blob/feature1/browser/images/browser7.png'>
+</div>
 
 ## 结合React 16 中的fiber 分析浏览器空闲时间执行的requestIdleCallback
 
