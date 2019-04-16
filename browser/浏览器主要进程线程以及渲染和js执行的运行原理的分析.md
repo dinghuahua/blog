@@ -33,7 +33,8 @@
 * 浏览器之所以能够运行，是因为系统给它的进程分配了资源（cpu和内存）
 * 简单理解，每打开一个tab页，就相当于创建了一个独立的浏览器进程，可以通过打开任务管理器仅从查看验证,也可以通过Chrome的更多工具-> 任务管理器进行验证
 <div align='center'>
-<image src='' width=50%>
+<image src='https://github.com/dinghuahua/blog/blob/feature1/browser/images/browser1.png' width=50%>
+<image src='https://github.com/dinghuahua/blog/blob/feature1/browser/images/browser2.png' width=50%>
 </div>
 
 注意：
@@ -101,7 +102,9 @@ todo 图
 * 渲染进程。包裹标签页的容器。包含了多个线程，这些线程一起负责了页面显示到屏幕上的各个方面。这些线程有合成线程（Compositor），图块栅格化线程（Tile Worker），和主线程。
 * GPU 进程。这是一个单一的进程，为所有标签页和浏览器周边进程服务。当帧被提交时，GPU 进程会将分为图块的位图和其他数据（比如四边形顶点和矩阵）上传到 GPU 中，真正将像素显示到屏幕上。GPU 进程只有一个的线程，叫 GPU 线程，实际上是它做了这些工作。
 >> 渲染进程中的线程
-todo 图
+<div align='center'>
+<image src='https://github.com/dinghuahua/blog/blob/feature1/browser/images/browser4.svg' width=50%>
+</div>
 * 合成线程（Compositor Thread）。这是最先被告知垂直同步事件（vsync event，操作系统告知浏览器刷新一帧图像的信号）的线程。它接收所有的输入事件。如果可能，合成线程会避免进入主线程，自己尝试将输入的事件（比如滚动）转换为屏幕的移动。它会更新图层的位置，并经由 GPU 线程直接向 GPU 提交帧来完成这个操作。如果输入事件需要进行处理，或者有其他的显示工作，它将无法直接完成该过程，这就需要主线程了。
 * 主线程。在这里浏览器执行我们熟知和喜欢的那些任务：JavaScript，样式，布局和绘制。（这一点以后会变化，有了 Houdini，我们可以在合成线程中运行一些代码）主线程荣获“最容易导致 jank 奖”，很大程度上是因为它要做的事情太多了这个事实。（译注：jank 指页面内容抖动卡顿，由于页面内容的更新频率跟不上屏幕刷新频率导致）
 * 合成图块栅格化线程（Compositor Tile Worker）。由合成线程派生的一个或多个线程，用于处理栅格化任务。我们稍后再讨论。
