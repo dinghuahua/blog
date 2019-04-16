@@ -150,6 +150,9 @@
 
 * requestIdleCallback：如果在帧结束时，主线程还有点时间，requestIdleCallback 可能会被触发。这是做些非必要工作的好机会，比如标记分析数据。
 
+[光栅参考链接1](http://www.51testing.com/html/16/n-4457716-3.html)
+[光栅参考链接2](https://www.jianshu.com/p/5a52f2492759)
+
 >> 在工作流程中深度的排序有两种版本。
 
 * 首先是层叠上下文，比如有 2 个绝对定位的重叠的 div。更新图层树（Update Layer Tree） 是流程的一部分，保证 z-index 和类似的属性受到重视。
@@ -300,6 +303,7 @@ render树可能又得重新重绘或者回流了，这就造成了一些没有�
 * GPU处理来加速。除了opacity能够使用GPU处理的就是CSS 3D变形了
 * 很长一段时间内我们都通过translateZ()或者translate3d() hack来骗取浏览器触发硬件加速，具体做法就是为元素添加没有变化的3D变形，比如元素在2维空间可以通过添加以下CSS来硬件加速transform: translate3d(0, 0, 0);
 复合层）
+[参考链接](https://segmentfault.com/a/1190000008015671#articleHeader4)
 
 > 仅仅只发生GPU 的合成composite 不触发回流reflow和重绘repaint，我们做动画的css property必须满足以下三个条件：
 
@@ -490,7 +494,7 @@ JS 动画与 CSS 动画的细微区别
 <image src='https://github.com/dinghuahua/blog/blob/feature1/browser/images/browser7.png'>
 </div>
 
-## 结合React 16 中的fiber 分析浏览器空闲时间执行的requestIdleCallback
+## 结合React 16 中的fiber 分析浏览器空闲时间执行的requestIdleCallback todo
 
 
 
