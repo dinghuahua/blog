@@ -96,7 +96,10 @@
         Networking 异步http请求线程
             * 在XMLHttpRequest 在连接后是通过浏览器新开一个线程请求
             * 检测到状态变更时，如果设置有回调函数，异步线程就产生状态变更事件，将这个回调再放入事件队列中，再由JS引擎执行
-todo 图
+
+<div align='center'>
+<image src='https://github.com/dinghuahua/blog/blob/feature1/browser/images/browser5.png'>
+</div>
 > 浏览器帧原理剖析
 >> 进程
 * 渲染进程。包裹标签页的容器。包含了多个线程，这些线程一起负责了页面显示到屏幕上的各个方面。这些线程有合成线程（Compositor），图块栅格化线程（Tile Worker），和主线程。
@@ -105,6 +108,7 @@ todo 图
 <div align='center'>
 <image src='https://github.com/dinghuahua/blog/blob/feature1/browser/images/browser4.svg'>
 </div>
+
 * 合成线程（Compositor Thread）。这是最先被告知垂直同步事件（vsync event，操作系统告知浏览器刷新一帧图像的信号）的线程。它接收所有的输入事件。如果可能，合成线程会避免进入主线程，自己尝试将输入的事件（比如滚动）转换为屏幕的移动。它会更新图层的位置，并经由 GPU 线程直接向 GPU 提交帧来完成这个操作。如果输入事件需要进行处理，或者有其他的显示工作，它将无法直接完成该过程，这就需要主线程了。
 * 主线程。在这里浏览器执行我们熟知和喜欢的那些任务：JavaScript，样式，布局和绘制。（这一点以后会变化，有了 Houdini，我们可以在合成线程中运行一些代码）主线程荣获“最容易导致 jank 奖”，很大程度上是因为它要做的事情太多了这个事实。（译注：jank 指页面内容抖动卡顿，由于页面内容的更新频率跟不上屏幕刷新频率导致）
 * 合成图块栅格化线程（Compositor Tile Worker）。由合成线程派生的一个或多个线程，用于处理栅格化任务。我们稍后再讨论。
@@ -150,13 +154,18 @@ todo 图
 这就是所谓的 GPU 栅格化，是一种降低绘制（paint）成本的方法。在 Chrome DevTools 中启用 FPS Meter（FPS 计数），你可以查看页面是否使用了 GPU 栅格化。
 
 
-[链接：](https://juejin.im/post/5c9c66075188251dab07413d)
+[链接：https://juejin.im/post/5c9c66075188251dab07413d](https://juejin.im/post/5c9c66075188251dab07413d)
+
 > browser进程和Renderer进程（浏览器内核）的通信过程
+
     1. Browser进程收到用户请求，首先UI线程处理，转交给IO线程，随后通过RendererHost接口转交给Renderer进程
     2. Renderer进程的Renderer接口收到消息，IO线程简单处理后，交给渲染线程，进行HTML解析和DOM树构建，CSS解析，JS执行，RenderObject树构建，布局和绘制等过程，生成用户可见区域（ViewPort）的Bitmap。最后通过共享内存方式IPC给Browser进程
     3. Browser进程使用Bitmap内存在界面上绘制出图像。
+   
 > 渲染进程是如何工作的
+
 >> 在从服务器中拿到数据后，浏览器会先做解析三类东西：
+
  * 解析html,xhtml,svg这三类文档，形成dom树。
  * 解析css，产生css rule tree。
  * 解析js，js会通过api来操作dom tree和css rule tree。
@@ -169,6 +178,7 @@ todo 图
  * 然后浏览器会将各层的信息发送给GPU，GPU会将各层合成；显示在屏幕上。
 
 >> 渲染进程的核心目的在于转换HTML CSS JS 为用户可交互的web页面
+
     解析DOM树 构建 DOM树 CSS加载解析，
     JS执行
     RenderObject树构建
@@ -180,7 +190,6 @@ todo 图
         光栅线程 Raster thread      栅格线程格化磁贴存储在GPU显存中（享内存）
         一旦磁贴被光栅化，合成器线程会收集称为绘制四边形的磁贴信息以创建合成帧（Bitmap）。
 不同呈现引擎在主流程中会有稍微不同，例如css样式表的解析时机，在webkit 内核 html和css 的解析是同步的
-todo 图片
 
 事件循环
 > GUI渲染线程与JS引擎线程互斥
@@ -233,16 +242,30 @@ render树可能又得重新重绘或者回流了，这就造成了一些没有�
 
 
 ## 普通图层和复合图层以及CSS动画 和js 实现动画的性能对比
-> 脱离文档流 todo
+> 脱离文档流
+
 * float布局 absolute 、fixed 定位等会造成脱离文档流
 > 普通文档流（也是复合图层，但是会造成render进程的GUI线程回流和重绘） 和复合图层
+
 1. 普通文档流可以理解为一个复合图层
 2. absolute fixed 虽然可以脱离文档流，但它仍然属于默认图层
 3. 可以通过硬件加速的方式，声明一个新的复合图层，它会单独分配资源，当然也会脱离文档流，这样的话，不管这个复合图层怎么变化，也不会影响默认复合图层的回流重绘
 4. GPU中，各个图层是单独绘制的，所以互不影响，这也是为什么某些场景硬件加速效果非常好
 5. 可以Chrome源码调试 -> More Tools -> Rendering -> Layer borders中看到，黄色的就是复合图层信息
-> 默认图层和复合图层 todo
+
+> 默认图层和复合图层 
+
+渲染步骤中就提到了composite概念。
+可以简单的这样理解，浏览器渲染的图层一般包含两大类：普通图层以及复合图层
+首先，普通文档流内可以理解为一个复合图层（这里称为默认复合层，里面不管添加多少元素，其实都是在同一个复合图层中）
+其次，absolute布局（fixed也一样），虽然可以脱离普通文档流，但它仍然属于默认复合层。
+然后，可以通过硬件加速的方式，声明一个新的复合图层，它会单独分配资源
+（当然也会脱离普通文档流，这样一来，不管这个复合图层中怎么变化，也不会影响默认复合层里的回流重绘）
+可以简单理解下：GPU中，各个复合图层是单独绘制的，所以互不影响，这也是为什么某些场景硬件加速效果一级棒
+可以Chrome源码调试 -> More Tools -> Rendering -> Layer borders中看到，黄色的就是复合图层信息
+
 > 如何变成复合图层（硬件加速）或者 CPU、GPU和硬件加速（GPU加速）
+
 * 硬件加速就是创建了一个被传递到GPU处理的层的操作，这个层就是复合图层，
 * 创建复核图层就是
     * 最常用的方式：translate3d、translateZ
@@ -259,17 +282,20 @@ render树可能又得重新重绘或者回流了，这就造成了一些没有�
         * 元素有一个 z-index 较低且包含一个复合层的兄弟元素(换句话说就是该元素在复合层上面渲染)
 
 >> 什么是硬件加速
+
 * 硬件加速意味着Graphics Processing Unit（GPU）会通过代替Central Processing Unit (CPU)做一些负荷比较大的事情，来协助浏览器快速渲染页面，当CSS操作使用硬件加速的时候，通常会使页面渲染速度加快，但如果不合理运用硬件加速，会影响电池寿命。todo
 * GPU处理来加速。除了opacity能够使用GPU处理的就是CSS 3D变形了
 * 很长一段时间内我们都通过translateZ()或者translate3d() hack来骗取浏览器触发硬件加速，具体做法就是为元素添加没有变化的3D变形，比如元素在2维空间可以通过添加以下CSS来硬件加速transform: translate3d(0, 0, 0);
 复合层）
 > 仅仅只发生GPU 的合成composite 不触发回流reflow和重绘repaint，我们做动画的css property必须满足以下三个条件：
+
         不影响文档流。
         不依赖文档流。
         不会造成重绘。
 注意：position 会造成 回流和重绘，满足以上以上条件的css property只有transform和opacity。
 
 > will-change属性的解释
+
 * 3D 变换是被动迫使转换到GPU，而will-chang是主动来通知浏览器留意接下来的变化，从而优化和分配内存，允许对浏览器默认样式的优化如何提前处理因素，在动画实际开始之前，为准备动画执行潜在昂贵的工作著作权归作者所有。这明显比之前说的3D hacks要好。
 * will-change属性可以提前通知浏览器我们要对元素做什么动画，这样浏览器可以提前准备合适的优化设置。这样可以避免对页面响应速度有重要影响的昂贵成本。元素可以更快的被改变，渲染的也更快，这样页面可以快速更新，表现的更加流畅。
 * 举个例子，当对于素使用 CSS 3D变形时，元素及其内容可以在合成到页面之前被创建到我们之前说的layer。然而把元素放到layer中是个昂贵的操作，这将会导致变形动画延迟一个课件的瞬间，也就是flicker
@@ -284,6 +310,7 @@ render树可能又得重新重绘或者回流了，这就造成了一些没有�
         will-change： top, left, bottom, right;
 
 > 下面是一些针对reflow和repaint的最佳实践：
+
 * 不要一条一条地修改dom的样式，尽量使用className一次修改。
 * 将dom离线后修改
     * 使用documentFragment对象在内存里操作dom。
@@ -293,14 +320,17 @@ render树可能又得重新重绘或者回流了，这就造成了一些没有�
 * transform和opacity只会引起合成，不会引起布局和重绘。
 
 从上述的最佳实践中你可能发现，动画优化一般都是尽可能地减少reflow、repaint的发生。关于哪些属性会引起reflow、repaint及composite，你可以在这个网站找到https://csstriggers.com/。
+
 > CSS动画 和js 实现动画的性能对比
+
     用css动画而不是js动画
 css动画有一个重要的特性，它是完全工作在GPU上。因为你声明了一个动画如何开始和如何结束，浏览器会在动画开始前准备好所有需要的指令；并把它们发送给GPU。而如果使用js动画，浏览器必须计算每一帧的状态；为了保证平滑的动画，我们必须在浏览器主线程计算新状态；把它们发送给GPU至少60次每秒。除了计算和发送数据比css动画要慢，主线程的负载也会影响动画； 当主线程的计算任务过多时，会造成动画的延迟、卡顿。
 
 所以尽可能地使用基于css的动画，不仅仅更快；也不会被大量的js计算所阻塞。
-[哪些属性会引起reflow、repaint及composite，你可以在这个网站找到：](https://csstriggers.com/)
+[哪些属性会引起reflow、repaint及composite，你可以在这个网站找到：https://csstriggers.com/](https://csstriggers.com/)
 
 ## 从Event Loop 谈JS的运行机制以及从 macrotask 和 microtask 谈Event Loop 
+
 * JS分为同步任务和异步任务
 * 同步任务在JS引擎主线程上执行，形成一个执行栈
 * JS引擎主线程之外，事件触发线程管理者一个任务队列，只要异步任务有了运行结果，就在任务队列中放置一个事件
@@ -322,7 +352,9 @@ css动画有一个重要的特性，它是完全工作在GPU上。因为你声�
     * 也就是说，在某一个macrotask执行完后，就会将在它执行期间产生的所有microtask都执行完毕（在渲染前）
     * 假如在上一帧的渲染过程中产生来微任务，在下一帧开始的时候是先执行一个宏任务，然后才会执行上一帧渲染阶段产生的微任务,查看总结中微任务执行的时间点
 todo 图
+
 > 总结：
+
 * 所有同源窗口会共享一个event loop以同步通信。event loop会一直运行，来执行进入队列的宏任务。
 * 宏任务按顺序执行，且浏览器在每个宏任务之间渲染页面
 * 所有微任务也按顺序执行，且在以下场景会立即执行所有微任务
