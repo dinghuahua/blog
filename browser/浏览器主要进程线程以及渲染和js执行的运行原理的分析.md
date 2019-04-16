@@ -200,6 +200,8 @@
         一旦磁贴被光栅化，合成器线程会收集称为绘制四边形的磁贴信息以创建合成帧（Bitmap）。
 不同呈现引擎在主流程中会有稍微不同，例如css样式表的解析时机，在webkit 内核 html和css 的解析是同步的
 
+[构建DOM树 和 css 树的参考链接](https://developers.google.com/web/fundamentals/performance/critical-rendering-path/constructing-the-object-model)
+
 事件循环
 > GUI渲染线程与JS引擎线程互斥
 1. 由于JavaScript是可操作DOM的，如果在修改这些元素属性同时渲染界面（即JS线程和UI线程同时运行）那么渲染线程前后获得的元素数据就可能不一致来
