@@ -21,7 +21,7 @@ Record the learning process and accumulate knowledge points
 
 [^_^]: # (## todo 浏览器缓存  强缓存  协议缓存 http:www.baidu.com)
 
-[^_^]: # (## [todo 微信公众号授权](http:www.baidu.com)
+[^_^]: # (## [todo 微信公众号授权] http:www.baidu.com)
 [^_^]: # (## [todo 懒加载  时间戳](http:www.baidu.com)
 [^_^]: # (## [todo 进阶题目](http:www.baidu.com)
 [^_^]: # (## [todo 进阶题目](http:www.baidu.com)
