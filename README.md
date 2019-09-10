@@ -13,9 +13,9 @@ Record the learning process and accumulate knowledge points
 
 [^_^]: # (todo https和http 1.1 2 的对比http:www.baidu.com)
 
-[^_^]: # (## [todo websocket和ajax 的对比](http:www.baidu.com)
+[^_^]: # (## todo websocket和ajax 的对比](http:www.baidu.com)
 
-[^_^]: # (## [todo eventloop](http:www.baidu.com)
+[^_^]: # (## todo eventloop](http:www.baidu.com)
 
 [^_^]: # (## [todo cdn](http:www.baidu.com)
 
