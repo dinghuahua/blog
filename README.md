@@ -12,11 +12,16 @@ Record the learning process and accumulate knowledge points
 ## [浏览器的工作原理](https://github.com/dinghuahua/blog/blob/master/browser/%E6%B5%8F%E8%A7%88%E5%99%A8%E4%B8%BB%E8%A6%81%E8%BF%9B%E7%A8%8B%E7%BA%BF%E7%A8%8B%E4%BB%A5%E5%8F%8A%E6%B8%B2%E6%9F%93%E5%92%8Cjs%E6%89%A7%E8%A1%8C%E7%9A%84%E8%BF%90%E8%A1%8C%E5%8E%9F%E7%90%86%E7%9A%84%E5%88%86%E6%9E%90.md)
 
 
-[//]: # (## [todo https和http 1.1 2 的对比](http:www.baidu.com)
+[^_^]: # (## [todo https和http 1.1 2 的对比](http:www.baidu.com)
+
 [^_^]: # (## [todo websocket和ajax 的对比](http:www.baidu.com)
+
 [^_^]: # (## [todo eventloop](http:www.baidu.com)
+
 [^_^]: # (## [todo cdn](http:www.baidu.com)
+
 [^_^]: # (## [todo 浏览器缓存  强缓存  协议缓存](http:www.baidu.com)
+
 [^_^]: # (## [todo 微信公众号授权](http:www.baidu.com)
 [^_^]: # (## [todo 懒加载  时间戳](http:www.baidu.com)
 [^_^]: # (## [todo 进阶题目](http:www.baidu.com)
