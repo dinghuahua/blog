@@ -5,7 +5,7 @@ Record the learning process and accumulate knowledge points
 ## [git 命令行的操作](https://github.com/dinghuahua/blog/blob/master/git-study/git%E6%95%99%E7%A8%8B.md)
 ## [HTML和CSS常见问题整理](https://github.com/dinghuahua/blog/blob/master/html-css/html-css.md)
 ## [router 中 hash 和 history 的整理以及vue-router源码分析](https://github.com/dinghuahua/blog/blob/master/router/vue-router-history-hash.md)
-## [遍历方法对比](https://github.com/dinghuahua/blog/blob/master/javaScript/defineProperty-%E9%81%8D%E5%8E%86.md)
+## [遍历方法对比](https://github.com/dinghuahua/blog/blob/master/javaScript/%E9%81%8D%E5%8E%86%E4%BB%A5%E5%8F%8A%E6%98%AF%E5%90%A6%E5%BF%BD%E7%95%A5enumerable.md)
 ## [Object属性特性、阻止扩展、密封、冻结](https://github.com/dinghuahua/blog/blob/master/javaScript/ES5%20%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%89%A9%E5%B1%95(Object.preventExtensions)%E3%80%81%E5%AF%86%E5%B0%81(Object.seal)%E5%92%8C%E5%86%BB%E7%BB%93(Object.freeze).md)
 ## [typescript 基础](https://github.com/dinghuahua/blog/blob/master/typescript/typescript.md)
 ## [typescript 进阶](https://github.com/dinghuahua/blog/blob/master/typescript/typescript-%E8%BF%9B%E9%98%B6.md)
