@@ -91,5 +91,6 @@ GFM 比普通的 MarkDown 语法增加了表格和完成列表等语法；
 GitHub仓库里的图片
 https://github.com/ 你的用户名 / 你的项目名 / raw / 分支名 / 存放图片的文件夹 / 该文件夹下的图片
 
+
 eg：
 https://github.com/dinghuahua/blog/blob/master/router/images/router1.jpg
