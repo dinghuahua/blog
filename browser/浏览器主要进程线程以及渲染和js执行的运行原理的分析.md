@@ -33,8 +33,8 @@
 * 浏览器之所以能够运行，是因为系统给它的进程分配了资源（cpu和内存）
 * 简单理解，每打开一个tab页，就相当于创建了一个独立的浏览器进程，可以通过打开任务管理器仅从查看验证,也可以通过Chrome的更多工具-> 任务管理器进行验证
 <div align='center'>
-<image src='https://github.com/dinghuahua/blog/blob/feature1/browser/images/browser1.png' width=50%>
-<image src='https://github.com/dinghuahua/blog/blob/feature1/browser/images/browser2.png' width=50%>
+<image src='https://github.com/dinghuahua/blog/blob/master/browser/images/browser1.png' width=50%>
+<image src='https://github.com/dinghuahua/blog/blob/master/browser/images/browser2.png' width=50%>
 </div>
 
 注意：
@@ -100,7 +100,7 @@
             * 检测到状态变更时，如果设置有回调函数，异步线程就产生状态变更事件，将这个回调再放入事件队列中，再由JS引擎执行
 
 <div align='center'>
-<image src='https://github.com/dinghuahua/blog/blob/feature1/browser/images/browser5.png'>
+<image src='https://github.com/dinghuahua/blog/blob/master/browser/images/browser5.png'>
 </div>
 
 > 浏览器帧原理剖析
@@ -111,7 +111,7 @@
 * GPU 进程。这是一个单一的进程，为所有标签页和浏览器周边进程服务。当帧被提交时，GPU 进程会将分为图块的位图和其他数据（比如四边形顶点和矩阵）上传到 GPU 中，真正将像素显示到屏幕上。GPU 进程只有一个的线程，叫 GPU 线程，实际上是它做了这些工作。
 >> 渲染进程中的线程
 <div align='center'>
-<image src='https://github.com/dinghuahua/blog/blob/feature1/browser/images/browser4.svg'>
+<image src='https://github.com/dinghuahua/blog/blob/master/browser/images/browser4.svg'>
 </div>
 
 * 合成线程（Compositor Thread）。这是最先被告知垂直同步事件（vsync event，操作系统告知浏览器刷新一帧图像的信号）的线程。它接收所有的输入事件。如果可能，合成线程会避免进入主线程，自己尝试将输入的事件（比如滚动）转换为屏幕的移动。它会更新图层的位置，并经由 GPU 线程直接向 GPU 提交帧来完成这个操作。如果输入事件需要进行处理，或者有其他的显示工作，它将无法直接完成该过程，这就需要主线程了。
@@ -452,14 +452,14 @@ rAF
 绘制
 
 <div align='center'>
-<image src='https://github.com/dinghuahua/blog/blob/feature1/browser/images/browser8.png'>
+<image src='https://github.com/dinghuahua/blog/blob/master/browser/images/browser8.png'>
 </div>
 
 
 ## 首屏加载时间是从哪一步到哪一步
 
 <div align='center'>
-<image src='https://github.com/dinghuahua/blog/blob/feature1/browser/images/browser3.png'>
+<image src='https://github.com/dinghuahua/blog/blob/master/browser/images/browser3.png'>
 </div>
 
 ## 结合帧的角度和时间性能的角度分析CSS动画 和js 实现的动画
@@ -485,7 +485,7 @@ JS 动画与 CSS 动画的细微区别
 [参考链接](https://www.w3.org/TR/requestidlecallback/#idle-periods)
 
 <div align='center'>
-<image src='https://github.com/dinghuahua/blog/blob/feature1/browser/images/browser6.png'>
+<image src='https://github.com/dinghuahua/blog/blob/master/browser/images/browser6.png'>
 </div>
 
 > 空闲时段的另一个示例是当用户代理空闲而没有发生屏幕更新时。
@@ -495,7 +495,7 @@ JS 动画与 CSS 动画的细微区别
 * 如图所示， 当没有待处理的帧更新时的空闲时段示例 ，以使后台工作能够在更长的空闲时间段内继续发生。
 
 <div align='center'>
-<image src='https://github.com/dinghuahua/blog/blob/feature1/browser/images/browser7.png'>
+<image src='https://github.com/dinghuahua/blog/blob/master/browser/images/browser7.png'>
 </div>
 
 ## 结合React 16 中的fiber 分析浏览器空闲时间执行的requestIdleCallback todo
