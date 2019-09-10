@@ -9,7 +9,7 @@ Record the learning process and accumulate knowledge points
 ## [Object属性特性、阻止扩展、密封、冻结](https://github.com/dinghuahua/blog/blob/feature1/javaScript/ES5%20%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%89%A9%E5%B1%95(Object.preventExtensions)%E3%80%81%E5%AF%86%E5%B0%81(Object.seal)%E5%92%8C%E5%86%BB%E7%BB%93(Object.freeze).md)
 ## [typescript 基础](https://github.com/dinghuahua/blog/blob/feature1/typescript/typescript.md)
 ## [typescript 进阶](https://github.com/dinghuahua/blog/blob/feature1/typescript/typescript-%E8%BF%9B%E9%98%B6.md)
-[^_^]: # (## [todo https和http 1.1 2 的对比](http:www.baidu.com))
+[//]: # (## [todo https和http 1.1 2 的对比](http:www.baidu.com))
 [^_^]: # (## [todo websocket和ajax 的对比](http:www.baidu.com))
 [^_^]: # (## [todo eventloop](http:www.baidu.com))
 [^_^]: # (## [todo cdn](http:www.baidu.com))
@@ -21,6 +21,7 @@ Record the learning process and accumulate knowledge points
 [^_^]: # (## [todo 进阶题目](http:www.baidu.com))
 [^_^]: # (## [todo webpack - 热部署时间](http:www.baidu.com))
 [^_^]: # (## [todo webpack -load](http:www.baidu.com))
+
 [^_^]: # (3月18日：你必须要掌握的新一代异步交互2.0技术3月19日：JavaScript密码，探寻那些不为人知的底层API
 3月20日：中高级前端大厂面试JS性能常考题之防抖节流
 3月21日：前端架构师核心技能之一  高性能模板引擎开发
