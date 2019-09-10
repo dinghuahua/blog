@@ -21,7 +21,7 @@ Record the learning process and accumulate knowledge points
 ## [todo 进阶题目](http:www.baidu.com)
 ## [todo webpack - 热部署时间](http:www.baidu.com)
 ## [todo webpack -load](http:www.baidu.com)
-3月18日：你必须要掌握的新一代异步交互2.0技术
+[^_^]: # (3月18日：你必须要掌握的新一代异步交互2.0技术)
 
 3月19日：JavaScript密码，探寻那些不为人知的底层API
 
