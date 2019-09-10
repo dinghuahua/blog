@@ -9,21 +9,21 @@ Record the learning process and accumulate knowledge points
 ## [Object属性特性、阻止扩展、密封、冻结](https://github.com/dinghuahua/blog/blob/feature1/javaScript/ES5%20%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%89%A9%E5%B1%95(Object.preventExtensions)%E3%80%81%E5%AF%86%E5%B0%81(Object.seal)%E5%92%8C%E5%86%BB%E7%BB%93(Object.freeze).md)
 ## [typescript 基础](https://github.com/dinghuahua/blog/blob/feature1/typescript/typescript.md)
 ## [typescript 进阶](https://github.com/dinghuahua/blog/blob/feature1/typescript/typescript-%E8%BF%9B%E9%98%B6.md)
-## [todo https和http 1.1 2 的对比](http:www.baidu.com)
-## [todo websocket和ajax 的对比](http:www.baidu.com)
-## [todo eventloop](http:www.baidu.com)
-## [todo cdn](http:www.baidu.com)
-## [todo 浏览器缓存  强缓存  协议缓存](http:www.baidu.com)
-## [todo 微信公众号授权](http:www.baidu.com)
-## [todo 懒加载  时间戳](http:www.baidu.com)
-## [todo 进阶题目](http:www.baidu.com)
-## [todo 进阶题目](http:www.baidu.com)
-## [todo 进阶题目](http:www.baidu.com)
-## [todo webpack - 热部署时间](http:www.baidu.com)
-## [todo webpack -load](http:www.baidu.com)
+[^_^]: # (## [todo https和http 1.1 2 的对比](http:www.baidu.com)
+[^_^]: # (## [todo websocket和ajax 的对比](http:www.baidu.com)
+[^_^]: # (## [todo eventloop](http:www.baidu.com)
+[^_^]: # (## [todo cdn](http:www.baidu.com)
+[^_^]: # (## [todo 浏览器缓存  强缓存  协议缓存](http:www.baidu.com)
+[^_^]: # (## [todo 微信公众号授权](http:www.baidu.com)
+[^_^]: # (## [todo 懒加载  时间戳](http:www.baidu.com)
+[^_^]: # (## [todo 进阶题目](http:www.baidu.com)
+[^_^]: # (## [todo 进阶题目](http:www.baidu.com)
+[^_^]: # (## [todo 进阶题目](http:www.baidu.com)
+[^_^]: # (## [todo webpack - 热部署时间](http:www.baidu.com)
+[^_^]: # (## [todo webpack -load](http:www.baidu.com)
 [^_^]: # (3月18日：你必须要掌握的新一代异步交互2.0技术)
 
-3月19日：JavaScript密码，探寻那些不为人知的底层API
+[^_^]: # (3月19日：JavaScript密码，探寻那些不为人知的底层API
 
 3月20日：中高级前端大厂面试JS性能常考题之防抖节流
 
@@ -86,7 +86,7 @@ Hybrid技术应当如何应用？
 MarkDown 没有统一标准，不同网站实现的方式不同；
 GitHub 实现的 MarkDown 语法叫 GFM，GitHub Favorite MarkDown；
 GFM 比普通的 MarkDown 语法增加了表格和完成列表等语法；
-但是，GFM 并没有实现流程图的 MarkDown 语法。
+但是，GFM 并没有实现流程图的 MarkDown 语法。)
 
 GitHub仓库里的图片
 https://github.com/ 你的用户名 / 你的项目名 / raw / 分支名 / 存放图片的文件夹 / 该文件夹下的图片

@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="1c52f04d-f7f1-4b0b-8484-3783b89d6804" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/browser/浏览器主要进程线程以及渲染和js执行的运行原理的分析.md" beforeDir="false" afterPath="$PROJECT_DIR$/browser/浏览器主要进程线程以及渲染和js执行的运行原理的分析.md" afterDir="false" />
+    <list default="true" id="1c52f04d-f7f1-4b0b-8484-3783b89d6804" name="Default" comment="fix">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <ignored path="blog.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -21,6 +22,18 @@
       <usages-collector id="statistics.lifecycle.project">
         <counts>
           <entry key="project.closed" value="1" />
+          <entry key="project.open.time.0" value="1" />
+          <entry key="project.opened" value="1" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.edit">
+        <counts>
+          <entry key="md" value="35" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.edit">
+        <counts>
+          <entry key="Markdown" value="35" />
         </counts>
       </usages-collector>
     </session>
@@ -34,8 +47,8 @@
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
-              <first_editor relative-caret-position="657">
-                <caret line="93" lean-forward="true" selection-start-line="93" selection-end-line="93" />
+              <first_editor relative-caret-position="567">
+                <caret line="88" column="30" selection-start-line="88" selection-start-column="30" selection-end-line="88" selection-end-column="30" />
               </first_editor>
               <second_editor />
             </state>
@@ -46,8 +59,8 @@
         <entry file="file://$PROJECT_DIR$/git-study/git教程.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
-              <first_editor relative-caret-position="-665">
-                <caret line="227" column="22" lean-forward="true" selection-start-line="227" selection-start-column="22" selection-end-line="227" selection-end-column="22" />
+              <first_editor relative-caret-position="3405">
+                <caret line="227" column="22" selection-start-line="227" selection-start-column="22" selection-end-line="227" selection-end-column="22" />
               </first_editor>
               <second_editor />
             </state>
@@ -97,7 +110,9 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
       <pane id="Scope" />
+      <pane id="AndroidView" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -109,16 +124,14 @@
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
-      <pane id="AndroidView" />
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="aspect.path.notification.shown" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1568120701698" />
     <property name="js-jscs-nodeInterpreter" value="D:\node\node.exe" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -344,21 +357,54 @@
       <workItem from="1553151093519" duration="60000" />
       <workItem from="1555289072996" duration="163000" />
       <workItem from="1555329661850" duration="9000" />
+      <workItem from="1568120314123" duration="632000" />
     </task>
+    <task id="LOCAL-00001" summary="fix">
+      <created>1568120333871</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1568120333871</updated>
+    </task>
+    <task id="LOCAL-00002" summary="fix">
+      <created>1568120409413</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1568120409413</updated>
+    </task>
+    <task id="LOCAL-00003" summary="fix">
+      <created>1568120426003</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1568120426003</updated>
+    </task>
+    <task id="LOCAL-00004" summary="fix">
+      <created>1568120603912</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1568120603912</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="5592000" />
+    <option name="totallyTimeSpent" value="6224000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
+    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.14663805" />
+      <window_info id="Image Layers" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.1423462" />
       <window_info id="Structure" order="1" weight="0.25" />
       <window_info id="Capture Tool" order="2" />
       <window_info id="UI Designer" order="3" />
       <window_info id="Palette&#9;" order="4" />
       <window_info id="Favorites" order="5" side_tool="true" />
+      <window_info anchor="bottom" id="Database Changes" show_stripe_button="false" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
       <window_info anchor="bottom" id="Run" order="2" />
@@ -370,6 +416,7 @@
       <window_info anchor="bottom" id="Terminal" order="8" sideWeight="0.48789713" weight="0.44615385" />
       <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.5121029" side_tool="true" weight="0.44615385" />
       <window_info anchor="bottom" id="Messages" order="10" />
+      <window_info anchor="right" id="Theme Preview" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -379,6 +426,28 @@
       <window_info anchor="right" id="Database" order="6" />
       <window_info anchor="right" id="Maven Projects" order="7" />
     </layout>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+    <option name="exactExcludedFiles">
+      <list>
+        <option value="$PROJECT_DIR$/typescript/code/test1.js" />
+        <option value="$PROJECT_DIR$/typescript/code/ts-class1.js" />
+        <option value="$PROJECT_DIR$/typescript/code/ts-enum.js" />
+        <option value="$PROJECT_DIR$/typescript/code/ts-any-inference-union.js" />
+        <option value="$PROJECT_DIR$/typescript/code/test.js" />
+        <option value="$PROJECT_DIR$/typescript/code/ts-func.js" />
+        <option value="$PROJECT_DIR$/typescript/code/ts-assert.js" />
+        <option value="$PROJECT_DIR$/typescript/code/hello.js" />
+        <option value="$PROJECT_DIR$/typescript/code/ts-class2.js" />
+        <option value="$PROJECT_DIR$/typescript/code/ts-T.js" />
+        <option value="$PROJECT_DIR$/typescript/code/ts-array-tuple.js" />
+        <option value="$PROJECT_DIR$/typescript/code/tsEG1.js" />
+        <option value="$PROJECT_DIR$/typescript/code/ts-strLiteral.js" />
+        <option value="$PROJECT_DIR$/typescript/code/ts-interface.js" />
+        <option value="$PROJECT_DIR$/typescript/code/ts-class3.js" />
+      </list>
+    </option>
   </component>
   <component name="Vcs.Log.UiProperties">
     <option name="RECENTLY_FILTERED_USER_GROUPS">
@@ -404,8 +473,8 @@
       </provider>
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
-          <first_editor relative-caret-position="657">
-            <caret line="93" lean-forward="true" selection-start-line="93" selection-end-line="93" />
+          <first_editor relative-caret-position="567">
+            <caret line="88" column="30" selection-start-line="88" selection-start-column="30" selection-end-line="88" selection-end-column="30" />
           </first_editor>
           <second_editor />
         </state>
@@ -419,8 +488,8 @@
       </provider>
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
-          <first_editor relative-caret-position="-665">
-            <caret line="227" column="22" lean-forward="true" selection-start-line="227" selection-start-column="22" selection-end-line="227" selection-end-column="22" />
+          <first_editor relative-caret-position="3405">
+            <caret line="227" column="22" selection-start-line="227" selection-start-column="22" selection-end-line="227" selection-end-column="22" />
           </first_editor>
           <second_editor />
         </state>
