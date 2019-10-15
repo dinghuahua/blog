@@ -340,3 +340,79 @@ config文件前后对比
     git push origin master                         把本地master分支的最新修改推送至GitHub  推送其它分支 git push origin dev
     git push -u origin master                      由于远程库是空的，我们第一次推送master分支时，加上了-u参数，
                                                    Git不但会把本地的master分支内容推送的远程新的master分支，还会把本地的master分支和远程的master分支关联起来，在以后的推送或者拉取时就可以简化命令。
+                                                   
+ # git中使用https和ssh协议的区别
+ ## git, https, ssh, 心得
+ ### http好还是ssh好?
+    git可以使用四种主要的协议来传输资料: 本地协议（Local），HTTP 协议，SSH（Secure Shell）协议及 git 协议。其中，本地协议由于目前大都是进行远程开发和共享代码所以一般不常用，而git协议由于缺乏授权机制且较难架设所以也不常用。
+    
+    最常用的便是SSH和HTTP(S)协议。git关联远程仓库可以使用http协议或者ssh协议。
+    
+    HTTPS优缺点
+        优点1: 相比 SSH 协议，可以使用用户名／密码授权是一个很大的优势，这样用户就不必须在使用 Git 之前先在本地生成 SSH 密钥对再把公钥上传到服务器。 对非资深的使用者，或者系统上缺少 SSH 相关程序的使用者，HTTP 协议的可用性是主要的优势。 与 SSH 协议类似，HTTP 协议也非常快和高效
+        
+        优点2: 企业防火墙一般会打开 80 和 443 这两个常见的http和https协议的端口，使用http和https的协议在架设了防火墙的企业里面就可以绕过安全限制正常使用git，非常方便
+        
+        缺点: 使用http/https除了速度慢以外，还有个最大的麻烦是每次推送都必须输入口令. 但是现在操作系统或者其他git工具都提供了 keychain 的功能，可以把你的账户密码记录在系统里，例如OSX 的 Keychain 或者 Windows 的凭证管理器。
+    
+    SSH的优缺点
+        优点1: 架设 Git 服务器时常用 SSH 协议作为传输协议。 因为大多数环境下已经支持通过 SSH 访问 —— 即时没有也比较很容易架设。 SSH 协议也是一个验证授权的网络协议；并且，因为其普遍性，架设和使用都很容易。
+        缺点1: SSH服务端一般使用22端口，企业防火墙可能没有打开这个端口。
+        
+        缺点2: SSH 协议的缺点在于你不能通过他实现匿名访问。 即便只要读取数据，使用者也要有通过 SSH 访问你的主机的权限，这使得 SSH 协议不利于开源的项目。 如果你只在公司网络使用，SSH 协议可能是你唯一要用到的协议。 如果你要同时提供匿名只读访问和 SSH 协议，那么你除了为自己推送架设 SSH 服务以外，还得架设一个可以让其他人访问的服务。
+    
+    总结
+        HTTPS利于匿名访问，适合开源项目可以方便被别人克隆和读取(但他没有push权限)；毕竟为了克隆别人一个仓库学习一下你就要生成个ssh-key折腾一番还是比较麻烦，所以github除了支持ssh协议必然提供了https协议的支持。
+        
+        而SSH协议使用公钥认证比较适合内部项目。 当然了现在的代码管理平台例如github、gitliab，两种协议都是支持的，基本上看自己喜好和需求来选择就可以了。
+        
+    简单理解ssh协议
+        ssh的协议理解起来比https简单多了，大家可以参考阮一峰老师的这篇文章SSH原理与运用 和 我的这篇文章ssh建立通道和认证原理。
+    
+    总结来看，就是SSH协议使用目前已经比较成熟的RSA这类非对称加密技术来实现了安全秘钥的协商: 目标主机把自己的公钥发送给客户端，客户端用公钥加密 一些东西 之后传给服务器，服务器用RSA私钥从中解出 一些东西，保证了 一些东西 防篡改、防泄密，最终协商出只有双方才知道的通信密钥。
+    
+    github上使用ssh协议
+        如果要使用ssh协议来克隆或者push github上的代码，则git程序会采用ssh的校验机制。而由于github上所有仓库都是采用共用git账号体系的方式, 是无法用git用户登录github服务器的。各个用户只能通过公钥认证的方式使用此SSH账号访问版本库。 因此，你在执行 git clone 命令之前，必须确保已经把ssh公钥放置到了github服务器上。
+    
+    生成公钥可以看这里: github官方公钥配置教程
+    
+    RSA公钥生成后，可以用mac上的拷贝命令，把公钥拷贝到剪切板:
+ ```shell
+    # Copies the contents of the id_rsa.pub file to your clipboard
+    # pbcopy < ~/.ssh/id_rsa.pub
+  ```
+    然后，去github上把这个公钥拷贝到网站的个人配置中（相当于在github服务器的~/.ssh/authorized_keys ），接下来就能愉快的进行克隆。
+    
+    如果远程主机是自己可以控制的机器，也可以这样:
+    
+    ssh-copy-id user@host
+    或 
+    scp -P 22 id_rsa.pub root@192.168.1.77:/root/.ssh/authorized_keys 
+    或追加
+    cat ~/.ssh/id_dsa.pub|ssh -p 22 root@192.168.1.91 `cat - >> ~/.ssh/authorized_keys`
+    注意一点: 当你把公钥设置到github上时，你会在UI界面上看到一个 fingerprint 的指纹，这个指纹其实就是你的公钥的指纹。你可以对比这个指纹是否跟你本机的公钥指纹相同，尽量把github上不熟悉的公钥都删掉
+    
+    公钥指纹可以参考这篇文章:ssh建立通道的过程和认证原理
+    
+ ####   HTTPS协议如何保存凭证信息
+    HTTPS认证方式虽然需要输入账户密码，但现在也不需要每次都输入。这个凭据保存需要依赖一个凭据管理器，每个操作系统平台都有自己的凭据管理器。可以参考github官方提供的教程来配置
+    
+    我这里介绍一个git的凭据管理方式:
+    
+    # 建立凭据文件
+    $ touch ~/.git-credentials
+    $ vim ~/.git-credentials
+    在文件中加入带凭据的url信息:
+    
+    https://{username}:{passwd}@github.com
+    然后告诉git使用这个凭据管理器:
+    
+    $ git config --global credential.helper store
+    上面命令会在git配置文件 ～/.gitconfig 中设置上一个凭据地址:
+    
+    [credential]
+        helper = store
+    refer
+    git之ssh和https密码配置
+    
+
