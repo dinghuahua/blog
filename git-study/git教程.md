@@ -54,7 +54,13 @@
         git push --set-upstream origin dev分支名
     如果本地本地推送到远程后，不添加关联关系，在 git pull,git push 需要指定远程分支名称，不添加关联关系，那么新建的分支配置也不会显示在config文件中
         git push origin debug分支名称
-
+    git  add 
+    git commit
+    git commit -am '' ==>add 和commit 的合并写法
+    git push
+    git pull
+    git fetch
+[git pull 和 git fetch 的区别](https://blog.csdn.net/weixin_41975655/article/details/82887273)
 
 添加关联关系git push问题的解决
 <img src="https://github.com/dinghuahua/blog/blob/master/git-study/images/git1.png" width="40%">
@@ -78,7 +84,8 @@ config文件前后对比
     强推到远程 
         git push origin HEAD --force
 
-## git 回退 和 回滚
+## git 删除 回退 和 回滚
+    git clean -d -f 删除未跟踪的目录和文件，会删除工作区以及暂存区的文件
     git checkout
         工作区的改动
         git checkout commit ID
