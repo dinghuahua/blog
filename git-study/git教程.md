@@ -12,6 +12,8 @@
 
     在Git中，用HEAD表示当前版本，上一个版本就是HEAD^，上上一个版本就是HEAD^^，当然往上100个版本写100个^比较容易数不过来，所以写成HEAD~100
 
+
+
 ## git 常见缩写
     -r origin
     -d delete
@@ -50,7 +52,7 @@
         git push origin feature
     git本地新建一个分支后 必须要做远程分支关联，
     如果没有关联，git会在下面的操作中提示显示的添加关联,关联的目的是，如果在本地分支操作：git pull,git push,不需要在命令行中指定远程分支，
-    命令行中添加的关联,其实修改的是config文件
+    命令行中添加的关联,其实修改的是config文件~
         git push --set-upstream origin dev分支名
     如果本地本地推送到远程后，不添加关联关系，在 git pull,git push 需要指定远程分支名称，不添加关联关系，那么新建的分支配置也不会显示在config文件中
         git push origin debug分支名称
