@@ -84,8 +84,7 @@ config文件前后对比
     强推到远程 
         git push origin HEAD --force
 
-## git 删除 回退 和 回滚
-    git clean -d -f 删除未跟踪的目录和文件，会删除工作区以及暂存区的文件
+## git 回退 和 回滚
     git checkout
         工作区的改动
         git checkout commit ID
@@ -151,6 +150,7 @@ config文件前后对比
         git rm --cached "文件路径"
     从暂存区、工作区 删除文件（不会回收到垃圾桶）
         git rm --f "文件路径"
+    git clean -d -f 删除未跟踪的目录和文件，会删除工作区以及暂存区的文件（会回收到垃圾桶）
     如果一个文件已经add到暂存区，还没有 commit，此时如果不想要这个文件了，有两种方法：
         用版本库内容清空暂存区，git reset HEAD 回退到当前版本
     执行完commit后，想撤回commit
