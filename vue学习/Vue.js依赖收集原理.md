@@ -181,7 +181,98 @@ computed: {
 所以，我们看到getter里进行依赖收集的写法是dep.depend()，并没有传入什么参数，这是因为，我们只需要把Dep.target加入当前dep.subs里就好了。
 
 总结： get进行收集watcher,set进行通知watcher
+
+vue源码watcher中重要方法实现
+``` javascript
+export default class Watcher {
+  ...
+  /**
+   * Add a dependency to this directive.
+   */
+  addDep (dep: Dep) {
+    const id = dep.id
+    if (!this.newDepIds.has(id)) {
+      this.newDepIds.add(id)
+      this.newDeps.push(dep)
+      if (!this.depIds.has(id)) {
+        dep.addSub(this)
+      }
+    }
+  }
+}
+```
+概括起来就是：
+  1、判断是否收集过这个依赖，收集过就不再收集，没有收集过就加入newDeps。同时，判断有无缓存过依赖，缓存过就不再加入到dep.subs里了。
+
+  2、setter里进行的，则是在值变更后，通知watcher进行重新计算。由于setter能访问到闭包中dep，所以就能获得dep.subs，从而知道有哪些watcher依赖于当前数据，如果自己的值变化了，通过调用dep.notify()，来遍历dep.subs里的watcher，执行每个watcher的update()方法，让每个watcher进行重新计算。
+
 #### Observer
+observe函数
+``` javascript
+function observe (value, vm) {
+    if (!value || typeof value !== 'object') {
+        return
+    }
+    var ob
+    if (hasOwn(value, '__ob__') && value.__ob__ instanceof Observer) {
+        ob = value.__ob__
+    } else if (shouldConvert && (isArray(value) || isPlainObject(value)) && Object.isExtensible(value) && !value._isVue) {
+        ob = new Observer(value)
+    }
+    if (ob && vm) {
+        ob.addVm(vm)
+    }
+    return ob
+}
+```
+总结来说就是：
+只为对象/数组 实例一个Observer类的实例，而且就只会实例化一次，并且需要数据是可配置的时候才会实例化Observer类实例。
+Observer类实现
+``` javascript
+class Observer {
+    constructor(value) {
+        this.value = value
+        this.dep = new Dep()
+        def(value, '__ob__', this)
+        if (isArray(value)) {
+            var augment = hasProto
+              ? protoAugment
+              : copyAugment
+            augment(value, arrayMethods, arrayKeys)
+            this.observeArray(value)
+        } else {
+            this.walk(value)
+        }
+    }
+    walk(obj) {
+        var keys = Object.keys(obj)
+        for (var i = 0, l = keys.length; i < l; i++) {
+            this.convert(keys[i], obj[keys[i]])
+        }
+    }
+    observeArray(items) {
+        // 对数组每个元素进行处理
+        // 主要是处理数组元素中还有数组的情况
+        for (var i = 0, l = items.length; i < l; i++) {
+            observe(items[i])
+        }
+    }
+    convert(key, val) {
+        defineReactive(this.value, key, val)
+    }
+    addVm(vm) {
+        (this.vms || (this.vms = [])).push(vm)
+    }
+    removeVm(vm) {
+        this.vms.$remove(vm)
+    }
+}
+```
+总结：
+  * 如果value是个对象，就执行walk()过程，遍历对象把每一项数据都变为可观测数据（调用defineReactive方法处理）
+  * 如果value是个数组，就执行observeArray()过程，递归地对数组元素调用observe()，以便能够对元素还是数组的情况进行处理
+
+#### 数组
 除了对arr重新赋值一个数组外，数组的原生方法的操作（push,pop,shift,unshift,splice,sort,reverse)都不会被setter检测到。所以为了能检测到数组的变更操作，Vue在数组的原型链上定义一系列扩展原生操作方法，以此实现数组变更的检测,即保留原来操作的基础上，加入我们的特定的操作代码。
 思路：
   * 保留数组原来的操作
@@ -248,5 +339,55 @@ methodsToPatch.forEach(function (method) {
   })
 })
 ```
+### defineReative
+Vue2.x实现数据劫持使用的是Object.defineProperty()，而使用Object.defineProperty()来拦截数据的操作，都封装在了defineReactive里。
+接下来，我们来解析下defineReactive()源码：
 
+``` javascript
+function defineReactive (obj, key, val) {
+    var dep = new Dep()
+    var property = Object.getOwnPropertyDescriptor(obj, key)
+    if (property && property.configurable === false) {
+        return
+    }
+    var getter = property && property.get
+    var setter = property && property.set
 
+    var childOb = observe(val)
+    Object.defineProperty(obj, key, {
+        enumerable: true,
+        configurable: true,
+        get: function reactiveGetter () {
+            var value = getter ? getter.call(obj) : val
+            if (Dep.target) {
+                dep.depend()
+                if (childOb) {
+                    childOb.dep.depend()
+                }
+                if (isArray(value)) {
+                    for (var e, i = 0, l = value.length; i < l; i++) {
+                        e = value[i]
+                        e && e.__ob__ && e.__ob__.dep.depend()
+                    }
+                }
+            }
+            return value
+        },
+        set: function reactiveSetter (newVal) {
+            var value = getter ? getter.call(obj) : val
+            if (newVal === value) {
+                return
+            }
+            if (setter) {
+                setter.call(obj, newVal)
+            } else {
+                val = newVal
+            }
+            childOb = observe(newVal)
+            dep.notify()
+        }
+    })
+}
+```
+总结： 
+  闭包的妙用：上述代码里Object.defineProperty()里的get/set方法相对于var dep = new Dep()形成了闭包，从而很巧妙地保存了dep实例
