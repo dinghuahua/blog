@@ -9,15 +9,17 @@
 * (3) instance  包含Vue 构建函数设计相关的代码
 * (4) global-api   包含给Vue 构造函数挂在全局（静态方法）或属性的代码
 * (5）components  包含抽象出来的通用组件
+
  3.platform Vue.js 是一个跨平台的MVVM 框架，它可以跑在web上，可以跑在weex, 分别打包成运行在web 上和weex 上的Vue.js<br>
  4.server  Vue.js 2.0 支持了服务端渲染，所有服务端渲染相关的逻辑都在这个目录下，注意，这部部分代码是跑在服务端的Node.js, 不要和跑在浏览器端的Vue.js 混为一谈。<br>
-* 1. web 平台
+ 
+1. web 平台
     - entry-runtime.js     运行时构建的入口，不包含模板（template）到render 函数的编译器，所不支持template 选项我们使用vue 默认导出的就是一个运行时的版本。
     - entry-runtime-with-compiler.js    独立构建版本的入口，它在entry-runtime 的基础上添加了模板(template) 到render 函数的编译器
     - entry-compiler.js     vue-template-compiler 包的入口文件
     - entry-server-renderer.js     vue-server-renderer 包的入口文件
     - entry-server-basic-renderer.js     输出  packages/vue-server-renderer/basic.js
-* 2. weex    混合应用
+2. weex    混合应用
 
 5.sfc  通常我们开发 Vue.js 都会借助 webpack 构建，然后通过.vue 单文件来编写组件。<br>
 6. shared  Vue.js 会定义歇一下工具方法，这里定义的工具方法都是会陪浏览器端的Vue.js 和 服务端的Vue.js 所共享的。
