@@ -395,11 +395,17 @@ function defineReactive (obj, key, val) {
 
 
 
-  三、总结
+### 总结
 总结而言，Vue的依赖收集，是观察者模式的一种应用。其原理总结如图：
+
 1、配置依赖观测
+
 <img src="https://github.com/dinghuahua/blog/blob/master/vue%E5%AD%A6%E4%B9%A0/imges/data1.png" width="60%">  
+
 2、收集依赖
-<img src="https://github.com/dinghuahua/blog/blob/master/vue%E5%AD%A6%E4%B9%A0/imges/data2.png" width="60%">  
+
+<img src="https://github.com/dinghuahua/blog/blob/master/vue%E5%AD%A6%E4%B9%A0/imges/data2.png" width="60%">
+
 3、数据值变更
+
 <img src="https://github.com/dinghuahua/blog/blob/master/vue%E5%AD%A6%E4%B9%A0/imges/data3.png" width="60%">  
