@@ -104,7 +104,8 @@ subject.addObserver(observer);
 Vue是一个实现数据驱动视图的框架~~（废话，大家都知道，说重点）
 我们都知道，Vue能够实现当一个数据变更时，视图就进行刷新，而且用到这个数据的其他地方也会同步变更；而且，这个数据必须是在有被依赖的情况下，视图和其他用到数据的地方才会变更。
 所以，Vue要能够知道一个数据是否被使用，实现这种机制的技术叫做依赖收集根据Vue官方文档的介绍，其原理如下图所示：
-https://github.com/dinghuahua/blog/blob/master/router/images/router1.jpg
+ <img src="https://github.com/dinghuahua/blog/blob/master/vue%E5%AD%A6%E4%B9%A0/imges/data.png" width="60%">  
+ https://github.com/dinghuahua/blog/blob/master/router/images/router1.jpg
 
 
 ### 依赖收集与观察者模式
