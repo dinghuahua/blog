@@ -25,6 +25,7 @@ new Vue({
         ----notify---->
   subject            observer
         <---subscribe---
+
   特点：观察者要直接订阅观察目标，观察目标一做出通知，观察者就要进行处理
 
   观察者模式，实现如下：
