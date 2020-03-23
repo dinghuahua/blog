@@ -390,4 +390,16 @@ function defineReactive (obj, key, val) {
 }
 ```
 总结： 
-  闭包的妙用：上述代码里Object.defineProperty()里的get/set方法相对于var dep = new Dep()形成了闭包，从而很巧妙地保存了dep实例
+  闭包的妙用：上述代码里Object.defineProperty()里的get/set方法相对于var dep = new Dep()形成了闭包，从而很巧妙地保存了dep实例,这样的话get/set 中都可以进行访问dep
+
+
+
+
+  三、总结
+总结而言，Vue的依赖收集，是观察者模式的一种应用。其原理总结如图：
+1、配置依赖观测
+<img src="https://github.com/dinghuahua/blog/blob/master/git-study/images/git4.png" width="60%">  
+2、收集依赖
+<img src="https://github.com/dinghuahua/blog/blob/master/git-study/images/git4.png" width="60%">  
+3、数据值变更
+<img src="https://github.com/dinghuahua/blog/blob/master/git-study/images/git4.png" width="60%">  
