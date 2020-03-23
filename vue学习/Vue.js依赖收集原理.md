@@ -404,8 +404,8 @@ function defineReactive (obj, key, val) {
 
 2、收集依赖
 
-<img src="https://github.com/dinghuahua/blog/blob/master/vue%E5%AD%A6%E4%B9%A0/images/data2.png" width="60%">
+<img src="https://github.com/dinghuahua/blog/blob/master/vue%E5%AD%A6%E4%B9%A0/images/data1.png" width="60%">
 
 3、数据值变更
 
-<img src="https://github.com/dinghuahua/blog/blob/master/vue%E5%AD%A6%E4%B9%A0/images/data3.png" width="60%">  
+<img src="https://github.com/dinghuahua/blog/blob/master/vue%E5%AD%A6%E4%B9%A0/images/data1.png" width="60%">  
