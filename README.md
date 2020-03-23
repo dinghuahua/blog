@@ -27,7 +27,7 @@ Record the learning process and accumulate knowledge points
 防抖和节流
 webpack
 设计模式
-## [前端设计模式之观察者模式](https://github.com/dinghuahua/blog/blob/master/javaScript/observer.md)
+## [前端设计模式之观察者模式](https://github.com/dinghuahua/blog/blob/master/javaScript/%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8Fobserver.md)
 
 [^_^]: # (3月18日：你必须要掌握的新一代异步交互2.0技术
 3月19日：JavaScript密码，探寻那些不为人知的底层API
