@@ -106,9 +106,7 @@ subject.addObserver(observer);
 Vue是一个实现数据驱动视图的框架~~（废话，大家都知道，说重点）
 我们都知道，Vue能够实现当一个数据变更时，视图就进行刷新，而且用到这个数据的其他地方也会同步变更；而且，这个数据必须是在有被依赖的情况下，视图和其他用到数据的地方才会变更。
 所以，Vue要能够知道一个数据是否被使用，实现这种机制的技术叫做依赖收集根据Vue官方文档的介绍，其原理如下图所示：
- <img src="https://github.com/dinghuahua/blog/blob/master/vue%E5%AD%A6%E4%B9%A0/imges/data.png" width="60%">  
- https://github.com/dinghuahua/blog/blob/master/router/images/router1.jpg
-
+ <img src="https://github.com/dinghuahua/blog/blob/master/vue%E5%AD%A6%E4%B9%A0/imges/data.png" width="60%"> 
 
 ### 依赖收集与观察者模式
 在Vue依赖收集里：谁是观察者？谁是观察目标？
@@ -120,9 +118,10 @@ Vue是一个实现数据驱动视图的框架~~（废话，大家都知道，说
 
 1、角色
   Vue源码中实现依赖收集，实现了三个类：
-    Dep：扮演观察目标的角色，每一个数据都会有Dep类实例，它内部有个subs队列，subs就是subscribers的意思，保存着依赖本数据的观察者，当本数据变更时，调用dep.notify()通知观察者
-    Watcher：扮演观察者的角色，进行观察者函数的包装处理。如render()函数，会被进行包装成一个Watcher实例
-    Observer：辅助的可观测类，数组/对象通过它的转化，可成为可观测数据
+    * Dep：扮演观察目标的角色，每一个数据都会有Dep类实例，它内部有个subs队列，subs就是subscribers的意思，* 保存着依赖本数据的观察者，当本数据变更时，调用dep.notify()通知观察者
+    * Watcher：扮演观察者的角色，进行观察者函数的包装处理。如render()函数，会被进行包装成一个Watcher实例
+    * Observer：辅助的可观测类，数组/对象通过它的转化，可成为可观测数据
+    
 2、每一个数据都有的Dep类实例
   Dep类实例依附于每个数据而出来，用来管理依赖数据的Watcher类实例
 #### Dep
