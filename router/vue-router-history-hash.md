@@ -209,7 +209,7 @@
 ### vue-router 源码解读
     vue-router是Vue.js框架的路由插件，下面我们从它的源码入手，边看代码边看原理，看vue-router是如何通过这两种方式实现前端路由的。
 
-<img src="https://github.com/dinghuahua/blog/blob/master/router/images/router1.jpg" height="50%">
+<img src="./images/router1.jpg" height="50%">
 
 ##### 模式参数
     在vue-router中是通过mode这一参数控制路由的实现模式的：

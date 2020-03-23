@@ -38,7 +38,7 @@
 ## git 工作流程
 
     git 工作区 暂存区 版本库 之间的关系
-<img src="https://github.com/dinghuahua/blog/blob/master/git-study/images/git4.png" width="60%">  
+<img src="./images/git4.png" width="60%">  
 
 ## 远程有仓库，本地创建分支并推送到远端
     创建分支
@@ -65,13 +65,13 @@
 [git pull 和 git fetch 的区别](https://blog.csdn.net/weixin_41975655/article/details/82887273)
 
 添加关联关系git push问题的解决
-<img src="https://github.com/dinghuahua/blog/blob/master/git-study/images/git1.png" width="40%">
+<img src="./images/git1.png" width="40%">
 
 不添加关联关系git push问题的解决
-<img src="https://github.com/dinghuahua/blog/blob/master/git-study/images/git1.png" width="40%">
+<img src="./images/git1.png" width="40%">
 
 config文件前后对比 
-<img src="https://github.com/dinghuahua/blog/blob/master/git-study/images/git2.png" width="60%">
+<img src="./images/git2.png" width="60%">
     
     合并分支 切换到接收修改的分支master,将feature分支的代码合并到master
         git merge feature
@@ -174,25 +174,25 @@ config文件前后对比
                     git rebase -i HEAD~3
                     将想要修改的message对应的 pick 改为 edit 此时还不需要修改message
 <div align="center">
-    <img src="https://github.com/dinghuahua/blog/blob/master/git-study/images/git6.png" width="60%">
+    <img src="./images/git6.png" width="60%">
 </div>
 
                 修改第一个edit commitid的message
                     git commit --amend -s 修改完成后,:wq 退出,
 <div align="center">
-    <img src="https://github.com/dinghuahua/blog/blob/master/git-study/images/git8.png" width="50%">
+    <img src="./images/git8.png" width="50%">
 </div>
 
                 继续下一个edit commitid的message
                     git rebase --continue
 <div align="center">
-    <img src="https://github.com/dinghuahua/blog/blob/master/git-study/images/git9.png" width="60%">
+    <img src="./images/git9.png" width="60%">
 </div>
 
                 git commit --amend 和 git rebase --continue 循环交替执行，直到所有的edit修改完
                 修改就完成后,用git log 再看下:
 <div align="center">
-    <img src="https://github.com/dinghuahua/blog/blob/master/git-study/images/git10.png" width="60%">
+    <img src="./images/git10.png" width="60%">
 </div>
          
                 最后push 到远程仓库,所有的edit对应的commitid的message 就修改好了,-f强制推送
@@ -253,7 +253,7 @@ config文件前后对比
         那么原地址是：git@github.com:dinghuahua/blog.git，替换后应该是：huagithub:dinghuahua/blog.git
 
 <div align="center">
-    <img src="https://github.com/dinghuahua/blog/blob/master/git-study/images/git11.png" width="40%">
+    <img src="./images/git11.png" width="40%">
 </div>
 
 ###### GitHub后台 部署SSH key
@@ -261,7 +261,7 @@ config文件前后对比
         分别登陆两个github账号，进入Personal settings –> SSH and GPG keys：
 
 <div align="center">
-    <img src="https://github.com/dinghuahua/blog/blob/master/git-study/images/git12.png" width="40%">
+    <img src="./images/git12.png" width="40%">
 </div>
 
 ###### 测试
@@ -290,14 +290,14 @@ config文件前后对比
                 用户名和密码存贮的位置是：本地仓库的.git文件中的config文件
 
 <div align="center">
-    <img src="https://github.com/dinghuahua/blog/blob/master/git-study/images/git14.png" width="40%">
-    <img src="https://github.com/dinghuahua/blog/blob/master/git-study/images/git15.png" width="40%">
+    <img src="./images/git14.png" width="40%">
+    <img src="./images/git15.png" width="40%">
 </div>
 
         3、全局配置的git 用户名、邮箱对应的文件地址为C:\Users\用户名\.gitconfig  文件
 
 <div align="center">
-    <img src="https://github.com/dinghuahua/blog/blob/master/git-study/images/git13.png" width="40%">
+    <img src="./images/git13.png" width="40%">
 </div>
 
 ###### 过程中使用的账户疑惑解答

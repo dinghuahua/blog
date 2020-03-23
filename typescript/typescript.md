@@ -3,7 +3,7 @@
  * 1.在命令行中输入以下命令：npm install -g typescript
  * 2.如果在安装过程中出现以下错误,是因为权限不足导致的。可以通过在命令前面添加sudo进行解决：sudo npm install -g Typescript,window下使用管理员权限运行CMD
 <div align="center">
-    <img src="https://github.com/dinghuahua/blog/blob/master/typescript/images/ts1.png" width="40%">
+    <img src="./images/ts1.png" width="40%">
 </div>
 
   * 3.以上命令会在全局安装tsc命令，安装完成之后，我们就可以在任何地方执行tsc命令了
@@ -479,7 +479,7 @@ let lyf3: Person = {
 }
 ```
 <div align="center">
-错误追踪<img src="https://github.com/dinghuahua/blog/blob/master/typescript/images/ts2.png" width="40%">
+错误追踪<img src="./images/ts2.png" width="40%">
 </div>
 
 ###### 可选属性
@@ -591,7 +591,7 @@ let lyf31: Person3 = {
 ```
 
 <div align="center">
-    联合类型和接口的结合报错信息<img src="https://github.com/dinghuahua/blog/blob/master/typescript/images/ts3.png" width = "40%">
+    联合类型和接口的结合报错信息<img src="./images/ts3.png" width = "40%">
 </div>
 
 ###### 只读属性
