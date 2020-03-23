@@ -171,15 +171,12 @@ computed: {
     <div>I am {{a}}，plus 1 is {{newValue}}</div>
 </template>
 ```
-那么，可以看到就对应了两个观察者函数：计算属性newValue和render()函数，它们会被包装为两个watcher。
 
+那么，可以看到就对应了两个观察者函数：计算属性newValue和render()函数，它们会被包装为两个watcher。
 在执行render()函数渲染的过程中，访问了data.a，从而使得data.a的dep.subs里加入了render@watcher
 又访问了计算属性newValue，计算属性里访问了data.a，使得data.a的dep.subs里加入了newValue@watcher。
-
 所以data.a的dep.subs里就有了[render@watcher, newValue@watcher]
-
 为什么访问特定数据就使能让数据的deps.subs里加入了watcher呢？
-
 这是因为，在访问getter之前，就已经进入了某个watcher的上下文了(非常重要)，所以有一件事情是可以保证的：Watcher类的实例watcher已经准备好了，并且已经调用了watcher.get()，Dep.target是有值的
 
 所以，我们看到getter里进行依赖收集的写法是dep.depend()，并没有传入什么参数，这是因为，我们只需要把Dep.target加入当前dep.subs里就好了。
