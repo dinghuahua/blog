@@ -35,9 +35,10 @@ Object.defineProperties(obj,{
     }
 });
 ````
-注意：1. 当使用了getter或者setter方法，不允许使用writable和value 这两个属性
-     1. get或者set不是必须成对出现，任写其一就可以，如果不设置方法，则get和set的默认值为undefined 
-     2. 只有get方法就是只读，只有set方法就是只写
+注意：
+1. 当使用了getter或者setter方法，不允许使用writable和value 这两个属性
+2. get或者set不是必须成对出现，任写其一就可以，如果不设置方法，则get和set的默认值为undefined 
+3. 只有get方法就是只读，只有set方法就是只写
    
 * configurable   该属性能否被删除  默认false
   * 该特性为true   delete obj.test属性  就可以被删除  并返回true

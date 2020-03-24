@@ -202,7 +202,7 @@ export default class Watcher {
 }
 ```
 概括起来就是：
-  1、判断是否收集过这个依赖，收集过就不再收集，没有收集过就加入newDeps。同时，判断有无缓存过依赖，缓存过就不再加入到dep.subs里了。
+  1、通过depId判断是否收集过这个依赖(去重)，收集过就不再收集，没有收集过就加入newDeps。同时，判断有无缓存过依赖，缓存过就不再加入到dep.subs里了。
 
   2、setter里进行的，则是在值变更后，通知watcher进行重新计算。由于setter能访问到闭包中dep，所以就能获得dep.subs，从而知道有哪些watcher依赖于当前数据，如果自己的值变化了，通过调用dep.notify()，来遍历dep.subs里的watcher，执行每个watcher的update()方法，让每个watcher进行重新计算。
 
@@ -392,6 +392,15 @@ function defineReactive (obj, key, val) {
 总结： 
   闭包的妙用：上述代码里Object.defineProperty()里的get/set方法相对于var dep = new Dep()形成了闭包，从而很巧妙地保存了dep实例,这样的话get/set 中都可以进行访问dep
 
+整体总结：
+1. beforeCreated 之后进行observer Created之前
+2. beforeMounted 之后进行Render@watcher的创建Mounted之前
+3. 产生watcher的地方
+* 生成一个组件并且需要渲染时，会创建一个watcher，并赋值给Dep.targert
+* computed,非服务端渲染会创建一个watcher，并赋值给Dep.targert
+* watch,会创建一个watcher，并赋值给Dep.targert
+4. watcher实例中的newDepIds（当前轮）,depIds(上一轮) 保存着对应的哪些dep需要用到我当前这个watcher,可以进行去重<br>
+5. dep实例中的subs保存着当前这个数据有哪些watcher在监听，当我这个数据变动时，就通知这些watcher
 
 
 
