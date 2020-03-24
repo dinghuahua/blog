@@ -11,8 +11,7 @@ has方法拦截的是HasProperty操作，而不是HasOwnProperty操作，即has�
   + Object.getOwnPropertySymbols()
   + Object.keys()
   + for...in循环
-  + 注意：
-      + Object.keys方法时，有三类属性会被ownKeys方法自动过滤，不会返回。
+  + 注意：Object.keys方法时，有三类属性会被ownKeys方法自动过滤，不会返回。 for...in 也会按照如下方式过滤
       + 目标对象上不存在的属性
       + 属性名为 Symbol 值
       + 不可遍历（enumerable）的属性

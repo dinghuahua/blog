@@ -164,3 +164,22 @@ function aa (){
 * Object.keys()：返回对象自身的所有可枚举的属性的键名。
 * JSON.stringify()：只串行化对象自身的可枚举的属性。
 * Object.assign()： 忽略enumerable为false的属性，只拷贝对象自身的可枚举的属性
+
+
+Object.getOwnPropertyNames() 会过滤掉Symbol
+``` javascript
+var target = {
+  a: 1,
+  b: 2,
+  c: 3,
+  [Symbol.for('secret')]: '4',
+};
+
+Object.defineProperty(target, 'key', {
+  enumerable: false,
+  configurable: true,
+  writable: true,
+  value: 'static'
+});
+Object.getOwnPropertyNames(target) // ["a", "b", "c", "key"]
+```
