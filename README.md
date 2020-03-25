@@ -9,6 +9,7 @@ Record the learning process and accumulate knowledge points
 ## [Object属性特性、阻止扩展、密封、冻结](https://github.com/dinghuahua/blog/blob/master/javaScript/ES5%20%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%89%A9%E5%B1%95(Object.preventExtensions)%E3%80%81%E5%AF%86%E5%B0%81(Object.seal)%E5%92%8C%E5%86%BB%E7%BB%93(Object.freeze).md)
 ## [typescript 基础](https://github.com/dinghuahua/blog/blob/master/typescript/typescript.md)
 ## [typescript 进阶](https://github.com/dinghuahua/blog/blob/master/typescript/typescript-%E8%BF%9B%E9%98%B6.md)
+## [proxy相关知识点](https://github.com/dinghuahua/blog/blob/master/javaScript/proxy%E7%9B%B8%E5%85%B3%E9%87%8D%E8%A6%81%E7%9F%A5%E8%AF%86%E7%82%B9.md)
 ## [浏览器的工作原理](https://github.com/dinghuahua/blog/blob/master/browser/%E6%B5%8F%E8%A7%88%E5%99%A8%E4%B8%BB%E8%A6%81%E8%BF%9B%E7%A8%8B%E7%BA%BF%E7%A8%8B%E4%BB%A5%E5%8F%8A%E6%B8%B2%E6%9F%93%E5%92%8Cjs%E6%89%A7%E8%A1%8C%E7%9A%84%E8%BF%90%E8%A1%8C%E5%8E%9F%E7%90%86%E7%9A%84%E5%88%86%E6%9E%90.md)
 ## [项目国际化 i18n-tool](https://github.com/dinghuahua/i18n-tool)
 
@@ -28,7 +29,7 @@ Record the learning process and accumulate knowledge points
 webpack
 设计模式
 ## [前端设计模式之观察者模式](https://github.com/dinghuahua/blog/blob/master/javaScript/%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8Fobserver.md)
-## [Vue.js源码学习](https://github.com/dinghuahua/blog/tree/master/vue%E5%AD%A6%E4%B9%A0)
+## [Vue.js源码学习](https://github.com/dinghuahua/blog/tree/master/vue%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0)
 
 [^_^]: # (3月18日：你必须要掌握的新一代异步交互2.0技术
 3月19日：JavaScript密码，探寻那些不为人知的底层API
