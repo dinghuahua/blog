@@ -163,10 +163,10 @@ function parseHTML(html, options) {
 
 最初的HTML模板：
 ``` javascript
-<div id="header" @click="add">
+`<div id="header" @click="add">
   我是LYF
   <p>{{name}}</p>
-</div>
+</div>`
 //开始的所有的字符串,index = 0,html="<div id="header" @click="add">↵  我是LYF↵  <p>{{name}}</p>↵</div>"
 // 第一轮循环时，
 // 截取出一段字符串<div id="app" @click="add"，
@@ -274,23 +274,24 @@ ast = {
 ```
 <img src="./images/data10.png" width="60%">
 <img src="./images/data11.png" width="60%">
-判断父级元素是不是纯文本内容元素，纯文本内容元素呢？script、style和textarea这三种元素叫作纯文本内容元素
-  父元素不是纯文本内容元素
+
+* 判断父级元素是不是纯文本内容元素，纯文本内容元素呢？script、style和textarea这三种元素叫作纯文本内容元素
+  * 父元素不是纯文本内容元素
     1. 判断模板是不是以开始标签（‘<’）开头？
-        2. 判断是不是Comment注释 
-        4. 判断是不是conditionalComment
-        5. 判断是不是Doctype
-        6. 判断是不是End tag
+        1. 判断是不是Comment注释 
+        2. 判断是不是conditionalComment
+        3. 判断是不是Doctype
+        4. 判断是不是End tag
             匹配栈，从后往前开始匹配，找到第一个对应的开始标签然后出栈
             如果没有匹配到，判断是不是自闭合标签
-        7. 判断是不是Start tag
+        5. 判断是不是Start tag
             提取属性,构造属性结构，属性结构如图11
             匹配开始标签的结束
             匹配后面的空白字符串
             调用start钩子
-        8. 判断是不是以上都不是但是以“<”开头的纯文本
+        6. 判断是不是以上都不是但是以“<”开头的纯文本
     2. 是以开始标签（‘<’）开头,
-        1. 截取从'<'开始到结尾的剩余字符串 rest = "<p>{{name}}</p>
+        截取从'<'开始到结尾的剩余字符串 rest = "<p>{{name}}</p>
             判断rest不是以结束标签为开始
                 并且不是以开始标签为开始
                 并且不是以注释标签为开始
@@ -301,7 +302,7 @@ ast = {
             不满足以上的条件即不更改剩余字符串 
               那么当前的文本为 text = html.substring(0, textEnd)
     3. 调用文本 chars 钩子
-  父元素是纯文本内容元
+  * 父元素是纯文本内容元
     纯文本内容元素 的处理script、style和textarea 
 
 
