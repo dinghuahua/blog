@@ -9,5 +9,23 @@
 ## [聊聊Vue.js的template编译]()
 ## [Vue.js异步更新DOM策略及nextTick]()
 ## [从template到DOM（Vue.js源码角度看内部运行机制）]()
+https://segmentfault.com/a/1190000012922342
+几种内部方法
+_c：对应的是 createElement 方法，顾名思义，它的含义是创建一个元素(Vnode)
+_v：创建一个文本结点。
+_s：把一个值转换为字符串。（eg: {{data}}）
+_m：渲染静态内容
+假设我们有这么一段 template
+
+<template>
+  <div id="test">
+    {{val}}
+    <img src="http://xx.jpg">
+  </div>
+</template>
+最终会被转换成这样子的函数字符串
+
+{render: "with(this){return _c('div',{attrs:{"id":"test"}},[[_v(_s(val))]),_v(" "),_m(0)])}"}
+
 ## [Vuex源码解析]()
 ## [聊聊keep-alive组件的使用及其实现原理]()
