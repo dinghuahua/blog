@@ -266,37 +266,6 @@ ast = {
 <img src="./images/data10.png" width="60%">
 <img src="./images/data11.png" width="60%">
 
-* 判断父级元素是不是纯文本内容元素，纯文本内容元素呢？script、style和textarea这三种元素叫作纯文本内容元素
-  * 父元素不是纯文本内容元素
-    1. 判断模板是不是以开始标签（‘<’）开头？
-        1. 判断是不是Comment注释 
-        2. 判断是不是conditionalComment
-        3. 判断是不是Doctype
-        4. 判断是不是End tag<br>
-            匹配栈，从后往前开始匹配，找到第一个对应的开始标签然后出栈<br>
-            如果没有匹配到，判断是不是自闭合标签<br>
-        5. 判断是不是Start tag<br>
-            提取属性,构造属性结构，属性结构如图11<br>
-            匹配开始标签的结束<br>
-            匹配后面的空白字符串<br>
-            调用start钩子<br>
-        6. 判断是不是以上都不是但是以“<”开头的纯文本
-    2. 是以开始标签（‘<’）开头,<br>
-        截取从'<'开始到结尾的剩余字符串 rest = `<p>{{name}}</p>`
-            判断rest不是以结束标签为开始<br>
-                并且不是以开始标签为开始<br>
-                并且不是以注释标签为开始<br>
-                    获取下一个“<” 的下标 next=rest.indexOf('<', 1)<br>
-                    并修改针对当前的下一个“<” 的位置<br>
-                    textEnd += next<br>
-                    剩余字符串修改为从下一个“<”开始到结尾的字符串 rest=html.slice(textEnd)<br>
-            不满足以上的条件即不更改剩余字符串 <br>
-              那么当前的文本为 text = html.substring(0, textEnd)
-    3. 调用文本 chars 钩子
-  * 父元素是纯文本内容元<br>
-    纯文本内容元素 的处理script、style和textarea 
-
-
 HTML解析器的全部逻辑都是在循环中执行，循环结束就代表解析结束。接下来，我们要讨论的重点是HTML解析器在循环中都干了些什么事。<br>
 那就是每一轮截取字符串时，都是在整个模板的开始位置截取,源码中是通过字符串的下标来控制当前截取到哪里来，并从这个位置开始截取到最后advance这个方法)。我们根据模板开始位置的片段类型，进行不同的截取操作。
 
@@ -613,6 +582,38 @@ while (html) {
 整体逻辑
 如何将这些解析方式组装起来完成HTML解析器的功能。
 
+* 判断父级元素是不是纯文本内容元素，纯文本内容元素呢？script、style和textarea这三种元素叫作纯文本内容元素
+  * 父元素不是纯文本内容元素
+    1. 判断模板是不是以开始标签（‘<’）开头？
+        1. 判断是不是Comment注释 
+        2. 判断是不是conditionalComment
+        3. 判断是不是Doctype
+        4. 判断是不是End tag<br>
+            匹配栈，从后往前开始匹配，找到第一个对应的开始标签然后出栈<br>
+            如果没有匹配到，判断是不是自闭合标签<br>
+        5. 判断是不是Start tag<br>
+            提取属性,构造属性结构，属性结构如图11<br>
+            匹配开始标签的结束<br>
+            匹配后面的空白字符串<br>
+            调用start钩子<br>
+        6. 判断是不是以上都不是但是以“<”开头的纯文本
+    2. 是以开始标签（‘<’）开头,<br>
+        截取从'<'开始到结尾的剩余字符串 rest = `<p>{{name}}</p>`
+            判断rest不是以结束标签为开始<br>
+                并且不是以开始标签为开始<br>
+                并且不是以注释标签为开始<br>
+                    获取下一个“<” 的下标 next=rest.indexOf('<', 1)<br>
+                    并修改针对当前的下一个“<” 的位置<br>
+                    textEnd += next<br>
+                    剩余字符串修改为从下一个“<”开始到结尾的字符串 rest=html.slice(textEnd)<br>
+            不满足以上的条件即不更改剩余字符串 <br>
+              那么当前的文本为 text = html.substring(0, textEnd)
+    3. 调用文本 chars 钩子
+  * 父元素是纯文本内容元<br>
+    纯文本内容元素 的处理script、style和textarea 
+
+
+
 文本
 注释
 条件注释
@@ -626,7 +627,7 @@ DOCTYPE
 在上面的代码中，我们可以通过<来分辨是否需要进行文本解析。
 
 如果通过<分辨出即将解析的这一小部分字符不是文本而是标签类，那么标签类有那么多类型，我们需要进一步分辨具体是哪种类型：
-
+``` javascript
 export function parseHTML (html, options) {
     while (html) {
         if (!lastTag || !isPlainTextElement(lastTag)) {
@@ -684,7 +685,7 @@ export function parseHTML (html, options) {
         }
     }
 }
-
+```
 Hello {{name}}
 在Vue.js模板中，我们可以使用变量来填充模板。而HTML解析器在解析文本时，并不会区分文本是否是带变量的文本。如果是纯文本，不需要进行任何处理；但如果是带变量的文本，那么需要使用文本解析器进一步解析。因为带变量的文本在使用虚拟DOM进行渲染时，需要将变量替换成变量中的值。
 
@@ -736,7 +737,7 @@ parseHTML(template, {
 假设当前上下文中有一个变量name，其值为LYF，那么expression中的内容被执行时，它的内容是不是就是Hello LYF了？
 
 我们举个例子：
-
+``` javascript
 var obj = {name: 'LYF'}
 with(obj) {
     function toString (val) {
@@ -748,6 +749,7 @@ with(obj) {
     }
     console.log("Hello "+toString(name)) // "Hello LYF"
 }
+```
 在上面的代码中，我们打印出来的结果是"Hello LYF"。
 
 事实上，最终AST会转换成代码字符串放在with中执行。
@@ -756,12 +758,15 @@ with(obj) {
 
 在文本解析器中，第一步要做的事情就是使用正则表达式来判断文本是否是带变量的文本，也就是检查文本中是否包含{{xxx}}这样的语法。如果是纯文本，则直接返回undefined；如果是带变量的文本。所以我们的代码是这样的：
 
+``` javascript
 function parseText (text) {
     const tagRE = /\{\{((?:.|\n)+?)\}\}/g
     if (!tagRE(text)) {
         return
     }
 }
+```
+
 在上面的代码中，如果是纯文本，则直接返回。如果是带变量的文本，该如何处理呢？
 
 一个解决思路是使用正则表达式匹配出文本中的变量，先把变量左边的文本添加到数组中，然后把变量改成_s(x)这样的形式也添加到数组中。如果变量后面还有变量，则重复以上动作，直到所有变量都添加到数组中。如果最后一个变量的后面有文本，就将它添加到数组中。
@@ -769,7 +774,7 @@ function parseText (text) {
 这时我们其实已经有一个数组，数组元素的顺序和文本的顺序是一致的，此时将这些数组元素用+连起来变成字符串，就可以得到最终想要的效果
 
 具体实现代码如下：
-
+``` javascript
 function parseText (text) {
     const tagRE = /\{\{((?:.|\n)+?)\}\}/g
     if (!tagRE.test(text)) {
@@ -798,44 +803,36 @@ function parseText (text) {
     }
     return tokens.join('+')
 }
+```
 这是文本解析器的全部代码，代码并不多，逻辑也不是很复杂。
 
 这段代码有一个很关键的地方在lastIndex：每处理完一个变量后，会重新设置lastIndex的位置，这样可以保证如果后面还有其他变量，那么在下一轮循环时可以从lastIndex的位置开始向后匹配，而lastIndex之前的文本将不再被匹配。
 
 ### vue.js 源码 添加注释
 ``` javascript
-/**
- * Not type-checking this file because it's mostly vendor code.
- */
-
-/*!
- * HTML Parser By John Resig (ejohn.org)
- * Modified by Juriy "kangax" Zaytsev
- * Original code by Erik Arvidsson (MPL-1.1 OR Apache-2.0 OR GPL-2.0-or-later)
- * http://erik.eae.net/simplehtmlparser/simplehtmlparser.js
- */
-
-import { makeMap, no } from 'shared/util'
-import { isNonPhrasingTag } from 'web/compiler/util'
-import { unicodeRegExp } from 'core/util/lang'
-
+...
 // Regular Expressions for parsing tags and attributes
 const attribute = /^\s*([^\s"'<>\/=]+)(?:\s*(=)\s*(?:"([^"]*)"+|'([^']*)'+|([^\s"'=<>`]+)))?/
 const dynamicArgAttribute = /^\s*((?:v-[\w-]+:|@|:|#)\[[^=]+\][^\s"'<>\/=]*)(?:\s*(=)\s*(?:"([^"]*)"+|'([^']*)'+|([^\s"'=<>`]+)))?/
 const ncname = `[a-zA-Z_][\\-\\.0-9_a-zA-Z${unicodeRegExp.source}]*`
 const qnameCapture = `((?:${ncname}\\:)?${ncname})`
+// 开始标签正则
 const startTagOpen = new RegExp(`^<${qnameCapture}`)
+// 开始标签闭合正则
 const startTagClose = /^\s*(\/?)>/
+// 结束标签正则
 const endTag = new RegExp(`^<\\/${qnameCapture}[^>]*>`)
 const doctype = /^<!DOCTYPE [^>]+>/i
-// #7298: escape - to avoid being passed as HTML comment when inlined in page
+// 条件正则
 const comment = /^<!\--/
+// 条件注释正则
 const conditionalComment = /^<!\[/
 
-// Special Elements (can contain anything)
+// 是否是纯文本标签
 export const isPlainTextElement = makeMap('script,style,textarea', true)
 const reCache = {}
 
+// encode 文本替换
 const decodingMap = {
   '&lt;': '<',
   '&gt;': '>',
@@ -845,32 +842,25 @@ const decodingMap = {
   '&#9;': '\t',
   '&#39;': "'"
 }
-const encodedAttr = /&(?:lt|gt|quot|amp|#39);/g
-const encodedAttrWithNewLines = /&(?:lt|gt|quot|amp|#39|#10|#9);/g
-
-// #5992
-const isIgnoreNewlineTag = makeMap('pre,textarea', true)
-const shouldIgnoreFirstNewline = (tag, html) => tag && isIgnoreNewlineTag(tag) && html[0] === '\n'
-
-function decodeAttr (value, shouldDecodeNewlines) {
-  const re = shouldDecodeNewlines ? encodedAttrWithNewLines : encodedAttr
-  return value.replace(re, match => decodingMap[match])
-}
-
+...
 export function parseHTML (html, options) {
   const stack = []
   const expectHTML = options.expectHTML
   const isUnaryTag = options.isUnaryTag || no
   const canBeLeftOpenTag = options.canBeLeftOpenTag || no
+  // 已经处理过的文本长度，可以当成下标来使用
   let index = 0
+  // 上一次处理的标签，即父元素
   let last, lastTag
   while (html) {
     last = html
-    // Make sure we're not in a plaintext content element like script/style
+    // 父元素为真，或者不是纯文本标签（script,style,textarea）
     if (!lastTag || !isPlainTextElement(lastTag)) {
+      // 第一次出现<的位置
       let textEnd = html.indexOf('<')
+      // 以<开头的文本逻辑
       if (textEnd === 0) {
-        // Comment:
+        // 注释逻辑处理
         if (comment.test(html)) {
           const commentEnd = html.indexOf('-->')
 
@@ -883,7 +873,7 @@ export function parseHTML (html, options) {
           }
         }
 
-        // http://en.wikipedia.org/wiki/Conditional_comment#Downlevel-revealed_conditional_comment
+        // 条件注释逻辑
         if (conditionalComment.test(html)) {
           const conditionalEnd = html.indexOf(']>')
 
@@ -893,14 +883,14 @@ export function parseHTML (html, options) {
           }
         }
 
-        // Doctype:
+        // Doctype逻辑
         const doctypeMatch = html.match(doctype)
         if (doctypeMatch) {
           advance(doctypeMatch[0].length)
           continue
         }
 
-        // End tag:
+        // 结束标签逻辑
         const endTagMatch = html.match(endTag)
         if (endTagMatch) {
           const curIndex = index
@@ -909,7 +899,7 @@ export function parseHTML (html, options) {
           continue
         }
 
-        // Start tag:
+        // 开始标签逻辑
         const startTagMatch = parseStartTag()
         if (startTagMatch) {
           handleStartTag(startTagMatch)
@@ -922,19 +912,23 @@ export function parseHTML (html, options) {
 
       let text, rest, next
       if (textEnd >= 0) {
+        // 剩余文本内容
         rest = html.slice(textEnd)
+        // 通过while来解决这个问题（注意是里面的while）。如果剩余的模板不符合任何被解析的类型，那么重复解析文本，直到剩余模板符合被解析的类型为止
+        // 剩余的文本不是开始标签、结束标签和注释等
         while (
           !endTag.test(rest) &&
           !startTagOpen.test(rest) &&
           !comment.test(rest) &&
           !conditionalComment.test(rest)
         ) {
-          // < in plain text, be forgiving and treat it as text
+          // 当判断出<是属于文本的一部分后，我们需要做的事情是找到下一个<并将其前面的文本截取出来加到前面已经截取的文本后面。
           next = rest.indexOf('<', 1)
           if (next < 0) break
           textEnd += next
           rest = html.slice(textEnd)
         }
+        // 当剩余的模板什么都不符合时，就说明<属于文本的一部分。
         text = html.substring(0, textEnd)
       }
 
@@ -950,26 +944,34 @@ export function parseHTML (html, options) {
         options.chars(text, index - text.length, index)
       }
     } else {
+      // 父元素为纯文本内容元素的处理 script、style、textarea的处理逻辑
       let endTagLength = 0
       const stackedTag = lastTag.toLowerCase()
       const reStackedTag = reCache[stackedTag] || (reCache[stackedTag] = new RegExp('([\\s\\S]*?)(</' + stackedTag + '[^>]*>)', 'i'))
       const rest = html.replace(reStackedTag, function (all, text, endTag) {
+        // 参数text（代表结束标签前的所有内容）
+        // ([\\s\\S]*?)(</textarea>) 正则会匹配待</textarea> 之前所有的可见非可见的字符
+        //[\s\S] 意思是匹配所有 空白字符+非空白字符 , 说白了也就是全部字符都可以
+        // ([\\s\\S]*?)是非懒惰模式，加个问号为尽量捕捉到更少的字符串, 也就是限定了不把后边的</textarea>也给捕捉进去
         endTagLength = endTag.length
         if (!isPlainTextElement(stackedTag) && stackedTag !== 'noscript') {
           text = text
-            .replace(/<!\--([\s\S]*?)-->/g, '$1') // #7298
+            .replace(/<!\--([\s\S]*?)-->/g, '$1') 
             .replace(/<!\[CDATA\[([\s\S]*?)]]>/g, '$1')
         }
         if (shouldIgnoreFirstNewline(stackedTag, text)) {
           text = text.slice(1)
         }
+        // 调用chars钩子
         if (options.chars) {
           options.chars(text)
         }
+        // 将符合正则的字符 替换为空
         return ''
       })
       index += html.length - rest.length
       html = rest
+      // 借宿标签
       parseEndTag(stackedTag, index - endTagLength, index)
     }
 
@@ -985,6 +987,7 @@ export function parseHTML (html, options) {
   // Clean up any remaining tags
   parseEndTag()
 
+  // 改变下标 以及截取html
   function advance (n) {
     index += n
     html = html.substring(n)
@@ -1000,6 +1003,7 @@ export function parseHTML (html, options) {
       }
       advance(start[0].length)
       let end, attr
+      // HTML模板不符合开始标签结尾部分的特征，并且符合标签属性的特征，那么进入到循环中进行解析与截取操作
       while (!(end = html.match(startTagClose)) && (attr = html.match(dynamicArgAttribute) || html.match(attribute))) {
         attr.start = index
         advance(attr[0].length)
@@ -1027,7 +1031,7 @@ export function parseHTML (html, options) {
         parseEndTag(tagName)
       }
     }
-
+    // 是否是自闭和 标签
     const unary = isUnaryTag(tagName) || !!unarySlash
 
     const l = match.attrs.length
@@ -1049,10 +1053,11 @@ export function parseHTML (html, options) {
     }
 
     if (!unary) {
+      // 当前标签进栈，stack可以用来提取父元素
       stack.push({ tag: tagName, lowerCasedTag: tagName.toLowerCase(), attrs: attrs, start: match.start, end: match.end })
       lastTag = tagName
     }
-
+    // 触发start钩子
     if (options.start) {
       options.start(tagName, attrs, unary, match.start, match.end)
     }
@@ -1067,12 +1072,13 @@ export function parseHTML (html, options) {
     if (tagName) {
       lowerCasedTagName = tagName.toLowerCase()
       for (pos = stack.length - 1; pos >= 0; pos--) {
+        // 从后往前开始便利 找到栈中匹配到的当前结束标签的开始标签 就退出循环
         if (stack[pos].lowerCasedTag === lowerCasedTagName) {
           break
         }
       }
     } else {
-      // If no tag name is provided, clean shop
+      // 如果没有 匹配到 就置为0
       pos = 0
     }
 
@@ -1088,12 +1094,13 @@ export function parseHTML (html, options) {
             { start: stack[i].start, end: stack[i].end }
           )
         }
+        // 调用end钩子
         if (options.end) {
           options.end(stack[i].tag, start, end)
         }
       }
 
-      // Remove the open elements from the stack
+      // 开始标签出栈，即父元素回到上一个
       stack.length = pos
       lastTag = pos && stack[pos - 1].tag
     } else if (lowerCasedTagName === 'br') {
@@ -1122,5 +1129,3 @@ export function parseHTML (html, options) {
 最终，当HTML解析器运行完毕后，我们就可以得到一个完整的带DOM层级关系的AST。
 
 HTML解析器的内部原理是一小段一小段地截取模板字符串，每截取一小段字符串，就会根据截取出来的字符串类型触发不同的钩子函数，直到模板字符串截空停止运行。
-
-文本分两种类型，不带变量的纯文本和带变量的文本，后者需要使用文本解析器进行二次加工。
