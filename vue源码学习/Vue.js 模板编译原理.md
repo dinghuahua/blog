@@ -87,11 +87,11 @@ function createASTElement (tag, attrs, parent) {
 ```
 当上面这个模板被HTML解析器解析时，所触发的钩子函数依次是：start、start、chars、end。<br/>
 也就是说，解析器其实是从前向后解析的。<br/>
-解析到<div>时，会触发一个标签开始的钩子函数start；<br/>
-然后解析到<p>时，又触发一次钩子函数start；<br/>
+解析到`<div>`时，会触发一个标签开始的钩子函数start；<br/>
+然后解析到`<p>`时，又触发一次钩子函数start；<br/>
 接着解析到 我是LYF 这行文本，此时触发了文本钩子函数chars；<br/>
-然后解析到</p>，触发了标签结束的钩子函数end；<br/>
-接着继续解析到</div>，此时又触发一次标签结束的钩子函数end，解析结束。<br/>
+然后解析到`</p>`，触发了标签结束的钩子函数end；<br/>
+接着继续解析到`</div>`，此时又触发一次标签结束的钩子函数end，解析结束。<br/>
 
 因此，我们可以在钩子函数中构建AST节点。在start钩子函数中构建元素类型的节点，在chars钩子函数中构建文本类型的节点，在comment钩子函数中构建注释类型的节点。
 
@@ -163,10 +163,10 @@ function parseHTML(html, options) {
 
 最初的HTML模板：
 ``` javascript
-`<div id="header" @click="add">
+<div id="header" @click="add">
   我是LYF
   <p>{{name}}</p>
-</div>`
+</div>
 //开始的所有的字符串,index = 0,html="<div id="header" @click="add">↵  我是LYF↵  <p>{{name}}</p>↵</div>"
 // 第一轮循环时，
 // 截取出一段字符串<div id="app" @click="add"，
