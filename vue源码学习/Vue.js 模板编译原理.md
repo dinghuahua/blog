@@ -55,7 +55,6 @@ parseHTML(template, {
     start (tag, attrs, unary) {
         // 每当解析到标签的开始位置时，触发该函数
         // tag、attrs和unary，它们分别代表标签名、标签的属性以及是否是自闭合标签。
-        let element = createASTElement(tag, attrs, currentParent)
     },
     end () {
         // 每当解析到标签的结束位置时，触发该函数
@@ -69,15 +68,6 @@ parseHTML(template, {
         let element = {type: 3, text, isComment: true}
     }
 })
-function createASTElement (tag, attrs, parent) {
-    return {
-        type: 1,
-        tag,
-        attrsList: attrs,
-        parent,
-        children: []
-    }
-}
 ```
 
 你可能不能很清晰地理解，下面我们举个简单的例子：
@@ -153,14 +143,15 @@ function parseHTML(html, options) {
     // 截取模板字符串并触发钩子函数
   }
 }
-// 为了方便理解，我们手动模拟HTML解析器的解析过程。例如，下面这样一个简单的HTML模板：
-
-<div>
-  <p>{{name}}</p>
-</div>
 ```
-它在被HTML解析器解析的过程如下。
-
+为了方便理解，我们手动模拟HTML解析器的解析过程。例如，下面这样一个简单的HTML模板：
+``` javascript
+`<div id="header" @click="add">
+  我是LYF
+  <p>{{name}}</p>
+</div>`
+```
+它在被HTML解析器解析的过程如下:
 最初的HTML模板：
 ``` javascript
 `<div id="header" @click="add">
@@ -306,8 +297,8 @@ ast = {
     纯文本内容元素 的处理script、style和textarea 
 
 
-HTML解析器的全部逻辑都是在循环中执行，循环结束就代表解析结束。接下来，我们要讨论的重点是HTML解析器在循环中都干了些什么事。
-那就是每一轮截取字符串时，都是在整个模板的开始位置截取(源码中是通过字符串的下标来控制当前截取到哪里来，并从这个位置开始截取到最后advance这个方法)。我们根据模板开始位置的片段类型，进行不同的截取操作。
+HTML解析器的全部逻辑都是在循环中执行，循环结束就代表解析结束。接下来，我们要讨论的重点是HTML解析器在循环中都干了些什么事。<br>
+那就是每一轮截取字符串时，都是在整个模板的开始位置截取,源码中是通过字符串的下标来控制当前截取到哪里来，并从这个位置开始截取到最后advance这个方法)。我们根据模板开始位置的片段类型，进行不同的截取操作。
 
 <img src="./images/data9.png" width="609%">
 
@@ -345,7 +336,7 @@ const startTagOpen = new RegExp(`^<${qnameCapture}`)
 // 以结束标签开始的模板
 '</div><div>我是Berwin</div>'.match(startTagOpen) // null
 // 以文本开始的模板
-'我是Berwin</p>'.match(startTagOpen) // null
+'我是LYF</p>'.match(startTagOpen) // null
 ```
 
 通过上面的例子可以看到，只有``` javascript '<div></div>' ```可以成功匹配，而以``` javascript</div>```开头的或者以文本开头的模板都无法成功匹配。
@@ -363,9 +354,7 @@ if (start) {
         attrs: []
     }
 }
-```
-这里有一个细节很重要：在前面的例子中，我们匹配到的开始标签并不全。例如：
-
+// 这里有一个细节很重要：在前面的例子中，我们匹配到的开始标签并不全。例如：
 const ncname = '[a-zA-Z_][\\w\\-\\.]*'
 const qnameCapture = `((?:${ncname}\\:)?${ncname})`
 const startTagOpen = new RegExp(`^<${qnameCapture}`)
@@ -378,6 +367,8 @@ const startTagOpen = new RegExp(`^<${qnameCapture}`)
 
 '<div class="box"></div>'.match(startTagOpen)
 // ["<div", "div", index: 0, input: "<div class="box"></div>"]
+```
+
 可以看出，上面这个正则表达式虽然可以分辨出模板是否以开始标签开头，但是它的匹配规则并不是匹配整个开始标签，而是开始标签的一小部分。
 
 事实上，开始标签被拆分成三个小部分，分别是标签名、属性和结尾<br>
@@ -386,11 +377,11 @@ const startTagOpen = new RegExp(`^<${qnameCapture}`)
 1. 解析标签属性
 在分辨模板是否以开始标签开头时，会将开始标签中的标签名这一小部分截取掉，因此在解析标签属性时，我们得到的模板是下面伪代码中的样子：
 
-' class="box"></div>'
+` class="box"></div>`
 通常，标签属性是可选的，一个标签的属性有可能存在，也有可能不存在，所以需要判断标签是否存在属性，如果存在，对它进行截取。
 
 下面的伪代码展示了如何解析开始标签中的属性，但是它只能解析一个属性：
-
+``` javascript
 const attribute = /^\s*([^\s"'<>\/=]+)(?:\s*(=)\s*(?:"([^"]*)"+|'([^']*)'+|([^\s"'=<>`]+)))?/
 let html = ' class="box"></div>'
 let attr = html.match(attribute)
@@ -405,17 +396,18 @@ let attr = html.match(attribute)
 html = html.substring(attr[0].length)
 console.log(attr)
 // [' class="box"', 'class', '=', 'box', undefined, undefined, index: 0, input: ' class="box" id="el"></div>']
+```
 可以看到，这里只解析出了class属性，而id属性没有解析出来。
 
 此时剩余的HTML模板是这样的：
 
-' id="el"></div>'
+` id="el"></div>`
 所以属性也可以分成多个小部分，一小部分一小部分去解析与截取。
 
 解决这个问题时，我们只需要每解析一个属性就截取一个属性。如果截取完后，剩下的HTML模板依然符合标签属性的正则表达式，那么说明还有剩余的属性需要处理，此时就重复执行前面的流程，直到剩余的模板不存在属性，也就是剩余的模板不存在符合正则表达式所预设的规则。
 
 例如：
-
+``` javascript
 const startTagClose = /^\s*(\/?)>/
 const attribute = /^\s*([^\s"'<>\/=]+)(?:\s*(=)\s*(?:"([^"]*)"+|'([^']*)'+|([^\s"'=<>`]+)))?/
 let html = ' class="box" id="el"></div>'
@@ -426,6 +418,7 @@ while (!(end = html.match(startTagClose)) && (attr = html.match(attribute))) {
     html = html.substring(attr[0].length)
     match.attrs.push(attr)
 }
+```
 上面这段代码的意思是，如果剩余HTML模板不符合开始标签结尾部分的特征，并且符合标签属性的特征，那么进入到循环中进行解析与截取操作。
 
 通过match方法解析出的结果为：
@@ -441,7 +434,7 @@ while (!(end = html.match(startTagClose)) && (attr = html.match(attribute))) {
 
 此时剩余模板是下面的样子：
 
-"></div>"
+`></div>`
 我们将属性解析后的模板与解析之前的模板进行对比：
 
 // 解析前的模板
