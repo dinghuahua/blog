@@ -349,6 +349,9 @@ new Vue()操作后，会调用Vue.prototype._init()方法。完成一系列初�
 执行Vue.prototype.$mount
 vm._render()获取描述当前实例的VNode
 vm._update(VNode)，调用 vm.__patch__转换成真正的 DOM 节点
+
 流程图：
+
+<img src="" width="60%">
 
 vue-update.png
