@@ -352,6 +352,6 @@ vm._update(VNode)，调用 vm.__patch__转换成真正的 DOM 节点
 
 流程图：
 
-<img src="" width="60%">
+<img src="https://github.com/dinghuahua/blog/blob/master/vue%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0/images/data12.png" width="60%">
 
 vue-update.png
