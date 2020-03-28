@@ -1,5 +1,32 @@
-Vue.js 模板解析器原理
+Vue.js 模板解析器原理 上
+小技巧：
+  用单文件组件的情况，vue的编译是在打包构建时完成，这样的话就不可以调试编译的代码，
+  所以可以先参照管的介绍修改本地的打包配置[运行版 vs 运行版+编译 ](https://cn.vuejs.org/v2/guide/installation.html#%E8%BF%90%E8%A1%8C%E6%97%B6-%E7%BC%96%E8%AF%91%E5%99%A8-vs-%E5%8F%AA%E5%8C%85%E5%90%AB%E8%BF%90%E8%A1%8C%E6%97%B6)，然后本地的模块写到template属性上，不要单独写template块，这样就可以调试vue的编译原理的代码
+
 解析器要实现的功能是将模板解析成AST。
+
+template是如何被编译成render function的呢？
+
+ /*
+    将AST树进行优化
+    优化的目标：生成模板AST树，检测不需要进行DOM改变的静态子树。
+    一旦检测到这些静态树，我们就能做以下这些事情：
+    1.把它们变成常数，这样我们就再也不需要每次重新渲染时创建新的节点了。
+    2.在patch的过程中直接跳过。
+ */
+ baseCompile首先会将模板template进行parse得到一个AST语法树,parse会用正则等方式解析template模板中的指令、class、style等数据，形成AST语法树。<br>
+ 再通过optimize做一些优化，<br>
+ 最后通过generate得到render以及staticRenderFns。<br>
+ 具体的template编译实现请参考[聊聊Vue.js的template编译]()。
+
+#### optimize
+optimize的主要作用是标记static静态节点，这是Vue在编译过程中的一处优化，后面当update更新界面时，会有一个patch的过程，diff算法会直接跳过静态节点，从而减少了比较的过程，优化了patch的性能。
+
+#### generate
+generate是将AST语法树转化成render funtion字符串的过程，得到结果是render的字符串以及staticRenderFns字符串。
+
+具体的template编译实现请参考《聊聊Vue.js的template编译》。
+
 
 例如：
 ``` javascript
