@@ -1,4 +1,4 @@
-vue实例化到挂载到dom(下)
+vue实例化到渲染到页面(下)
 
 回顾上一篇，vm._update()方法内部执行了vm.__patch__(...),patch方法的作用是把 VNode 转换成真正的 DOM 节点。
 方法在目录src/platforms/web/runtime/index.js中定义
@@ -197,4 +197,3 @@ function createChildren (vnode, children, insertedVnodeQueue) {
 <img src="https://github.com/dinghuahua/blog/blob/master/vue%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0/images/data13.png" width="60%">
 
 patch.png
-https://github.com/dinghuahua/blog/blob/master/vue%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0/images/data.png
