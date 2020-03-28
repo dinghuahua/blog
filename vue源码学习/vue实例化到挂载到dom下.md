@@ -195,3 +195,4 @@ function createChildren (vnode, children, insertedVnodeQueue) {
 <img src="https://github.com/dinghuahua/blog/blob/master/vue%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0/images/data13.png" width="60%">
 
 patch.png
+https://github.com/dinghuahua/blog/blob/master/vue%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0/images/data.png

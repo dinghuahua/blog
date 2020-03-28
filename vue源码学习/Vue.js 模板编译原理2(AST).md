@@ -1,32 +1,6 @@
-Vue.js 模板解析器原理 上
-小技巧：
-  用单文件组件的情况，vue的编译是在打包构建时完成，这样的话就不可以调试编译的代码，
-  所以可以先参照管的介绍修改本地的打包配置[运行版 vs 运行版+编译 ](https://cn.vuejs.org/v2/guide/installation.html#%E8%BF%90%E8%A1%8C%E6%97%B6-%E7%BC%96%E8%AF%91%E5%99%A8-vs-%E5%8F%AA%E5%8C%85%E5%90%AB%E8%BF%90%E8%A1%8C%E6%97%B6)，然后本地的模块写到template属性上，不要单独写template块，这样就可以调试vue的编译原理的代码
-
-解析器要实现的功能是将模板解析成AST。
-
-template是如何被编译成render function的呢？
-
- /*
-    将AST树进行优化
-    优化的目标：生成模板AST树，检测不需要进行DOM改变的静态子树。
-    一旦检测到这些静态树，我们就能做以下这些事情：
-    1.把它们变成常数，这样我们就再也不需要每次重新渲染时创建新的节点了。
-    2.在patch的过程中直接跳过。
- */
- baseCompile首先会将模板template进行parse得到一个AST语法树,parse会用正则等方式解析template模板中的指令、class、style等数据，形成AST语法树。<br>
- 再通过optimize做一些优化，<br>
- 最后通过generate得到render以及staticRenderFns。<br>
- 具体的template编译实现请参考[聊聊Vue.js的template编译]()。
-
-#### optimize
-optimize的主要作用是标记static静态节点，这是Vue在编译过程中的一处优化，后面当update更新界面时，会有一个patch的过程，diff算法会直接跳过静态节点，从而减少了比较的过程，优化了patch的性能。
-
-#### generate
-generate是将AST语法树转化成render funtion字符串的过程，得到结果是render的字符串以及staticRenderFns字符串。
-
-具体的template编译实现请参考《聊聊Vue.js的template编译》。
-
+### AST抽象语法树 
+baseCompile首先会将模板template进行parse得到一个AST语法树,parse会用正则等方式解析template模板中的指令、class、style等数据，形成AST语法树。
+在计算机科学中，抽象语法树（abstract syntax tree或者缩写为AST），或者语法树（syntax tree），是源代码的抽象语法结构的树状表现形式，这里特指编程语言的源代码。具体可以查看抽象语法树
 
 例如：
 ``` javascript
@@ -69,9 +43,9 @@ parent属性保存了父节点的描述对象，<br>
 children属性是一个数组，里面保存了一些子节点的描述对象。<br>
 type属性代表一个节点的类型等。当很多个独立的节点通过parent属性和children属性连在一起时，就变成了一个树，而这样一个用对象描述的节点树其实就是AST。
 
-### 解析器内部运行原理
+### 编译器内部运行原理
 
-事实上，解析器内部也分了好几个子解析器，比如HTML解析器、文本解析器以及过滤器解析器，其中最主要的是HTML解析器。顾名思义，HTML解析器的作用是解析HTML，它在解析HTML的过程中会不断触发各种钩子函数。这些钩子函数包括开始标签钩子函数、结束标签钩子函数、文本钩子函数以及注释钩子函数。
+事实上，编译器内部也分了好几个子编译器，比如HTML编译器、文本编译器以及过滤器编译器，其中最主要的是HTML编译器。顾名思义，HTML编译器的作用是解析HTML，它在解析HTML的过程中会不断触发各种钩子函数。这些钩子函数包括开始标签钩子函数、结束标签钩子函数、文本钩子函数以及注释钩子函数。
 
 伪代码如下：
 ``` javascript
@@ -102,8 +76,8 @@ parseHTML(template, {
 ``` javascript
 <div><p>我是LYF</p></div>
 ```
-当上面这个模板被HTML解析器解析时，所触发的钩子函数依次是：start、start、chars、end。<br/>
-也就是说，解析器其实是从前向后解析的。<br/>
+当上面这个模板被HTML编译器解析时，所触发的钩子函数依次是：start、start、chars、end。<br/>
+也就是说，编译器其实是从前向后解析的。<br/>
 解析到`<div>`时，会触发一个标签开始的钩子函数start；<br/>
 然后解析到`<p>`时，又触发一次钩子函数start；<br/>
 接着解析到 我是LYF 这行文本，此时触发了文本钩子函数chars；<br/>
@@ -112,12 +86,12 @@ parseHTML(template, {
 
 因此，我们可以在钩子函数中构建AST节点。在start钩子函数中构建元素类型的节点，在chars钩子函数中构建文本类型的节点，在comment钩子函数中构建注释类型的节点。
 
-当HTML解析器不再触发钩子函数时，就代表所有模板都解析完毕，所有类型的节点都在钩子函数中构建完成，即AST构建完成。
+当HTML编译器不再触发钩子函数时，就代表所有模板都解析完毕，所有类型的节点都在钩子函数中构建完成，即AST构建完成。
 
 ### 构建AST层级关系
 如何构建AST层级关系。需要维护一个栈（stack）即可，用栈来记录层级关系，这个层级关系也可以理解为DOM的深度。<br>
-HTML解析器在解析HTML时，是从前向后解析。每当遇到开始标签，就触发钩子函数start。每当遇到结束标签，就会触发钩子函数end。<br>
-基于HTML解析器的逻辑，我们可以在每次触发钩子函数start时，把当前构建的节点推入栈中；每当触发钩子函数end时，就从栈中弹出一个节点（实际的源码中并没有出栈，而是通过来控制栈的长度来进行的）。<br>
+HTML编译器在解析HTML时，是从前向后解析。每当遇到开始标签，就触发钩子函数start。每当遇到结束标签，就会触发钩子函数end。<br>
+基于HTML编译器的逻辑，我们可以在每次触发钩子函数start时，把当前构建的节点推入栈中；每当触发钩子函数end时，就从栈中弹出一个节点（实际的源码中并没有出栈，而是通过来控制栈的长度来进行的）。<br>
 这样就可以保证每当触发钩子函数start时，栈的最后一个节点就是当前正在构建的节点的父节点<br>
 
 <img src="./images/data8.png" width="60%">
@@ -155,10 +129,10 @@ HTML解析器在解析HTML时，是从前向后解析。每当遇到开始标签
 
 (11) 这时模板的开始位置是div的结束标签，于是会触发钩子函数end。其逻辑与之前一样，把栈中的最后一个节点弹出来，也就是把div弹了出来，并将div的结束标签从模板中截取掉。
 
-(12)这时模板已经被截取空了，也就代表着HTML解析器已经运行完毕。这时我们会发现栈已经空了，但是我们得到了一个完整的带层级关系的AST语法树。这个AST中清晰写明了每个节点的父节点、子节点及其节点类型。
+(12)这时模板已经被截取空了，也就代表着HTML编译器已经运行完毕。这时我们会发现栈已经空了，但是我们得到了一个完整的带层级关系的AST语法树。这个AST中清晰写明了每个节点的父节点、子节点及其节点类型。
  
-### HTML解析器运行原理
-通过前面的介绍，我们发现构建AST非常依赖HTML解析器所执行的钩子函数以及钩子函数中所提供的参数，你一定会非常好奇HTML解析器是如何解析模板的，接下来我们会详细介绍HTML解析器的运行原理。
+### HTML编译器运行原理
+通过前面的介绍，我们发现构建AST非常依赖HTML编译器所执行的钩子函数以及钩子函数中所提供的参数，你一定会非常好奇HTML编译器是如何解析模板的，接下来我们会详细介绍HTML编译器的运行原理。
 
 事实上，解析HTML模板的过程就是循环的过程，简单来说就是用HTML模板字符串来循环，每轮循环都从HTML模板中通过正则匹配截取一小段字符串，然后重复以上过程，直到HTML模板被截成一个空字符串时结束循环，解析完毕，如图9-2所示。
 
@@ -172,14 +146,14 @@ function parseHTML(html, options) {
   }
 }
 ```
-为了方便理解，我们手动模拟HTML解析器的解析过程。例如，下面这样一个简单的HTML模板：
+为了方便理解，我们手动模拟HTML编译器的解析过程。例如，下面这样一个简单的HTML模板：
 ``` javascript
 `<div id="header" @click="add">
   我是LYF
   <p>{{name}}</p>
 </div>`
 ```
-它在被HTML解析器解析的过程如下:
+它在被HTML编译器解析的过程如下:
 最初的HTML模板：
 ``` javascript
 `<div id="header" @click="add">
@@ -294,7 +268,7 @@ ast = {
 <img src="./images/data10.png" width="60%">
 <img src="./images/data11.png" width="60%">
 
-HTML解析器的全部逻辑都是在循环中执行，循环结束就代表解析结束。接下来，我们要讨论的重点是HTML解析器在循环中都干了些什么事。<br>
+HTML编译器的全部逻辑都是在循环中执行，循环结束就代表解析结束。接下来，我们要讨论的重点是HTML编译器在循环中都干了些什么事。<br>
 那就是每一轮截取字符串时，都是在整个模板的开始位置截取,源码中是通过字符串的下标来控制当前截取到哪里来，并从这个位置开始截取到最后advance这个方法)。我们根据模板开始位置的片段类型，进行不同的截取操作。
 
 <img src="./images/data9.png" width="609%">
@@ -317,11 +291,11 @@ DOCTYPE，例如<!DOCTYPE html>。
 #### 截取开始标签
 每一轮循环都是从模板的最前面截取，所以只有模板以开始标签开头，才需要进行开始标签的截取操作。<br>
 那么，如何确定模板是不是以开始标签开头？<br>
-在HTML解析器中，想分辨出模板是否以开始标签开头并不难，我们需要先判断HTML模板是不是以<开头。<br>
+在HTML编译器中，想分辨出模板是否以开始标签开头并不难，我们需要先判断HTML模板是不是以<开头。<br>
 如果HTML模板的第一个字符不是<，那么它一定不是以开始标签开头的模板，所以不需要进行开始标签的截取操作。<br>
 如果HTML模板以<开头，那么说明它至少是一个以标签开头的模板，但这个标签到底是什么类型的标签，还需要进一步确认。<br>
 如果模板以<开头，那么它有可能是以开始标签开头的模板，同时它也有可能是以结束标签开头的模板，还有可能是注释等其他标签，因为这些类型的片段都以<开头。那么，要进一步确定模板是不是以开始标签开头，还需要借助正则表达式来分辨模板的开始位置是否符合开始标签的特征。<br>
-当HTML解析器解析到标签开始时，会触发钩子函数start，同时会给出三个参数，分别是标签名（tagName）、属性（attrs）以及自闭合标识（unary）。<br>
+当HTML编译器解析到标签开始时，会触发钩子函数start，同时会给出三个参数，分别是标签名（tagName）、属性（attrs）以及自闭合标识（unary）。<br>
 
 <p>开始标签被拆分成三个小部分，分别是标签名、属性和结尾<p>
 
@@ -514,7 +488,7 @@ while (html) {
 有一个思路是，如果将<前面的字符截取完之后，剩余的模板不符合任何需要被解析的片段的类型，就说明这个<是文本的一部分。
 
 什么是需要被解析的片段的类型？<br>
-我们说过HTML解析器是一段一段截取模板的，而被截取的每一段都符合某种类型，这些类型包括开始标签、结束标签和注释等。
+我们说过HTML编译器是一段一段截取模板的，而被截取的每一段都符合某种类型，这些类型包括开始标签、结束标签和注释等。
 
 说的再具体一点，那就是上面这段代码中的1被截取完之后，剩余模板是下面的样子：
 
@@ -615,7 +589,7 @@ while (html) {
 最后，调用钩子函数end并将标签名放到参数中传出去，代表本轮循环中的所有逻辑都已处理完毕。
 
 整体逻辑
-如何将这些解析方式组装起来完成HTML解析器的功能。
+如何将这些解析方式组装起来完成HTML编译器的功能。
 
 * 判断父级元素是不是纯文本内容元素，纯文本内容元素呢？script、style和textarea这三种元素叫作纯文本内容元素
   * 父元素不是纯文本内容元素
@@ -722,9 +696,9 @@ export function parseHTML (html, options) {
 }
 ```
 Hello {{name}}
-在Vue.js模板中，我们可以使用变量来填充模板。而HTML解析器在解析文本时，并不会区分文本是否是带变量的文本。如果是纯文本，不需要进行任何处理；但如果是带变量的文本，那么需要使用文本解析器进一步解析。因为带变量的文本在使用虚拟DOM进行渲染时，需要将变量替换成变量中的值。
+在Vue.js模板中，我们可以使用变量来填充模板。而HTML编译器在解析文本时，并不会区分文本是否是带变量的文本。如果是纯文本，不需要进行任何处理；但如果是带变量的文本，那么需要使用文本编译器进一步解析。因为带变量的文本在使用虚拟DOM进行渲染时，需要将变量替换成变量中的值。
 
-每当HTML解析器解析到文本时，都会触发chars函数，并且从参数中得到解析出的文本。在chars函数中，我们需要构建文本类型的AST，并将它添加到父节点的children属性中。
+每当HTML编译器解析到文本时，都会触发chars函数，并且从参数中得到解析出的文本。在chars函数中，我们需要构建文本类型的AST，并将它添加到父节点的children属性中。
 
 而在构建文本类型的AST时，纯文本和带变量的文本是不同的处理方式。如果是带变量的文本，其代码如下：
 ``` javascript
@@ -759,12 +733,12 @@ parseHTML(template, {
     }
 })
 ```
-在chars函数中，如果执行parseText后有返回结果，则说明文本是带变量的文本，并且已经通过文本解析器（parseText）二次加工，此时构建一个带变量的文本类型的AST并将其添加到父节点的children属性中。否则，就直接构建一个普通的文本节点并将其添加到父节点的children属性中。而代码中的currentParent是当前节点的父节点，也就是前面介绍的栈中的最后一个节点。
+在chars函数中，如果执行parseText后有返回结果，则说明文本是带变量的文本，并且已经通过文本编译器（parseText）二次加工，此时构建一个带变量的文本类型的AST并将其添加到父节点的children属性中。否则，就直接构建一个普通的文本节点并将其添加到父节点的children属性中。而代码中的currentParent是当前节点的父节点，也就是前面介绍的栈中的最后一个节点。
 
 假设chars函数被触发后，我们得到的text是一个带变量的文本：
 
 "Hello {{name}}"
-这个带变量的文本被文本解析器解析之后，得到的expression变量是这样的：
+这个带变量的文本被文本编译器解析之后，得到的expression变量是这样的：
 
 "Hello "+_s(name)
 上面代码中的_s其实是下面这个toString函数的别名：
@@ -789,9 +763,9 @@ with(obj) {
 
 事实上，最终AST会转换成代码字符串放在with中执行。
 
-接着，我们详细介绍如何加工文本，也就是文本解析器的内部实现原理。
+接着，我们详细介绍如何加工文本，也就是文本编译器的内部实现原理。
 
-在文本解析器中，第一步要做的事情就是使用正则表达式来判断文本是否是带变量的文本，也就是检查文本中是否包含{{xxx}}这样的语法。如果是纯文本，则直接返回undefined；如果是带变量的文本。所以我们的代码是这样的：
+在文本编译器中，第一步要做的事情就是使用正则表达式来判断文本是否是带变量的文本，也就是检查文本中是否包含{{xxx}}这样的语法。如果是纯文本，则直接返回undefined；如果是带变量的文本。所以我们的代码是这样的：
 
 ``` javascript
 function parseText (text) {
@@ -839,7 +813,7 @@ function parseText (text) {
     return tokens.join('+')
 }
 ```
-这是文本解析器的全部代码，代码并不多，逻辑也不是很复杂。
+这是文本编译器的全部代码，代码并不多，逻辑也不是很复杂。
 
 这段代码有一个很关键的地方在lastIndex：每处理完一个变量后，会重新设置lastIndex的位置，这样可以保证如果后面还有其他变量，那么在下一轮循环时可以从lastIndex的位置开始向后匹配，而lastIndex之前的文本将不再被匹配。
 
@@ -1157,12 +1131,76 @@ export function parseHTML (html, options) {
 
 ### 总结
 
-解析器的作用是通过模板得到AST（抽象语法树）。
+编译器的作用是通过模板得到AST（抽象语法树）。
 
-生成AST的过程需要借助HTML解析器，当HTML解析器触发不同的钩子函数时，我们可以构建出不同的节点。
+生成AST的过程需要借助HTML编译器，当HTML编译器触发不同的钩子函数时，我们可以构建出不同的节点。
 
 随后，我们可以通过栈来得到当前正在构建的节点的父节点，然后将构建出的节点添加到父节点的下面。
 
-最终，当HTML解析器运行完毕后，我们就可以得到一个完整的带DOM层级关系的AST。
+最终，当HTML编译器运行完毕后，我们就可以得到一个完整的带DOM层级关系的AST。
 
-HTML解析器的内部原理是一小段一小段地截取模板字符串，每截取一小段字符串，就会根据截取出来的字符串类型触发不同的钩子函数，直到模板字符串截空停止运行。
+HTML编译器的内部原理是一小段一小段地截取模板字符串，每截取一小段字符串，就会根据截取出来的字符串类型触发不同的钩子函数，直到模板字符串截空停止运行。
+
+
+
+
+转换成真正的 DOM 节点用的方法是
+``` javascript
+import { namespaceMap } from 'web/util/index'
+
+export function createElement (tagName: string, vnode: VNode): Element {
+  const elm = document.createElement(tagName)
+  if (tagName !== 'select') {
+    return elm
+  }
+  // false or null will remove the attribute but undefined will not
+  if (vnode.data && vnode.data.attrs && vnode.data.attrs.multiple !== undefined) {
+    elm.setAttribute('multiple', 'multiple')
+  }
+  return elm
+}
+
+export function createElementNS (namespace: string, tagName: string): Element {
+  return document.createElementNS(namespaceMap[namespace], tagName)
+}
+
+export function createTextNode (text: string): Text {
+  return document.createTextNode(text)
+}
+
+export function createComment (text: string): Comment {
+  return document.createComment(text)
+}
+
+export function insertBefore (parentNode: Node, newNode: Node, referenceNode: Node) {
+  parentNode.insertBefore(newNode, referenceNode)
+}
+
+export function removeChild (node: Node, child: Node) {
+  node.removeChild(child)
+}
+
+export function appendChild (node: Node, child: Node) {
+  node.appendChild(child)
+}
+
+export function parentNode (node: Node): ?Node {
+  return node.parentNode
+}
+
+export function nextSibling (node: Node): ?Node {
+  return node.nextSibling
+}
+
+export function tagName (node: Element): string {
+  return node.tagName
+}
+
+export function setTextContent (node: Node, text: string) {
+  node.textContent = text
+}
+
+export function setStyleScope (node: Element, scopeId: string) {
+  node.setAttribute(scopeId, '')
+}
+```

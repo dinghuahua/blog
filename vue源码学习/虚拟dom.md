@@ -1,14 +1,12 @@
 VNode
-在刀耕火种的年代，我们需要在各个事件方法中直接操作DOM来达到修改视图的目的。但是当应用一大就会变得难以维护。
-
-那我们是不是可以把真实DOM树抽象成一棵以JavaScript对象构成的抽象树，在修改抽象树数据后将抽象树转化成真实DOM重绘到页面上呢？于是虚拟DOM出现了，它是真实DOM的一层抽象，用属性描述真实DOM的各个特性。当它发生变化的时候，就会去修改视图。
+我们可以把真实DOM树抽象成一棵以JavaScript对象构成的抽象树，在修改抽象树数据后将抽象树转化成真实DOM重绘到页面上呢？于是虚拟DOM出现了，它是真实DOM的一层抽象，用属性描述真实DOM的各个特性。当它发生变化的时候，就会去修改视图。
 
 可以想象，最简单粗暴的方法就是将整个DOM结构用innerHTML修改到页面上，但是这样进行重绘整个视图层是相当消耗性能的，我们是不是可以每次只更新它的修改呢？所以Vue.js将DOM抽象成一个以JavaScript对象为节点的虚拟DOM树，以VNode节点模拟真实DOM，可以对这颗抽象树进行创建节点、删除节点以及修改节点等操作，在这过程中都不需要操作真实DOM，只需要操作JavaScript对象后只对差异修改，相对于整块的innerHTML的粗暴式修改，大大提升了性能。修改以后经过diff算法得出一些需要修改的最小单位，再将这些小单位的视图进行更新。这样做减少了很多不需要的DOM操作，大大提高了性能。
 
 Vue就使用了这样的抽象节点VNode，它是对真实DOM的一层抽象，而不依赖某个平台，它可以是浏览器平台，也可以是weex，甚至是node平台也可以对这样一棵抽象DOM树进行创建删除修改等操作，这也为前后端同构提供了可能。
 
 先来看一下Vue.js源码中对VNode类的定义。
-
+``` javascript
 export default class VNode {
   tag: string | void;
   data: VNodeData | void;
@@ -82,6 +80,7 @@ export default class VNode {
     return this.componentInstance
   }
 }
+```
 这是一个最基础的VNode节点，作为其他派生VNode类的基类，里面定义了下面这些数据。
 
 tag: 当前节点的标签名
@@ -138,16 +137,14 @@ isOnce: 是否有v-once指令
     ]
 }
 渲染之后的结果就是这样的
-
+``` javascript
 <div class="test">
     <span class="demo">hello,VNode</span>
 </div>
-更多操作VNode的方法，请参考《VNode节点》。
-
-
+```
 生成一个新的VNode的方法
 下面这些方法都是一些常用的构造VNode的方法。
-
+``` javascript
 createEmptyVNode 创建一个空VNode节点
 /*创建一个空VNode节点*/
 export const createEmptyVNode = () => {
@@ -167,9 +164,6 @@ createComponent 创建一个组件节点
     Ctor = baseCtor.extend(Ctor)
   }
 
-  // if at this stage it's not a constructor or an async component factory,
-  // reject.
-  /*Github:https://github.com/answershuto*/
   /*如果在该阶段Ctor依然不是一个构造函数或者是一个异步组件工厂则直接返回*/
   if (typeof Ctor !== 'function') {
     if (process.env.NODE_ENV !== 'production') {
@@ -271,7 +265,6 @@ export function createElement (
   if (isTrue(alwaysNormalize)) {
     normalizationType = ALWAYS_NORMALIZE
   }
-  /*Github:https://github.com/answershuto*/
   /*创建虚拟节点*/
   return _createElement(context, tag, data, children, normalizationType)
 }
@@ -356,4 +349,5 @@ export function _createElement (
     return createEmptyVNode()
   }
 }
+```
 createElement用来创建一个虚拟节点。当data上已经绑定__ob__的时候，代表该对象已经被Oberver过了，所以创建一个空节点。tag不存在的时候同样创建一个空节点。当tag不是一个String类型的时候代表tag是一个组件的构造类，直接用new VNode创建。当tag是String类型的时候，如果是保留标签，则用new VNode创建一个VNode实例，如果在vm的option的components找得到该tag，代表这是一个组件，否则统一用new VNode创建。
