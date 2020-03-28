@@ -6,6 +6,7 @@ vue实例化到挂载到dom(下)
 // install platform patch function
 Vue.prototype.__patch__ = inBrowser ? patch : noop
 patch方法是函数createPatchFunction返回的
+
 ``` javascript
 import * as nodeOps from 'web/runtime/node-ops'
 import { createPatchFunction } from 'core/vdom/patch'
@@ -17,10 +18,11 @@ import platformModules from 'web/runtime/modules/index'
 const modules = platformModules.concat(baseModules)
 
 export const patch: Function = createPatchFunction({ nodeOps, modules })
-
-patch方法接受4个参数：
+```
+// patch方法接受4个参数：
 function patch (oldVnode, vnode, hydrating, removeOnly) { ... }
 
+``` javascript
 createElm
 patch 的过程会调用 createElm 创建元素节点:
 
