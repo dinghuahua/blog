@@ -175,43 +175,44 @@ export default {
 }
 ```
 
-### 动态缓存的方法(即缓存过但是后期又不想要了，想要取清除这个对应的缓存)
+### 动态缓存的方法(即缓存过但是后期又不想要了，想要取清除这个对应的缓存) 
 
 业务场景：比如打开第二个页面 就把第一个页面 销毁掉
 
-背景： 只要被 keep-alive 缓存的 就会一直在缓存，永不会销毁，所以也就是会导致 每次在 keep-alive 中打开这个组件 就一直缓存的样子，不会打开一个初始化的页面
+背景： 只要被keep-alive 缓存的 就会一直在缓存，永不会销毁，所以也就是会导致 每次在keep-alive中打开这个组件 就一直缓存的样子，不会打开一个初始化的页面
 
-第一种方式： 让 include/exclude 变为动态的 ，这样当值开始时 如果 name 在改变之后的值匹配不到 就会直接 销毁掉
+第一种方式： 让 include/exclude 变为动态的 ，这样当值开始时 如果name 在改变之后的值匹配不到  就会直接 销毁掉
 
-第一种方式：手动触发 销毁
-可以监听路由的离开钩子，
+第一种方式：手动触发 销毁 可以通过监听路由的离开钩子，
+``` javascript
 beforeRouteLeave:function(to, from, next){
-if (跟据自己的业务更改此处的判断逻辑，酌情决定是否摧毁本层缓存) {
-if (this.$vnode && this.$vnode.data.keepAlive)
-{
-if (this.$vnode.parent && this.$vnode.parent.componentInstance && this.$vnode.parent.componentInstance.cache)
-                      {
-                          if (this.$vnode.componentOptions)
-{
-var key = this.$vnode.key == null
-                                          ? this.$vnode.componentOptions.Ctor.cid + (this.\$vnode.componentOptions.tag ? `::${this.$vnode.componentOptions.tag}` : '')
-: this.$vnode.key;
-                              var cache = this.$vnode.parent.componentInstance.cache;
-var keys = this.$vnode.parent.componentInstance.keys;
-                              if (cache[key])
-                              {
-                                  if (keys.length) {
-                                      var index = keys.indexOf(key);
-                                      if (index > -1) {
-                                          keys.splice(index, 1);
-                                      }
-                                  }
-                                  delete cache[key];
-                              }
+  if (`跟据自己的业务更改此处的判断逻辑，酌情决定是否摧毁本层缓存`) {
+      if (this.$vnode && this.$vnode.data.keepAlive)
+      {
+          if (this.$vnode.parent && this.$vnode.parent.componentInstance && this.$vnode.parent.componentInstance.cache)
+          {
+              if (this.$vnode.componentOptions)
+              {
+                  var key = this.$vnode.key == null
+                              ? this.$vnode.componentOptions.Ctor.cid + (this.$vnode.componentOptions.tag ? `::${this.$vnode.componentOptions.tag}` : '')
+                              : this.$vnode.key;
+                  var cache = this.$vnode.parent.componentInstance.cache;
+                  var keys  = this.$vnode.parent.componentInstance.keys;
+                  if (cache[key])
+                  {
+                      if (keys.length) {
+                          var index = keys.indexOf(key);
+                          if (index > -1) {
+                              keys.splice(index, 1);
                           }
                       }
+                      delete cache[key];
                   }
-                  this.$destroy();
-}
-next();
+              }
+          }
+      }
+      this.$destroy();
+  }
+  next();
 },
+```
