@@ -67,7 +67,7 @@ OK，有了以上概念以后，下面我们就来看看其具体是如何实施
 ### 图解算法
 直接看源码可能比较难以捋清其中的关系，我们通过图来看一下。
 
-![img](https://github.com/dinghuahua/blog/blob/master/vue%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0/images/data19.png)
+<img src="https://github.com/dinghuahua/blog/blob/master/vue%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0/images/data19.png" width="60%">
 
 首先，在新老两个VNode节点的左右头尾两侧都有一个变量标记，在遍历过程中这几个变量都会向中间靠拢。当oldStartIdx > oldEndIdx或者newStartIdx > newEndIdx时结束循环。
 
@@ -83,37 +83,37 @@ newEndIdx => newEndVnode<br>
 
 当新老VNode节点的start或者end满足sameVnode时，也就是sameVnode(oldStartVnode, newStartVnode)或者sameVnode(oldEndVnode, newEndVnode)，直接将该VNode节点进行patchVnode即可。
 
-![img](https://github.com/dinghuahua/blog/blob/master/vue%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0/images/data20.png)
+<img src="https://github.com/dinghuahua/blog/blob/master/vue%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0/images/data20.png" width="60%">
 
 如果oldStartVnode与newEndVnode满足sameVnode，即sameVnode(oldStartVnode, newEndVnode)。
 
 这时候说明oldStartVnode已经跑到了oldEndVnode后面去了，进行patchVnode的同时还需要将真实DOM节点移动到oldEndVnode的后面。
 
-![img](https://github.com/dinghuahua/blog/blob/master/vue%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0/images/data21.png)
+<img src="https://github.com/dinghuahua/blog/blob/master/vue%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0/images/data21.png" width="60%">
 
 如果oldEndVnode与newStartVnode满足sameVnode，即sameVnode(oldEndVnode, newStartVnode)。
 
 这说明oldEndVnode跑到了oldStartVnode的前面，进行patchVnode的同时真实的DOM节点移动到了oldStartVnode的前面。
 
-![img](https://github.com/dinghuahua/blog/blob/master/vue%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0/images/data22.png)
+<img src="https://github.com/dinghuahua/blog/blob/master/vue%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0/images/data22.png" width="60%">
 
 如果以上情况均不符合，则通过createKeyToOldIdx会得到一个oldKeyToIdx，里面存放了一个key为旧的VNode，value为对应index序列的哈希表。从这个哈希表中可以找到是否有与newStartVnode一致key的旧的VNode节点，如果同时满足sameVnode，patchVnode的同时会将这个真实DOM（elmToMove）移动到oldStartVnode对应的真实DOM的前面。
 
-![img](https://github.com/dinghuahua/blog/blob/master/vue%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0/images/data23.png)
+<img src="https://github.com/dinghuahua/blog/blob/master/vue%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0/images/data23.png" width="60%">
 
 当然也有可能newStartVnode在旧的VNode节点找不到一致的key，或者是即便key相同却不是sameVnode，这个时候会调用createElm创建一个新的DOM节点。
 
-![img](https://github.com/dinghuahua/blog/blob/master/vue%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0/images/data24.png)
+<img src="https://github.com/dinghuahua/blog/blob/master/vue%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0/images/data24.png" width="60%">
 
 到这里循环已经结束了，那么剩下我们还需要处理多余或者不够的真实DOM节点。
 
 1.当结束时oldStartIdx > oldEndIdx，这个时候老的VNode节点已经遍历完了，但是新的节点还没有。说明了新的VNode节点实际上比老的VNode节点多，也就是比真实DOM多，需要将剩下的（也就是新增的）VNode节点插入到真实DOM节点中去，此时调用addVnodes（批量调用createElm的接口将这些节点加入到真实DOM中去）。
 
-![img](https://github.com/dinghuahua/blog/blob/master/vue%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0/images/data25.png)
+<img src="https://github.com/dinghuahua/blog/blob/master/vue%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0/images/data25.png" width="60%">
 
 2。同理，当newStartIdx > newEndIdx时，新的VNode节点已经遍历完了，但是老的节点还有剩余，说明真实DOM节点多余了，需要从文档中删除，这时候调用removeVnodes将这些多余的真实DOM删除。
 
-![img](https://github.com/dinghuahua/blog/blob/master/vue%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0/images/data26.png)
+<img src="https://github.com/dinghuahua/blog/blob/master/vue%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0/images/data26.png" width="60%">
 
 ### 源码解读
 
@@ -217,48 +217,45 @@ function updateChildren (parentElm, oldCh, newCh, insertedVnodeQueue, removeOnly
 ```
 读源码之前，我们先有这样一个概念：那就是在我们前面所说的优化策略中，节点有可能是从前面对比，也有可能是从后面对比，对比成功就会进行更新处理，也就是说我们有可能处理第一个，也有可能处理最后一个，那么我们在循环的时候就不能简单从前往后或从后往前循环，而是要从两边向中间循环。
 
-那么该如何从两边向中间循环呢？请看下图： 
-
 首先，我们先准备4个变量：
 
-newStartIdx:newChildren数组里开始位置的下标；
-newEndIdx:newChildren数组里结束位置的下标；
-oldStartIdx:oldChildren数组里开始位置的下标；
-oldEndIdx:oldChildren数组里结束位置的下标；
+newStartIdx:newChildren数组里开始位置的下标；<br>
+newEndIdx:newChildren数组里结束位置的下标；<br>
+oldStartIdx:oldChildren数组里开始位置的下标；<br>
+oldEndIdx:oldChildren数组里结束位置的下标；<br>
 在循环的时候，每处理一个节点，就将下标向图中箭头所指的方向移动一个位置，开始位置所表示的节点被处理后，就向后移动一个位置；结束位置所表示的节点被处理后，就向前移动一个位置；由于我们的优化策略都是新旧节点两两更新的，所以一次更新将会移动两个节点。说的再直白一点就是：newStartIdx和oldStartIdx只能往后移动（只会加），newEndIdx和oldEndIdx只能往前移动（只会减）。
 
 当开始位置大于结束位置时，表示所有节点都已经遍历过了。
 
-OK，有了这个概念后，我们开始读源码：
-
 如果oldStartVnode不存在，则直接跳过，将oldStartIdx加1，比对下一个
 
+``` javascript
 // 以"新前"、"新后"、"旧前"、"旧后"的方式开始比对节点
 while (oldStartIdx <= oldEndIdx && newStartIdx <= newEndIdx) {
  if (isUndef(oldStartVnode)) {
    oldStartVnode = oldCh[++oldStartIdx]
  }
 }
-如果oldEndVnode不存在，则直接跳过，将oldEndIdx减1，比对前一个
+// 如果oldEndVnode不存在，则直接跳过，将oldEndIdx减1，比对前一个
 
 else if (isUndef(oldEndVnode)) {
     oldEndVnode = oldCh[--oldEndIdx]
 }
-如果新前与旧前节点相同，就把两个节点进行patch更新，同时oldStartIdx和newStartIdx都加1，后移一个位置
+// 如果新前与旧前节点相同，就把两个节点进行patch更新，同时oldStartIdx和newStartIdx都加1，后移一个位置
 
 else if (sameVnode(oldStartVnode, newStartVnode)) {
     patchVnode(oldStartVnode, newStartVnode, insertedVnodeQueue)
     oldStartVnode = oldCh[++oldStartIdx]
     newStartVnode = newCh[++newStartIdx]
 }
-如果新后与旧后节点相同，就把两个节点进行patch更新，同时oldEndIdx和newEndIdx都减1，前移一个位置
+// 如果新后与旧后节点相同，就把两个节点进行patch更新，同时oldEndIdx和newEndIdx都减1，前移一个位置
 
 else if (sameVnode(oldEndVnode, newEndVnode)) {
     patchVnode(oldEndVnode, newEndVnode, insertedVnodeQueue)
     oldEndVnode = oldCh[--oldEndIdx]
     newEndVnode = newCh[--newEndIdx]
 }
-如果新后与旧前节点相同，先把两个节点进行patch更新，然后把旧前节点移动到oldChilren中所有未处理节点之后，最后把oldStartIdx加1，后移一个位置，newEndIdx减1，前移一个位置
+// 如果新后与旧前节点相同，先把两个节点进行patch更新，然后把旧前节点移动到oldChilren中所有未处理节点之后，最后把oldStartIdx加1，后移一个位置，newEndIdx减1，前移一个位置
 
 else if (sameVnode(oldStartVnode, newEndVnode)) {
     patchVnode(oldStartVnode, newEndVnode, insertedVnodeQueue)
@@ -266,7 +263,7 @@ else if (sameVnode(oldStartVnode, newEndVnode)) {
     oldStartVnode = oldCh[++oldStartIdx]
     newEndVnode = newCh[--newEndIdx]
 }
-如果新前与旧后节点相同，先把两个节点进行patch更新，然后把旧后节点移动到oldChilren中所有未处理节点之前，最后把newStartIdx加1，后移一个位置，oldEndIdx减1，前移一个位置
+// 如果新前与旧后节点相同，先把两个节点进行patch更新，然后把旧后节点移动到oldChilren中所有未处理节点之前，最后把newStartIdx加1，后移一个位置，oldEndIdx减1，前移一个位置
 
 else if (sameVnode(oldEndVnode, newStartVnode)) { // Vnode moved left
     patchVnode(oldEndVnode, newStartVnode, insertedVnodeQueue)
@@ -274,17 +271,29 @@ else if (sameVnode(oldEndVnode, newStartVnode)) { // Vnode moved left
     oldEndVnode = oldCh[--oldEndIdx]
     newStartVnode = newCh[++newStartIdx]
 }
-如果不属于以上四种情况，就进行常规的循环比对patch
+// 如果不属于以上四种情况，就进行常规的循环比对patch
+// 如果把newStartVnode在oldChildren数组剩余未处理的每一个子节点都循环一遍，找不到的就新增newStartVnode
+// 能在里面找到的就处理进行判断是否相同，
+  // 先对比两个节点是否相同，若相同则先调用patchVnode更新节点 ，然后插入
+   if (sameVnode(vnodeToMove, newStartVnode)) {
+        // 调用patchVnode更新节点
+        patchVnode(vnodeToMove, newStartVnode, insertedVnodeQueue)
+        oldCh[idxInOld] = undefined
+        // canmove表示是否需要移动节点，如果为true表示需要移动，则移动节点，如果为false则不用移动
+        canMove && nodeOps.insertBefore(parentElm, vnodeToMove.elm, oldStartVnode.elm)
+    }
 
-如果在循环中，oldStartIdx大于oldEndIdx了，那就表示oldChildren比newChildren先循环完毕，那么newChildren里面剩余的节点都是需要新增的节点，把[newStartIdx, newEndIdx]之间的所有节点都插入到DOM中
-
+  // 不相同 新增
+  createElm(newStartVnode, insertedVnodeQueue, parentElm, oldStartVnode.elm, 
+// 如果在循环中，oldStartIdx大于oldEndIdx了，那就表示oldChildren比newChildren先循环完毕，那么newChildren里面剩余的节点都是需要新增的节点，把[newStartIdx, newEndIdx]之间的所有节点都插入到DOM中
 if (oldStartIdx > oldEndIdx) {
     refElm = isUndef(newCh[newEndIdx + 1]) ? null : newCh[newEndIdx + 1].elm
     addVnodes(parentElm, refElm, newCh, newStartIdx, newEndIdx, insertedVnodeQueue)
 }
-如果在循环中，newStartIdx大于newEndIdx了，那就表示newChildren比oldChildren先循环完毕，那么oldChildren里面剩余的节点都是需要删除的节点，把[oldStartIdx, oldEndIdx]之间的所有节点都删除
+// 如果在循环中，newStartIdx大于newEndIdx了，那就表示newChildren比oldChildren先循环完毕，那么oldChildren里面剩余的节点都是需要删除的节点，把[oldStartIdx, oldEndIdx]之间的所有节点都删除
 
 else if (newStartIdx > newEndIdx) {
     removeVnodes(parentElm, oldCh, oldStartIdx, oldEndIdx)
 }
+```
 OK,处理完毕，可见源码中的处理逻辑跟我们之前分析的逻辑是一样的。

@@ -153,15 +153,11 @@ function patchVnode (oldVnode, vnode, insertedVnodeQueue, removeOnly) {
     nodeOps.setTextContent(elm, vnode.text)
   }
 }
-```
-
-上面代码里注释已经写得很清晰了，接下来我们画流程图来梳理一下整个过程，流程图如下： 
+``` 
 
 <img src="./images/data16.png" width="60%">
 
-通过对照着流程图以及代码，相信更新节点这部分逻辑你很容易就能理解了。
-
-另外，你可能注意到了，如果新旧VNode里都包含了子节点，那么对于子节点的更新在代码里调用了updateChildren方法，而这个方法的逻辑到底是怎样的我们放在下一篇文章中展开学习。
+另外，如果新旧VNode里都包含了子节点，那么对于子节点的更新在代码里调用了updateChildren方法，而这个方法的逻辑到底查看 vnode的diff算法(updateChildren)文章
 
 5. 总结
 

@@ -71,6 +71,7 @@ function pruneCacheEntry(
   // 有缓存 并且 当前vnode没有的情况下，对应的组件实例就被销毁
   // 或者有缓存 当前缓存的 tag不等于 current.tag  也直接销毁
   // 扩展  这里可以考虑做 动态 缓存， 即之前缓存过 然后销毁
+  // 判断当前没有处于被渲染状态的组件，将其销毁
   if (cached && (!current || cached.tag !== current.tag)) {
     cached.componentInstance.$destroy()
   }
@@ -155,6 +156,7 @@ export default {
         vnode.componentInstance = cache[key].componentInstance
         // make current key freshest
         // 然后刷新 keys 先移除后添加
+        // 调整该组件key的顺序，将其从原来的地方删掉并重新放在最后一个
         remove(keys, key)
         keys.push(key)
       } else {
@@ -163,6 +165,9 @@ export default {
         keys.push(key)
         // prune oldest entry
         // 当max超过数量时，第0个会出栈 对应的 组件也会被 destroy掉
+        //为什么要删除第一个缓存组件并且为什么命中缓存了还要调整组件key的顺序？
+        // 这其实应用了一个缓存淘汰策略LRU：
+        // LRU（Least recently used，最近最少使用）算法根据数据的历史访问记录来进行淘汰数据，其核心思想是“如果数据最近被访问过，那么将来被访问的几率也更高”。
         if (this.max && keys.length > parseInt(this.max)) {
           pruneCacheEntry(cache, keys[0], keys, this._vnode)
         }
