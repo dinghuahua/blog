@@ -1,12 +1,12 @@
+### generate
 
-generate
 generate是将AST转化成render funtion字符串的过程，得到结果是render的字符串以及staticRenderFns字符串。
 
 至此，我们的template模板已经被转化成了我们所需的AST、render function字符串以及staticRenderFns字符串。
 
 举个例子
 来看一下这段代码的编译结果
-
+``` javascript 
 <div class="main" :class="bindClass">
     <div>{{text}}</div>
     <div>hello world</div>
@@ -21,6 +21,7 @@ generate是将AST转化成render funtion字符串的过程，得到结果是rend
     </div>
     <div v-else></div>
 </div>
+```
 转化后得到AST，如下图：
 
 img
@@ -28,7 +29,7 @@ img
 我们可以看到最外层的div是这颗AST的根节点，节点上有许多数据代表这个节点的形态，比如static表示是否是静态节点，staticClass表示静态class属性（非bind:class）。children代表该节点的子节点，可以看到children是一个长度为4的数组，里面包含的是该节点下的四个div子节点。children里面的节点与父节点的结构类似，层层往下形成一棵AST。
 
 再来看看由AST得到的render函数
-
+``` javascript
 with(this){
     return _c(  'div',
                 {
@@ -57,6 +58,7 @@ with(this){
                     2
             )
 }
+
 _c，_v，_s，_q
 看了render function字符串，发现有大量的_c，_v，_s，_q，这些函数究竟是什么？
 
@@ -93,4 +95,7 @@ _c，_v，_s，_q
 
   /*创建VNode节点*/
   vm._c = (a, b, c, d) => createElement(vm, a, b, c, d, false)
+  ```
 通过这些函数，render函数最后会返回一个VNode节点，在_update的时候，经过patch与之前的VNode节点进行比较，得出差异后将这些差异渲染到真实的DOM上。
+
+todo

@@ -219,5 +219,5 @@ beforeRouteLeave:function(to, from, next){
       this.$destroy();
   }
   next();
-},
+}
 ```

@@ -159,6 +159,6 @@ function patchVnode (oldVnode, vnode, insertedVnodeQueue, removeOnly) {
 
 另外，如果新旧VNode里都包含了子节点，那么对于子节点的更新在代码里调用了updateChildren方法，而这个方法的逻辑到底查看 vnode的diff算法(updateChildren)文章
 
-5. 总结
+### 总结
 
 在本篇文章中我们介绍了Vue中的DOM-Diff算法：patch过程。我们先介绍了算法的整个思想流程，然后通过梳理算法思想，了解了整个patch过程干了三件事，分别是：创建节点，删除节点，更新节点。并且对每件事情都对照源码展开了细致的学习，画出了其逻辑流程图。另外对于更新节点中，如果新旧VNode里都包含了子节点，我们就需要细致的去更新子节点，关于更新子节点的过程我们在下一篇文章中展开学习。
