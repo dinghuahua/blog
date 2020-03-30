@@ -10,6 +10,7 @@ Record the learning process and accumulate knowledge points
 ## [typescript 基础](https://github.com/dinghuahua/blog/blob/master/typescript/typescript.md)
 ## [typescript 进阶](https://github.com/dinghuahua/blog/blob/master/typescript/typescript-%E8%BF%9B%E9%98%B6.md)
 ## [proxy相关知识点](https://github.com/dinghuahua/blog/blob/master/javaScript/proxy%E7%9B%B8%E5%85%B3%E9%87%8D%E8%A6%81%E7%9F%A5%E8%AF%86%E7%82%B9.md)
+## [promise相关知识点](https://github.com/dinghuahua/blog/blob/master/javaScript/promise%E7%9B%B8%E5%85%B3%E9%87%8D%E8%A6%81%E7%9F%A5%E8%AF%86%E7%82%B9.md)
 ## [浏览器的工作原理](https://github.com/dinghuahua/blog/blob/master/browser/%E6%B5%8F%E8%A7%88%E5%99%A8%E4%B8%BB%E8%A6%81%E8%BF%9B%E7%A8%8B%E7%BA%BF%E7%A8%8B%E4%BB%A5%E5%8F%8A%E6%B8%B2%E6%9F%93%E5%92%8Cjs%E6%89%A7%E8%A1%8C%E7%9A%84%E8%BF%90%E8%A1%8C%E5%8E%9F%E7%90%86%E7%9A%84%E5%88%86%E6%9E%90.md)
 ## [项目国际化 i18n-tool](https://github.com/dinghuahua/i18n-tool)
 
