@@ -87,7 +87,7 @@ eg：
 https://github.com/dinghuahua/blog/blob/master/router/images/router1.jpg)
 
 
-  ## [Vue.js源码目录结构](https://github.com/dinghuahua/blog/blob/master/vue%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0/vue.js%E6%BA%90%E7%A0%81%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84.md)
+  > ## [Vue.js源码目录结构](https://github.com/dinghuahua/blog/blob/master/vue%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0/vue.js%E6%BA%90%E7%A0%81%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84.md)
   ## [虚拟dom](https://github.com/dinghuahua/blog/blob/master/vue%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0/%E8%99%9A%E6%8B%9Fdom.md)
   ## [常用操作解读](https://github.com/dinghuahua/blog/blob/master/vue%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0/%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C%E8%A7%A3%E8%AF%BB.md)
   ## [挂载和编译](https://github.com/dinghuahua/blog/blob/master/vue%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0/%E6%8C%82%E8%BD%BD%E5%92%8C%E7%BC%96%E8%AF%91.md)
