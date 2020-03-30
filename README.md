@@ -80,7 +80,7 @@ Hybrid技术应当如何应用？
 MarkDown 没有统一标准，不同网站实现的方式不同；
 GitHub 实现的 MarkDown 语法叫 GFM，GitHub Favorite MarkDown；
 GFM 比普通的 MarkDown 语法增加了表格和完成列表等语法；
-但是，GFM 并没有实现流程图的 MarkDown 语法。)
+但是，GFM 并没有实现流程图的 MarkDown 语法。
 
 GitHub仓库里的图片
 https://github.com/ 你的用户名 / 你的项目名 / raw / 分支名 / 存放图片的文件夹 / 该文件夹下的图片
@@ -88,3 +88,4 @@ https://github.com/ 你的用户名 / 你的项目名 / raw / 分支名 / 存放
 
 eg：
 https://github.com/dinghuahua/blog/blob/master/router/images/router1.jpg
+)
