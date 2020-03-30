@@ -1,6 +1,7 @@
-vue实例化到渲染到页面(下)
+vue实例化到渲染到页面(中)
 
-回顾上一篇，vm._update()方法内部执行了vm.__patch__(...),patch方法的作用是把 VNode 转换成真正的 DOM 节点。
+vm._update()方法内部执行了vm.__patch__(...),patch方法的作用是把 VNode 转换成真正的 DOM 节点。
+
 方法在目录src/platforms/web/runtime/index.js中定义
 
 // install platform patch function
@@ -93,10 +94,13 @@ init (vnode: VNodeWithData, hydrating: boolean): ?boolean {
 }
 ```
 createComponentInstanceForVnode的源码：该函数return出了：new vnode.componentOptions.Ctor(options)。
+
 改option多了两个属性：
 
 _isComponent: true,
+
 _parentVnode: vnode,
+
 这两个属性会使vue实例化子组件时走不同的处理逻辑。
 ``` javascript
 export function createComponentInstanceForVnode (
@@ -172,6 +176,7 @@ function createElm (
 当传入的VNode是描述普通的dom的vnode时， createComponent()会返回false, createElm会执行下面的逻辑。
 
 createChildren函数实际就是遍历children(子 VNode )去调用createElm方法
+
 ``` javascript
 function createChildren (vnode, children, insertedVnodeQueue) {
     if (Array.isArray(children)) {

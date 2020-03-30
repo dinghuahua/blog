@@ -1,31 +1,17 @@
+## [Vue.js源码目录结构](https://github.com/dinghuahua/blog/blob/master/vue%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0/vue.js%E6%BA%90%E7%A0%81%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84.md)
+## [虚拟dom](https://github.com/dinghuahua/blog/blob/master/vue%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0/%E8%99%9A%E6%8B%9Fdom.md)
 ## [常用操作解读](https://github.com/dinghuahua/blog/blob/master/vue%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0/%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C%E8%A7%A3%E8%AF%BB.md)
-## [Vue.js源码目录结构](https://github.com/dinghuahua/blog/blob/master/vue%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0/vue.js%20%E6%BA%90%E7%A0%81%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84.md)
-## [Vue.js响应式原理](https://github.com/dinghuahua/blog/tree/master/vue%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0/Vue.js%E5%93%8D%E5%BA%94%E5%BC%8F%E5%8E%9F%E7%90%86.md)
-## [Vue.js依赖收集](https://github.com/dinghuahua/blog/tree/master/vue%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0/Vue.js%E4%BE%9D%E8%B5%96%E6%94%B6%E9%9B%86%E5%8E%9F%E7%90%86.md)
-## [从Vue.js源码角度再看数据绑定]()
-## [Vue.js事件机制]()
-## [VNode节点(Vue.js实现)]()
-## [Virtual DOM与diff(Vue.js实现)]()
-## [聊聊Vue.js的template编译]()
-## [Vue.js异步更新DOM策略及nextTick]()
-## [从template到DOM（Vue.js源码角度看内部运行机制）]()
-https://segmentfault.com/a/1190000012922342
-几种内部方法
-_c：对应的是 createElement 方法，顾名思义，它的含义是创建一个元素(Vnode)
-_v：创建一个文本结点。
-_s：把一个值转换为字符串。（eg: {{data}}）
-_m：渲染静态内容
-假设我们有这么一段 template
-
-<template>
-  <div id="test">
-    {{val}}
-    <img src="http://xx.jpg">
-  </div>
-</template>
-最终会被转换成这样子的函数字符串
-
-{render: "with(this){return _c('div',{attrs:{"id":"test"}},[[_v(_s(val))]),_v(" "),_m(0)])}"}
-
-## [Vuex源码解析]()
-## [聊聊keep-alive组件的使用及其实现原理]()
+## [挂载和编译](https://github.com/dinghuahua/blog/blob/master/vue%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0/%E6%8C%82%E8%BD%BD%E5%92%8C%E7%BC%96%E8%AF%91.md)
+## [Vue.js响应式原理](https://github.com/dinghuahua/blog/blob/master/vue%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0/Vue.js%E5%93%8D%E5%BA%94%E5%BC%8F%E5%8E%9F%E7%90%86.md)
+## [Vue.js依赖收集](https://github.com/dinghuahua/blog/blob/master/vue%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0/Vue.js%E4%BE%9D%E8%B5%96%E6%94%B6%E9%9B%86%E5%8E%9F%E7%90%86.md)
+## [Vue.js模板编译原理1(编译入口)](https://github.com/dinghuahua/blog/blob/master/vue%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0/Vue.js%E6%A8%A1%E6%9D%BF%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%861(%E7%BC%96%E8%AF%91%E5%85%A5%E5%8F%A3).md)
+## [Vue.js模板编译原理2(AST)](https://github.com/dinghuahua/blog/blob/master/vue%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0/Vue.js%E6%A8%A1%E6%9D%BF%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%862(AST).md)
+## [Vue.js模板编译原理3(optimize)](https://github.com/dinghuahua/blog/blob/master/vue%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0/Vue.js%E6%A8%A1%E6%9D%BF%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%863(optimize).md)
+## [Vue.js模板编译原理4(generate)](https://github.com/dinghuahua/blog/blob/master/vue%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0/Vue.js%E6%A8%A1%E6%9D%BF%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%864(generate).md)
+## [vue实例化到渲染到页面(上)](https://github.com/dinghuahua/blog/blob/master/vue%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0/vue%E5%AE%9E%E4%BE%8B%E5%8C%96%E5%88%B0%E6%B8%B2%E6%9F%93%E5%88%B0%E9%A1%B5%E9%9D%A2(%E4%B8%8A).md)
+## [vue实例化到渲染到页面(中)](https://github.com/dinghuahua/blog/blob/master/vue%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0/vue%E5%AE%9E%E4%BE%8B%E5%8C%96%E5%88%B0%E6%B8%B2%E6%9F%93%E5%88%B0%E9%A1%B5%E9%9D%A2(%E4%B8%AD).md)
+## [vue实例化到渲染到页面(下)](https://github.com/dinghuahua/blog/blob/master/vue%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0/vue%E5%AE%9E%E4%BE%8B%E5%8C%96%E5%88%B0%E6%B8%B2%E6%9F%93%E5%88%B0%E9%A1%B5%E9%9D%A2(%E4%B8%8B).md)
+## [vnode的diff算法概括](https://github.com/dinghuahua/blog/blob/master/vue%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0/vnode%E7%9A%84diff%E7%AE%97%E6%B3%95%E6%A6%82%E6%8B%AC.md)
+## [vnode的diff算法(patchVnode)](https://github.com/dinghuahua/blog/blob/master/vue%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0/vnode%E7%9A%84diff%E7%AE%97%E6%B3%95(patchVnode).md)
+## [vnode的diff算法(updateChildren)](https://github.com/dinghuahua/blog/blob/master/vue%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0/vnode%E7%9A%84diff%E7%AE%97%E6%B3%95(updateChildren).md)
+## [keep-alive源码分析](https://github.com/dinghuahua/blog/blob/master/vue%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0/keep-alive%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90.md)
