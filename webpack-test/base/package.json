@@ -8,7 +8,7 @@
     "build": "webpack --mode production",
     "analyz": "webpack-bundle-analyzer ./dist/stats.json"
   },
-  "author": "skychx",
+  "author": "dinghuahua",
   "license": "ISC",
   "devDependencies": {
     "@babel/core": "^7.4.4",

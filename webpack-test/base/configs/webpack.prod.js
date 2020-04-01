@@ -32,6 +32,6 @@ module.exports = smart(common, {
             analyzerMode: 'disabled', // 不启动展示打包报告的 http 服务器
             generateStatsFile: true, // 是否生成 stats.json 文件
         }),
-        new webpack.BannerPlugin('make 2019 by skychx'), // 版权所有插件
+        new webpack.BannerPlugin('make 2019 by dinghuahua'), // 版权所有插件
     ],
 })

@@ -27,7 +27,8 @@ Record the learning process and accumulate knowledge points
 [^_^]: # (## [todo webpack - 热部署时间] http:www.baidu.com)
 [^_^]: # (## [todo webpack -load] http:www.baidu.com)
 防抖和节流
-webpack
+[webpack相关的学习](https://github.com/dinghuahua/blog/blob/master/webpack/webpack%E9%87%8D%E8%A6%81%E7%9F%A5%E8%AF%86%E7%82%B9%E6%A6%82%E5%BF%B5.md)
+[webpack相关测试的demo](https://github.com/dinghuahua/blog/tree/master/webpack-test/base0)
 设计模式
 ## [前端设计模式之观察者模式](https://github.com/dinghuahua/blog/blob/master/javaScript/%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8Fobserver.md)
 ## [Vue.js源码学习](https://github.com/dinghuahua/blog/tree/master/vue%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0)

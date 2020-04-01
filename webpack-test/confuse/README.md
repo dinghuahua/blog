@@ -1,9 +1,3 @@
-# 食用须知
-
-这是博文 webpack 混淆知识点案例代码，配合[教程](https://skychx.github.io/blog/scaffold/webpackConfuse.html)一起食用风味更佳
-
-<br/>
-
 # 如何运行
 
 ### 1.安装 node_modules
