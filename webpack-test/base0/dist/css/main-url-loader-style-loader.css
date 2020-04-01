@@ -1,0 +1,13 @@
+.test{
+  background: url(../assets/img/img1.b0245f6d.png);
+}
+div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.test2 {
+  color: red;
+  background: url(../assets/img/img2.b0245f6d.png);
+}
+

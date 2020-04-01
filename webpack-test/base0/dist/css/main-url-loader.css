@@ -1,0 +1,8 @@
+.test{
+  background: url(../assets/img/img1.b0245f6d.png);
+}
+div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

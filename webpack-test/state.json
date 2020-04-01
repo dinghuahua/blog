@@ -1,0 +1,30 @@
+{
+  "errors": [
+    "Entry module not found: Error: Can't resolve './src' in '/Users/huahua/Documents/single/study/webpack-test'\nresolve './src' in '/Users/huahua/Documents/single/study/webpack-test'\n  No description file found\n  No description file found\n  no extension\n    /Users/huahua/Documents/single/study/webpack-test/src doesn't exist\n  .wasm\n    /Users/huahua/Documents/single/study/webpack-test/src.wasm doesn't exist\n  .mjs\n    /Users/huahua/Documents/single/study/webpack-test/src.mjs doesn't exist\n  .js\n    /Users/huahua/Documents/single/study/webpack-test/src.js doesn't exist\n  .json\n    /Users/huahua/Documents/single/study/webpack-test/src.json doesn't exist\n  as directory\n    /Users/huahua/Documents/single/study/webpack-test/src doesn't exist"
+  ],
+  "warnings": [
+    "configuration\nThe 'mode' option has not been set, webpack will fallback to 'production' for this value. Set 'mode' option to 'development' or 'production' to enable defaults for each environment.\nYou can also set it to 'none' to disable any default behavior. Learn more: https://webpack.js.org/configuration/mode/"
+  ],
+  "version": "4.42.1",
+  "hash": "3db4aaf4515b6f7357a8",
+  "time": 26,
+  "builtAt": 1585720179377,
+  "publicPath": "",
+  "outputPath": "/Users/huahua/Documents/single/study/webpack-test/dist",
+  "assetsByChunkName": {},
+  "assets": [],
+  "filteredAssets": 0,
+  "entrypoints": {},
+  "namedChunkGroups": {},
+  "chunks": [],
+  "modules": [],
+  "filteredModules": 0,
+  "logging": {
+    "webpack.buildChunkGraph.visitModules": {
+      "entries": [],
+      "filteredEntries": 1,
+      "debug": false
+    }
+  },
+  "children": []
+}
