@@ -1,4 +1,4 @@
-[教程源代码 github 地址]()
+[^_^]: # (## [todo webpack -load] http:www.baidu.com[教程源代码 github 地址])
 ### webpack 中，module，chunk 和 bundle 的区别是什么？
 
 这里举个例子，给大家形象化的解释一下。
