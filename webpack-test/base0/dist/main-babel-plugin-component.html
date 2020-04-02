@@ -1,0 +1,19 @@
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <link href="css/main-babel-plugin-component.css" rel="stylesheet" />
+  </head>
+
+  <body>
+    <div id="app"></div>
+    <!-- <script src="js/main-babel-plugin-component.js"></script> -->
+    <script>
+      window.addEventListener('popstate', function() {
+        // 监听浏览器前进后退事件，pushState 与 replaceState 方法不会触发
+        console.log('dsad')
+      })
+      console.log("dasd")
+      window.location.href = "./"
+    </script>
+  </body>
+</html>

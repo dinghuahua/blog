@@ -208,7 +208,8 @@
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("// 通过 CommonJS 规范导入 show 函数\n__webpack_require__.e(/*! import() */ \"show\").then(__webpack_require__.t.bind(null, /*! ../other/show */ \"./test/other/show.js\", 7)).then(show => {\n  console.log(show)\n  show.default('Prefetch')\n})\nconsole.log(\"dasd\")\n\n//# sourceURL=webpack:///./test/js/main.lazy.load.js?");
+"use strict";
+eval("\n\n// 通过 CommonJS 规范导入 show 函数\n__webpack_require__.e(/*! import() */ \"show\").then(__webpack_require__.t.bind(null, /*! ../other/show */ \"./test/other/show.js\", 7)).then(function (show) {\n  console.log(show);\n  show.default('Prefetch');\n});\nconsole.log(\"dasd\");\n\n//# sourceURL=webpack:///./test/js/main.lazy.load.js?");
 
 /***/ })
 

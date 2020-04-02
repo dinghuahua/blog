@@ -136,11 +136,11 @@ eval("var api = __webpack_require__(/*! ../../node_modules/style-loader/dist/run
 /*!************************************!*\
   !*** ./test/js/main-url-loader.js ***!
   \************************************/
-/*! no exports provided */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _assets_img1_png__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../assets/img1.png */ \"./assets/img1.png\");\n/* harmony import */ var _other_show__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../other/show */ \"./test/other/show.js\");\n/* harmony import */ var _other_show__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_other_show__WEBPACK_IMPORTED_MODULE_1__);\n/* harmony import */ var _css_style_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../css/style.css */ \"./test/css/style.css\");\n/* harmony import */ var _css_style_css__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_css_style_css__WEBPACK_IMPORTED_MODULE_2__);\n// 通过 CommonJS 规范导入 show 函数\n\n\n\n// console.log(style)\nshow('Webpack')\n\n\n//# sourceURL=webpack:///./test/js/main-url-loader.js?");
+eval("\n\nvar _img = __webpack_require__(/*! ../../assets/img1.png */ \"./assets/img1.png\");\n\nvar _img2 = _interopRequireDefault(_img);\n\n__webpack_require__(/*! ../other/show */ \"./test/other/show.js\");\n\n__webpack_require__(/*! ../css/style.css */ \"./test/css/style.css\");\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }\n\n// 通过 CommonJS 规范导入 show 函数\n// console.log(style)\nshow('Webpack');\n\n//# sourceURL=webpack:///./test/js/main-url-loader.js?");
 
 /***/ }),
 
@@ -149,9 +149,10 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _ass
   !*** ./test/other/show.js ***!
   \****************************/
 /*! no static exports found */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
-eval("// 操作 DOM 元素，把 content 显示到网页上\nfunction show(content) {\n  window.document.getElementById('app').innerText = 'Hello,' + content;\n}\n\n// 通过 CommonJS 规范导出 show 函数\nmodule.exports = show;\n\n//# sourceURL=webpack:///./test/other/show.js?");
+"use strict";
+eval("\n\n// 操作 DOM 元素，把 content 显示到网页上\nfunction show(content) {\n  window.document.getElementById('app').innerText = 'Hello,' + content;\n} // 通过 CommonJS 规范导出 show 函数\n\n\nmodule.exports = show;\n\n//# sourceURL=webpack:///./test/other/show.js?");
 
 /***/ })
 

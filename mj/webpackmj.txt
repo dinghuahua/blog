@@ -1,0 +1,117 @@
+webpack与grunt、gulp的不同
+三者都是前端构建工具
+grunt 和 gulp 是基于任务和流的。找到一个（或一类）文件，对其做一系列链式操作，更新流上的数据， 整条链式操作构成了一个任务，多个任务就构成了整个web的构建流程
+webpack 是基于入口的。webpack 会自动地递归解析入口所需要加载的所有资源文件，然后用不同的 Loader 来处理不同的文件，用 Plugin 来扩展 webpack 功能
+webpack 与前者最大的不同就是支持代码分割，模块化（AMD,CommonJ,ES2015），全局分析
+
+1. 如何利用webpack来优化前端性能
+压缩代码。删除多余的代码、注释、简化代码的写法等等方式
+利用 CDN 加速。在构建过程中，将引用的静态资源路径修改为 CDN 上对应的路径
+删除死代码 Tree Shaking）。将代码中永远不会走到的片段删除掉
+优化图片，对于小图可以使用 base64 的方式写入文件中
+按照路由拆分代码，实现按需加载，提取公共代码
+给打包出来的文件名添加哈希，实现浏览器缓存文件
+
+1. 如何提高webpack的构建速度
+
+
+什么是bundle,什么是chunk，什么是module
+bundle 是由 webpack 打包出来的文件，chunk 是指 webpack 在进行模块的依赖分析的时候，代码分割出来的代码块。module是开发中的单个模块
+
+
+有哪些常见的Plugin？他们是解决什么问题的
+define-plugin：定义环境变量
+commons-chunk-plugin：提取公共代码
+
+webpack的构建流程是什么
+初始化参数：从配置文件和 Shell 语句中读取与合并参数，得出最终的参数
+开始编译：用上一步得到的参数初始化 Compiler 对象，加载所有配置的插件，执行对象的 run 方法开始执行编译
+确定入口：根据配置中的 entry 找出所有的入口文件
+编译模块：从入口文件出发，调用所有配置的 Loader 对模块进行翻译，再找出该模块依赖的模块，再递归本步骤直到所有入口依赖的文件都经过了本步骤的处理
+完成模块编译：在经过第4步使用 Loader 翻译完所有模块后，得到了每个模块被翻译后的最终内容以及它们之间的依赖关系
+输出资源：根据入口和模块之间的依赖关系，组装成一个个包含多个模块的 Chunk，再把每个 Chunk 转换成一个单独的文件加入到输出列表，这步是可以修改输出内容的最后机会
+输出完成：在确定好输出内容后，根据配置确定输出的路径和文件名，把文件内容写入到文件系统
+在以上过程中，Webpack 会在特定的时间点广播出特定的事件，插件在监听到感兴趣的事件后会执行特定的逻辑，并且插件可以调用 Webpack 提供的 API 改变 Webpack 的运行结果
+
+
+是否写过Loader和Plugin？描述一下编写loader或plugin的思路
+编写 Loader 时要遵循单一原则，每个 Loader 只做一种"转义"工作。 每个 Loader 的拿到的是源文件内容（source），可以通过返回值的方式将处理后的内容输出，也可以调用 this.callback() 方法，将内容返回给 webpack 。 还可以通过 this.async() 生成一个 callback 函数，再用这个 callback` 将处理后的内容输出出去
+相对于 Loader 而言，Plugin 的编写就灵活了许多。 webpack 在运行的生命周期中会广播出许多事件，Plugin 可以监听这些事件，在合适的时机通过 Webpack 提供的 API 改变输出结果
+
+
+
+webpack配置优化
+webpack在启动时会从配置的Entry出发，解析出文件中的导入语句，再递归解析。
+对于导入语句Webpack会做出以下操作：
+  根据导入语句寻找对应的要导入的文件；
+  在根据要导入的文件后缀，使用配置中的Loader去处理文件（如使用ES6需要使用babel-loader处理）
+针对这两点可以优化查找途径
+优化Loader配置
+Loader处理文件的转换操作是很耗时的，所以需要让尽可能少的文件被Loader处理
+{
+    test: /\.js$/,
+    use: [
+        'babel-loader?cacheDirectory',//开启转换结果缓存
+    ],
+    include: path.resolve(__dirname, 'src'),//只对src目录中文件采用babel-loader
+    exclude: path.resolve(__dirname,' ./node_modules'),//排除node_modules目录下的文件
+},
+优化resolve.modules配置
+resolve.modules用于配置webpack去哪些目录下寻找第三方模块，默认是['node_modules']，但是，它会先去当前目录的./node_modules查找，没有的话再去../node_modules最后到根目录；
+所以当安装的第三方模块都放在项目根目录时，就没有必要安默认的一层一层的查找，直接指明存放的绝对位置
+resolve: {
+    modules: [path.resolve(__dirname, 'node_modules')],
+}
+优化resolve.extensions配置
+在导入没带文件后缀的路径时，webpack会自动带上后缀去尝试询问文件是否存在，而resolve.extensions用于配置尝试后缀列表；默认为extensions:['js','json'];
+及当遇到require('./data')时webpack会先尝试寻找data.js，没有再去找data.json；如果列表越长，或者正确的后缀越往后，尝试的次数就会越多；
+所以在配置时为提升构建优化需遵守：
+频率出现高的文件后缀优先放在前面；
+列表尽可能的小；
+书写导入语句时，尽量写上后缀名
+因为项目中用的jsx较多，所以配置extensions: [".jsx",".js"],
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+webpack4 在大幅度提升编译效率同时，引入了多种新特性：
+
+受 Parcel 启发，支持 0 配置启动项目，不再强制需要 webpack.config.js 配置文件，默认入口 ./src/ 目录，默认entry ./src/index.js ，默认输出 ./dist 目录，默认输出文件 ./dist/main.js。
+开箱即用 WebAssembly，webpack4提供了wasm的支持，现在可以引入和导出任何一个 Webassembly 的模块，也可以写一个loader来引入C++、C和Rust。（注：WebAssembly 模块只能在异步chunks中使用）
+提供mode属性，设置为 development 将获得最好的开发体验，设置为 production 将专注项目编译部署，比如说开启 Scope hoisting 和 Tree-shaking 功能。
+全新的插件系统，提供了针对插件和钩子的新API，变化如下：
+所有的 hook 由 hooks 对象统一管理，它将所有的hook作为可扩展的类属性
+添加插件时，你需要提供一个名字
+开发插件时，你可以选择插件的类型（sync/callback/promise之一）
+通过 this.hooks = { myHook: new SyncHook(…) } 来注册hook
+
+升级至webpack4后，一些默认插件由 optimization 配置替代了，如下：
+
+CommonsChunkPlugin废弃，由 optimization.splitChunks 和 optimization.runtimeChunk 替代，前者拆分代码，后者提取runtime代码。原来的CommonsChunkPlugin产出模块时，会包含重复的代码，并且无法优化异步模块，minchunks的配置也较复杂，splitChunks解决了这个问题；另外，将 optimization.runtimeChunk 设置为true（或{name: “manifest”}），便能将入口模块中的runtime部分提取出来。
+NoEmitOnErrorsPlugin 废弃，由 optimization.noEmitOnErrors 替代，生产环境默认开启。
+NamedModulesPlugin 废弃，由 optimization.namedModules 替代，生产环境默认开启。
+ModuleConcatenationPlugin 废弃，由 optimization.concatenateModules 替代，生产环境默认开启。
+optimize.UglifyJsPlugin 废弃，由 optimization.minimize 替代，生产环境默认开启。

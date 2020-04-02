@@ -227,7 +227,8 @@
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("// 通过 CommonJS 规范导入 show 函数\n__webpack_require__.e(/*! import() | show */ \"show\").then(__webpack_require__.t.bind(null, /*! ../other/show */ \"./test/other/show.js\", 7)).then(show=>{\n  show('Prefetch')\n})\n__webpack_require__.e(/*! import() | preload */ \"preload\").then(__webpack_require__.t.bind(null, /*! ../other/preload */ \"./test/other/preload.js\", 7)).then(preload => {\n  preload('Preload')\n})\n\n\n//# sourceURL=webpack:///./test/js/main.prefetch.preload.js?");
+"use strict";
+eval("\n\n// 通过 CommonJS 规范导入 show 函数\n__webpack_require__.e(/*! import() | show */ \"show\").then(__webpack_require__.t.bind(null, /*! ../other/show */ \"./test/other/show.js\", 7)).then(function (show) {\n  show('Prefetch');\n});\n__webpack_require__.e(/*! import() | preload */ \"preload\").then(__webpack_require__.t.bind(null, /*! ../other/preload */ \"./test/other/preload.js\", 7)).then(function (preload) {\n  preload('Preload');\n});\n\n//# sourceURL=webpack:///./test/js/main.prefetch.preload.js?");
 
 /***/ })
 

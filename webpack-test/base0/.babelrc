@@ -1,0 +1,12 @@
+{
+  "plugins": [
+    [
+      // 此处的component 是这个包，省略前面的babel-plugin不写（babel-plugin-component)
+      "component",
+      {
+        "libraryName": "element-ui",
+        "styleLibraryName": "theme-chalk"
+      }
+    ]
+  ]
+}
