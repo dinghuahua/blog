@@ -29,12 +29,11 @@ Record the learning process and accumulate knowledge points
 
 ## [防抖和节流](https://github.com/dinghuahua/blog/blob/master/javaScript/%E9%98%B2%E6%8A%96%E5%92%8C%E8%8A%82%E6%B5%81.md)
 ## [webpack相关的学习](https://github.com/dinghuahua/blog/blob/master/webpack/webpack%E9%87%8D%E8%A6%81%E7%9F%A5%E8%AF%86%E7%82%B9%E6%A6%82%E5%BF%B5.md)
-[webpack相关测试的demo](https://github.com/dinghuahua/blog/tree/master/webpack-test/base0)
-设计模式
+## [webpack相关测试的demo](https://github.com/dinghuahua/blog/tree/master/webpack-test/base0)
 ## [前端设计模式之观察者模式](https://github.com/dinghuahua/blog/blob/master/javaScript/%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8Fobserver.md)
 ## [Vue.js源码学习](https://github.com/dinghuahua/blog/tree/master/vue%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0)
 
-[^_^]: # (3月18日：你必须要掌握的新一代异步交互2.0技术
+[^_^]: # 设计模式(3月18日：你必须要掌握的新一代异步交互2.0技术
 3月19日：JavaScript密码，探寻那些不为人知的底层API
 3月20日：中高级前端大厂面试JS性能常考题之防抖节流
 3月21日：前端架构师核心技能之一  高性能模板引擎开发
