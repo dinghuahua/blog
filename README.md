@@ -33,7 +33,7 @@ Record the learning process and accumulate knowledge points
 ## [前端设计模式之观察者模式](https://github.com/dinghuahua/blog/blob/master/javaScript/%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8Fobserver.md)
 ## [Vue.js源码学习](https://github.com/dinghuahua/blog/tree/master/vue%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0)
 
-[^_^]: # 设计模式(3月18日：你必须要掌握的新一代异步交互2.0技术
+[^_^]: # (设计模式 3月18日：你必须要掌握的新一代异步交互2.0技术
 3月19日：JavaScript密码，探寻那些不为人知的底层API
 3月20日：中高级前端大厂面试JS性能常考题之防抖节流
 3月21日：前端架构师核心技能之一  高性能模板引擎开发
