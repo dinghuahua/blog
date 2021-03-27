@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <style>
+    .box {
+    width: 280px;
+    margin: 1em auto;
+    outline: 1px solid #beceeb;
+    background: #f0f3f9;
+}
+.box1,.box3 {
+    line-height: 96px;
+}
+.box1 span,.box3 span {
+    line-height: 20px;
+    background: pink;
+}
+.box2 {
+    line-height: 20px;
+}
+.box2::after{
+  content: '';
+  display: inline-block;
+  height: 100%;
+}
+.box2 span {
+    line-height: 96px;
+    background: yellow;
+}
+.box3 span {
+    line-height: 20px;
+    background: pink;
+    display: inline-block;
+    text-align: left;
+    vertical-align: middle;
+}
+.box4::after{
+  content: '';
+  display: inline-block;
+}
+  </style>
+  </head>
+  <body>
+    <div class="box box1">
+      <span>span: line-height:20px</span>
+    </div>
+    <div class="box box2">
+      <span>span: line-height:20pxspan: line-height:20pxspan: line-height:20pxspan从中小城镇小城子村自分手的分手的分手的分手的分分手的d的撒撒大婶哒哒撒大婶大婶大婶大婶大婶大婶大婶大婶大婶大婶大婶的是大婶大婶大婶大婶大婶大婶大</span>
+    </div>
+    <div class="box box3">
+      <span>span: line-height:20pxspan</span>
+      <span>span: line-height:20pxspan</span>
+    </div>
+    <div class="box box3">
+      <span>span: line-height:20pxspan: line-height:20px根深蒂固是根深蒂固是东莞市东莞市东莞市东莞市共商国是个</span>
+      <span>span: line-height:20pxspan: line-height:20px根深蒂固是根深蒂固是东莞市东莞市东莞市东莞市共商国是个</span>
+    </div>
+    <div class="box4">
+<span>123312313</span>
+    </div>
+
+    
+  </body>
+  <script>
+  </script>
+</html>

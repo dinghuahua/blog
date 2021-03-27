@@ -121,7 +121,7 @@ Object.getOwnPropertyDescriptors(obj);
 > Object.preventExtensions 阻止对象扩展
 
   * 让一个对象不可扩展，并返回原对象
-  * 阻止对象扩展，让一个对象变得不可扩展，也就是永远不能再添加新的属性
+  * 阻止对象扩展，让一个对象变得不可扩展，也就是永远不能再添加新的属性，以及无法设置目标对象的原型链，即不能设置继承关系（比如设置myObj继承于Array.prototype， Object.setPrototypeOf(myObj, Array.prototype);
   * 使用严格模式，当一个对象阻止扩展时，新增属性时会报错
   * 只能阻止不能添加新的自身属性，但可以为该对象的原型添加属性
   * 可以删除现有属性

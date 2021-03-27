@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <style>
+    #box {
+        position: relative;
+        width: 100px;
+        height: 100px;
+        background: blue;
+        transform: translate3d(0,0,0);
+        transition: transform 2s linear;
+
+    }
+    #box.move {
+        transform: translate3d(100px,0,0) !important
+    }
+
+    #box2 {
+        position: relative;
+        width: 100px;
+        height: 100px;
+        background: red;
+        left: 0;
+        transition: left 2s linear;
+
+    }
+    #box2.move {
+        left: 100px !important
+    }
+  </style>
+  </head>
+  <body>
+    <div id="box"></div>
+    <div id="box2"></div>
+  </body>
+  <script>
+   var box2 = document.getElementById('box2')
+    setTimeout(() => {
+        box2.classList.add('move')
+    }, 200);
+  </script>
+</html>

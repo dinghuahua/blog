@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <style type="text/css">
+      * {
+        margin: 0;
+        padding: 0;
+      }
+
+      #example {
+        width: 300px;
+        height: 200px;
+        overflow: auto;
+        border: 25px solid #e8c48f;
+        padding: 20px;
+        padding-top: 50px;
+        /* padding-bottom: 50px; */
+        position: relative;
+        /* display: flex;
+      flex-direction:column-reverse; */
+      }
+
+      p {
+        width: 500px;
+        padding: 15px;
+        border: 5px solid red;
+        margin: 10px;
+      }
+      .p2 {
+        /* position: absolute;
+      top:10px;
+      left:10px; */
+      }
+      .key {
+        cursor: pointer;
+        text-decoration: underline;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div>123</div>
+    <div id="example">
+      <h3>Introduction</h3>
+      <p class="p1">
+        This Ecma Standard is based on several originating technologies, the
+        most well known being JavaScript (Netscape) and JScript (Microsoft). The
+        language was invented by Brendan Eich at Netscape and first appeared in
+        that company's Navigator 2.0 browser. It has appeared in all subsequent
+        browsers from Netscape and in all browsers from Microsoft starting with
+        Internet Explorer 3.0. The development of this Standard started in
+        November 1996. The first edition of this Ecma Standard was adopted by
+        the Ecma General Assembly of June 1997.
+      </p>
+
+      <p class="p2">
+        That Ecma Standard was submitted to ISO/IEC JTC 1 for adoption under the
+        fast-track procedure, and approved as international standard ISO/IEC
+        16262, in April 1998. The Ecma General Assembly of June 1998 approved
+        the second edition of ECMA-262 to keep it fully aligned with ISO/IEC
+        16262. Changes between the first and the second edition are editorial in
+        nature.
+      </p>
+
+      <p class="p3">
+        The third edition of the Standard introduced powerful regular
+        expressions, better string handling, new control statements, try/catch
+        exception handling, tighter definition of errors, formatting for numeric
+        output and minor changes in anticipation of forthcoming
+        internationalisation facilities and future language growth. The third
+        edition of the ECMAScript standard was adopted by the Ecma General
+        Assembly of December 1999 and published as ISO/IEC 16262:2002 in June
+        2002.
+      </p>
+    </div>
+    <div>
+      offsetParent:
+      是一个只读属性，返回一个指向最近的（指包含层级上的最近）包含该元素的定位元素(position:relation/absolute)或者最近的
+      table,td,th,body元素。当元素的 style.display 设置为 "none"
+      时，offsetParent 返回 null。offsetParent 很有用，因为 offsetTop 和
+      offsetLeft 都是相对于其内边距边界的
+      <br />
+      offsetTop/offsetLeft: 为只读属性，它返回当前元素相对于其 offsetParent
+      元素的顶部内边距的距离 offsetParent的border以下 到 自身border以上==》
+      offsetParent.padding+父元素的子元素（位置在自身以前的）的撑起的高度/宽度...+
+      自身.margin
+      <br />
+      offsetHeight/offsetWidth 自身的高度+自身的border+自身的padding
+      ==》height+padding+border
+      <br />
+      <br />
+      clientTop/clientLeft: 自身的border
+      <br />
+      clientHeight/clientWidth: 自身的高度/宽度和padding height+padding
+      <br />
+      <br />
+      Element.scrollTop 属性可以获取或设置一个元素的内容垂直滚动的像素数。
+      这个属性是针对自身有滚动条的元素来说的，即针对的是id=example
+      这个元素来说的，而不是针对 p标签来说的 一个元素的 scrollTop
+      值是这个元素的内容顶部（卷起来的，已经滚动过去的地方）到它的视口可见内容（的顶部）的距离的度量。当一个元素的内容没有产生垂直方向的滚动条，那么它的
+      scrollTop 值为0。
+      <br />
+      scrollTop/scrollLeft: 自身的padding以下 到 视口可见内容（的顶部） 即滚动条
+      已经滚过去的高度 场景：祖先元素(id#example)具有滚动条 让祖先元素的滚动条
+      滚动到 某孙子元素p的位置 1. 首先 #example 应该为 p 最近的定位
+      的祖先元素（包含层级上的最近 即posituon:absolute 上最近的position） 2.
+      如果 p没有最最近的 默认到body, 而此时的#example
+      正好紧挨着是body,并且body还没有上padding， 这里是为了用
+      p.offsetTop(body.上border以下 到 p自身的上border(不包含)以上，之间的距离
+      正好等于 到#example上border(包含)的距离) 3. #example.scrollTop =
+      p.offsetTop-#example.上border
+      <br />
+      scrollHeight/scrollWidth: 内容撑起的高度+自身上下/左右padding最大值
+      ==》内容撑起的高度+自身上下/左右padding最大值
+      比如：padding-top=20px;padding-bottom=50px;
+      内容撑起的高度+自身padding-bottom
+    </div>
+
+    <div id="mouse-wrap">Mouse coordinates: <span id="mouse">...</span></div>
+    <div id="info"></div>
+
+    <script>
+      let props = {
+        geometry: [
+          'clientLeft',
+          'clientTop',
+          'clientWidth',
+          'clientHeight',
+          'offsetWidth',
+          'offsetHeight',
+          'scrollWidth',
+          'scrollHeight',
+        ],
+        scroll: ['scrollLeft', 'scrollTop'],
+        offsetParent: ['offsetParent', 'offsetLeft', 'offsetTop'],
+      }
+
+      info.innerHTML = '<h3>Click to see the value:</h3>'
+      for (let k in props) {
+        info.innerHTML += `<h4>${k}</h4>`
+        let prop = props[k]
+        for (let i = 0; i < prop.length; i++) {
+          info.innerHTML +=
+            "<span class='key'>" +
+            prop[i] +
+            '</span>: <span id="' +
+            prop[i] +
+            '">&nbsp;</span>' +
+            ' '
+          i++
+          if (i < prop.length) {
+            info.innerHTML +=
+              "<span class='key'>" +
+              prop[i] +
+              '</span>: <span id="' +
+              prop[i] +
+              '">&nbsp;</span>'
+          }
+          info.innerHTML += '<br/>'
+        }
+      }
+
+      document.onclick = function (event) {
+        let target = event.target
+        if (!target.classList.contains('key')) return
+
+        let prop = target.innerHTML
+        let value = example[prop]
+        value = value.tagName || value
+        document.getElementById(prop).innerHTML = value
+      }
+
+      document.onmousemove = function (e) {
+        document.getElementById('mouse').innerHTML =
+          Math.round(e.clientX) + ':' + Math.round(e.clientY)
+      }
+    </script>
+  </body>
+</html>

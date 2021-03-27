@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <style>
+   
+  </style>
+  </head>
+  <body>
+   <div style="background-color: blanchedalmond;">
+    <div style="margin: 30px;background-color: burlywood;">
+      创建BFC
+      1、根元素
+      2、float不为none的浮动元素。
+      3、Position:fixed/absolutd
+      4、display:flex/grid == inline-block ==== table-cell; 等。
+      5、overflow值不为visible的元素。
+
+      BFC特性
+      1.BFC里的布局跟常规流里的一样，例如盒子会在垂直方向排列。
+      2.属于同一个BFC里的盒子会产生margin重叠。
+      3.容器内元素的margin的边界，会与容器的border相接触。无border时，容器内元素的margin的会表现为容器的外边
+      4.BFC容器不会与float元素发生重叠。
+      5.BFC内的元素不会影响到外部的元素。
+      6.BFC容器计算高度时，内部float元素也参与
+      7、水平边距永远不会重合。
+  </div>
+    <div style="overflow: hidden;">
+      <div style="margin: 20px;background-color: blue;">456</div>
+    </div>
+  </div>
+    </body>
+  <script>
+  </script>
+</html>
