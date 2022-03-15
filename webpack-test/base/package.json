@@ -46,6 +46,6 @@
     "@babel/polyfill": "^7.4.4",
     "@babel/runtime": "^7.4.4",
     "jquery": "^3.4.1",
-    "lodash-es": "^4.17.11"
+    "lodash-es": "^4.17.21"
   }
 }
